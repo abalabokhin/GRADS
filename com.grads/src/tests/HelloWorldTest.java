@@ -1,6 +1,5 @@
 package tests;
 
-import main.HelloWorld;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -12,8 +11,6 @@ public class HelloWorldTest {
 
     @Test
     public void testAdd() throws Exception {
-        HelloWorld hw = new HelloWorld();
-
-        assertEquals(4, hw.add(1, 2));
+        assertEquals(3, 4);
     }
 }
