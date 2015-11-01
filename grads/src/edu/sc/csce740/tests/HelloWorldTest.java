@@ -1,4 +1,4 @@
-package tests;
+package edu.sc.csce740.tests;
 
 import org.testng.annotations.Test;
 
