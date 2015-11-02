@@ -14,5 +14,7 @@ public class GRADSTest {
     public void testLoadUsers() throws Exception {
         GRADSIntf grads = new GRADS();
         grads.loadUsers("DB/users.txt");
+        grads.loadCourses("DB/courses.txt");
+        grads.loadRecords("DB/students.txt");
     }
 }

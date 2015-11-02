@@ -2,10 +2,7 @@ package edu.sc.csce740;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import edu.sc.csce740.model.CourseTaken;
-import edu.sc.csce740.model.ProgressSummary;
-import edu.sc.csce740.model.StudentRecord;
-import edu.sc.csce740.model.UserRecord;
+import edu.sc.csce740.model.*;
 
 import java.io.File;
 import java.io.FileReader;
@@ -17,18 +14,17 @@ import java.util.List;
 public class GRADS implements GRADSIntf {
     @Override
     public void loadUsers(String usersFile) throws Exception {
-        userRecords = new Gson().fromJson( new FileReader( new File(usersFile)), new TypeToken<List<UserRecord>>(){}.getType());
-        int df = 67;
+        users = new Gson().fromJson( new FileReader( new File(usersFile)), new TypeToken<List<User>>(){}.getType());
     }
 
     @Override
     public void loadCourses(String coursesFile) throws Exception {
-
+        allCourses = new Gson().fromJson( new FileReader( new File(coursesFile)), new TypeToken<List<Course>>(){}.getType());
     }
 
     @Override
     public void loadRecords(String recordsFile) throws Exception {
-
+        studentRecords = new Gson().fromJson( new FileReader( new File(recordsFile)), new TypeToken<List<StudentRecord>>(){}.getType());
     }
 
     @Override
@@ -76,5 +72,7 @@ public class GRADS implements GRADSIntf {
         return null;
     }
 
-    private List<UserRecord> userRecords;
+    private List<User> users;
+    private List<Course> allCourses;
+    private List<StudentRecord> studentRecords;
 }
