@@ -15,7 +15,8 @@
       "graduation": {
         "semester": "SPRING",
         "year": 2018
-      },
+      }
+     },
     "advisors": [
       {
         "department": "COMPUTER_SCIENCE",
@@ -113,7 +114,7 @@
             "name":"ADDITIONAL_CREDITS_PHD",
             "passed":false,
             "details":{
-               notes: [
+               "notes": [
                  "Must pass 20 more hours of CSCE courses numbered above 700 that are not core courses."
               ]
             }
@@ -208,7 +209,7 @@
                   "grade": "A"
                 }
                ],
-               notes: [
+               "notes": [
                  "Must pass 25 more hours of graduate courses.",
                  "Must pass 11 more hours of CSCE courses numbered above 700."
               ]
@@ -242,13 +243,13 @@
                        "year": 2015
                      },
                      "grade": "P"
-                   },
+                   }
                ]
             }
          },
          {
             "name":"TIME_LIMIT_PHD",
-            "passed":true,
+            "passed":true
          },
          {
             "name":"GPA",
@@ -264,16 +265,17 @@
                "milestones": [
                  {
                  "milestone": "DISSERTATION_ADVISOR_SELECTED",
-                "term": {
+                 "term": {
                    "semester": "FALL",
                    "year": 2014
                  }
-               },
-               {
+                 },
+                 {
                  "milestone": "DISSERTATION_COMMITTEE_FORMED",
                  "term": {
                    "semester": "FALL",
                    "year": 2014
+                 }
                  }
                ],
                "notes": [
@@ -286,7 +288,7 @@
                  "Missing milestone DISSERTATION_DEFENSE_PASSED"
                ]
             }
-         },
+         }
       ]
    }
 ]
