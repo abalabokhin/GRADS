@@ -12,8 +12,8 @@ public class StudentRecord {
     public Degree degreeSought;
     public Certificate certificateSought;
     public List<Degree> previousDegrees;
-    public List<Doctor> advisors;
-    public List<Doctor> committee;
+    public List<Professor> advisors;
+    public List<Professor> committee;
     public List<CourseTaken> coursesTaken;
     public List<Milestone> milestonesSet;
     public List<String> notes;

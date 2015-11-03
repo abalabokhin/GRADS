@@ -11,7 +11,7 @@ public class ProgressSummary {
     public Term termBegan;
     public Degree degreeSought;
     public Certificate certificateSought;
-    public List<Doctor> advisors;
-    public List<Doctor> committee;
+    public List<Professor> advisors;
+    public List<Professor> committee;
     public List<RequirementCheckResult> requirementCheckResults;
 }

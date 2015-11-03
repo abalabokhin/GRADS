@@ -93,15 +93,17 @@ public class GRADS implements GRADSIntf {
     @Override
     public ProgressSummary generateProgressSummary(String userId) throws Exception {
         checkAuthorization(RequestType.GENERATE_PROGRESS_SUMMARY, userId);
-        /// TODO: implement it.
-        return null;
+        StudentRecord studentRecord = getTranscript(userId);
+        return generateProgressSummaryImpl(studentRecord);
     }
 
     @Override
     public ProgressSummary simulateCourses(String userId, List<CourseTaken> courses) throws Exception {
         checkAuthorization(RequestType.SIMULATE_COURCES, userId);
-        /// TODO: implement it.
-        return null;
+        StudentRecord studentRecord = getTranscript(userId);
+        /// TODO: update studentRecord with temporary student record (temporaryStudentRecord)
+        /// TODO: add courses variable to studentRecord
+        return generateProgressSummaryImpl(studentRecord);
     }
 
     /// userId might be "" if it is not required for the request.
@@ -110,9 +112,17 @@ public class GRADS implements GRADSIntf {
         return true;
     }
 
-    private float calculateGPA(List<CourseTaken> classes) throws Exception {
+    private Float calculateGPA(List<CourseTaken> classes) throws Exception {
         /// TODO: implement, if GPA cannot be calculated, throw exception
-        return 0;
+        return new Float(0);
+    }
+
+    ProgressSummary generateProgressSummaryImpl(StudentRecord studentRecord) throws Exception{
+        RequirementCheckResult requirementCheck = calculateMilestones(studentRecord);
+        ProgressSummary result = new ProgressSummary();
+        /// TODO: add requirementCheck to result
+        return result;
+
     }
 
     private RequirementCheckResult calculateMilestones(StudentRecord record) throws Exception {
