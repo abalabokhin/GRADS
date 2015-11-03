@@ -12,19 +12,30 @@ import java.util.List;
  * Created by paladin on 10/31/15.
  */
 public class GRADS implements GRADSIntf {
+    public enum RequestType {
+        GET_STUDENT_IDS,
+        GET_TRANSCRIPT,
+        ADD_NOTE,
+        GENERATE_PROGRESS_SUMMARY,
+        SIMULATE_COURCES
+    }
+
     @Override
     public void loadUsers(String usersFile) throws Exception {
         users = new Gson().fromJson( new FileReader( new File(usersFile)), new TypeToken<List<User>>(){}.getType());
+        int fg = 67;
     }
 
     @Override
     public void loadCourses(String coursesFile) throws Exception {
         allCourses = new Gson().fromJson( new FileReader( new File(coursesFile)), new TypeToken<List<Course>>(){}.getType());
+        int fg = 67;
     }
 
     @Override
     public void loadRecords(String recordsFile) throws Exception {
         studentRecords = new Gson().fromJson( new FileReader( new File(recordsFile)), new TypeToken<List<StudentRecord>>(){}.getType());
+        int fg = 67;
     }
 
     @Override

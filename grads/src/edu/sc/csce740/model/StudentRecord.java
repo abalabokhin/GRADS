@@ -10,6 +10,7 @@ public class StudentRecord {
     public String department;
     public Term termBegan;
     public Degree degreeSought;
+    public Certificate certificateSought;
     public List<Degree> previousDegrees;
     public List<Doctor> advisors;
     public List<Doctor> committee;

@@ -7,7 +7,7 @@
     },
     "department": "COMPUTER_SCIENCE",
     "termBegan": {
-      "semester": "FALL",
+      "semester": "SUMMER",
       "year": 2013
     },
     "degreeSought": {
