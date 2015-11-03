@@ -3,7 +3,7 @@ package edu.sc.csce740.model;
 /**
  * Created by paladin on 10/31/15.
  */
-public class User {
+public class User extends Human {
     public enum Role {
         STUDENT,
         GRADUATE_PROGRAM_COORDINATOR
