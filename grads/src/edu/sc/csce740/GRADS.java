@@ -6,7 +6,9 @@ import edu.sc.csce740.model.*;
 
 import java.io.File;
 import java.io.FileReader;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by paladin on 10/31/15.
@@ -18,6 +20,15 @@ public class GRADS implements GRADSIntf {
         ADD_NOTE,
         GENERATE_PROGRESS_SUMMARY,
         SIMULATE_COURCES
+    }
+
+    public GRADS() {
+        programOfStudyProgressCheckers = new HashMap<>();
+        programOfStudyProgressCheckers.put(Degree.Type.MENG, new ProgressCheckerForMENG());
+        programOfStudyProgressCheckers.put(Degree.Type.PHD, new ProgressCheckerForPHD());
+        programOfStudyProgressCheckers.put(Degree.Type.MS, new ProgressCheckerForMS());
+        programOfStudyProgressCheckers.put(Degree.Type.MSE, new ProgressCheckerForMSE());
+        graduateCertificateProgressChecker = new ProgressCheckerForCertificateInInformationAssurance();
     }
 
     @Override
@@ -118,22 +129,28 @@ public class GRADS implements GRADSIntf {
     }
 
     ProgressSummary generateProgressSummaryImpl(StudentRecord studentRecord) throws Exception{
-        RequirementCheckResult requirementCheck = calculateMilestones(studentRecord);
+        List<RequirementCheckResult> requirementCheck = calculateMilestones(studentRecord);
         ProgressSummary result = new ProgressSummary();
-        /// TODO: add requirementCheck to result
+        /// TODO: add requirementCheck to result and data from studentRecord
         return result;
-
     }
 
-    private RequirementCheckResult calculateMilestones(StudentRecord record) throws Exception {
-        /// TODO: implement, it is not clear so far, it might be the list of some structures. Don't rush with implementing it.
-        return null;
+    private List<RequirementCheckResult> calculateMilestones(StudentRecord record) throws Exception {
+        List<RequirementCheckResult> progress =
+                programOfStudyProgressCheckers.get(record.degreeSought).CheckProgress(record);
+        if (record.degreeSought != null)
+            progress.addAll(graduateCertificateProgressChecker.CheckProgress(record));
+
+        return progress;
     }
 
     private List<User> users = null;
     private List<Course> allCourses = null;
     private List<StudentRecord> studentRecords = null;
 
-    StudentRecord temporaryStudentRecord = null;
+    private StudentRecord temporaryStudentRecord = null;
     private String loggedUserId = "";
+
+    private Map<Degree.Type, ProgressCheckerIntf> programOfStudyProgressCheckers;
+    ProgressCheckerIntf graduateCertificateProgressChecker;
 }
