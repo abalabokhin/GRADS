@@ -8,10 +8,24 @@ import java.util.List;
 /**
  * Created by paladin on 11/3/15.
  */
-public class ProgressCheckerForMSE implements ProgressCheckerIntf {
+public class ProgressCheckerForMSE extends ProgressCheckerBase {
     @Override
-    public List<RequirementCheckResult> CheckProgress(StudentRecord studentRecord) throws Exception {
+    RequirementCheckResult CheckAdditionalCredits() {
+        return null;
+    }
 
+    @Override
+    RequirementCheckResult CheckDegreeBasedCredits() {
+        return null;
+    }
+
+    @Override
+    RequirementCheckResult CheckThesisCredits() {
+        return null;
+    }
+
+    @Override
+    RequirementCheckResult CheckExperience() {
         return null;
     }
 }

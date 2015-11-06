@@ -28,7 +28,7 @@ public class GRADS implements GRADSIntf {
         programOfStudyProgressCheckers.put(Degree.Type.PHD, new ProgressCheckerForPHD());
         programOfStudyProgressCheckers.put(Degree.Type.MS, new ProgressCheckerForMS());
         programOfStudyProgressCheckers.put(Degree.Type.MSE, new ProgressCheckerForMSE());
-        graduateCertificateProgressChecker = new ProgressCheckerForCertificateInInformationAssurance();
+        graduateCertificateProgressChecker = new ProgressCheckerForINFAS();
     }
 
     @Override

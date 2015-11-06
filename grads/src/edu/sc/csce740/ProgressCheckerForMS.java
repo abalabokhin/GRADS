@@ -8,9 +8,9 @@ import java.util.List;
 /**
  * Created by paladin on 11/3/15.
  */
-public class ProgressCheckerForMS implements ProgressCheckerIntf {
+public class ProgressCheckerForMS extends ProgressCheckerBase {
     @Override
-    public List<RequirementCheckResult> CheckProgress(StudentRecord studentRecord) throws Exception {
+    RequirementCheckResult CheckDegreeBasedCredits() {
         return null;
     }
 }

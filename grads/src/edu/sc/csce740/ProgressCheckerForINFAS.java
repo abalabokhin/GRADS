@@ -8,14 +8,19 @@ import java.util.List;
 /**
  * Created by paladin on 11/3/15.
  */
-public class ProgressCheckerForMENG extends ProgressCheckerBase {
+public class ProgressCheckerForINFAS extends ProgressCheckerBase {
     @Override
-    RequirementCheckResult CheckDegreeBasedCredits() {
+    RequirementCheckResult CheckAdditionalCredits() {
         return null;
     }
 
     @Override
     RequirementCheckResult CheckThesisCredits() {
+        return null;
+    }
+
+    @Override
+    RequirementCheckResult CheckMilestones() {
         return null;
     }
 }
