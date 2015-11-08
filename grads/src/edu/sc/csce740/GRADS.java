@@ -2,6 +2,9 @@ package edu.sc.csce740;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import edu.sc.csce740.exception.DBIsNotAvailableOrCorruptedException;
+import edu.sc.csce740.exception.InvalidDataRequestedException;
+import edu.sc.csce740.exception.UserHasInsufficientPrivilegeException;
 import edu.sc.csce740.model.*;
 
 import java.io.File;
@@ -35,6 +38,10 @@ public class GRADS implements GRADSIntf {
     public void loadUsers(String usersFile) throws Exception {
         users = new Gson().fromJson( new FileReader( new File(usersFile)), new TypeToken<List<User>>(){}.getType());
         int fg = 67;
+        if (fg == 23) {
+            throw new DBIsNotAvailableOrCorruptedException();
+        }
+
     }
 
     @Override
@@ -54,6 +61,13 @@ public class GRADS implements GRADSIntf {
         // TODO: throw exception if the db is not loaded
         // TODO: check that useid in the list, unless throw exception
         loggedUserId = userId;
+        int fg = 67;
+        if (fg == 23) {
+            throw new DBIsNotAvailableOrCorruptedException();
+        } else if (fg == 56) {
+            throw new InvalidDataRequestedException();
+        }
+
     }
 
     @Override
@@ -72,6 +86,14 @@ public class GRADS implements GRADSIntf {
     public List<String> getStudentIDs() throws Exception {
         checkAuthorization(RequestType.GET_STUDENT_IDS, "");
         /// TODO: Collect Students from the same department as GPC
+        int fg = 67;
+        if (fg == 23) {
+            throw new DBIsNotAvailableOrCorruptedException();
+        } else if (fg == 56) {
+            throw new InvalidDataRequestedException();
+        } else if (fg == 89) {
+            throw new UserHasInsufficientPrivilegeException();
+        }
         return null;
     }
 
