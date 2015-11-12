@@ -37,7 +37,7 @@ public class GRADS implements GRADSIntf {
     @Override
     public void loadUsers(String usersFile) throws Exception {
         users = new Gson().fromJson( new FileReader( new File(usersFile)), new TypeToken<List<User>>(){}.getType());
-        int fg = 67;
+        int fg = 69;
         if (fg == 23) {
             throw new DBIsNotAvailableOrCorruptedException();
         }
