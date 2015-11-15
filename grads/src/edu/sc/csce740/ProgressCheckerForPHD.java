@@ -2,10 +2,7 @@ package edu.sc.csce740;
 
 import edu.sc.csce740.model.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -13,27 +10,23 @@ import java.util.stream.Collectors;
  */
 public class ProgressCheckerForPHD extends ProgressCheckerBase
 {
-    Map<String,Integer> requiredClassesIds = null;
 	Map<String,Integer> excludedClassesIds = null;
 	Map<String,Integer> thesisClassesIds = null;
 
-	private int yearsToFinishClasses = 6;
-	private int yearsToFinishProgram = 6;
 	private int additionalCredits = 20;
 	private int degreeBasedCreditsWithMasters = 24;
 	private int degreeBasedCreditsWithoutMasters = 48;
 
 	public ProgressCheckerForPHD()
 	{
-		// Class ID followed by minimum # of credits for class
-		// Enter a value greater then zero to use this feature
-		// If need to take a class like 899 for 12 credits total enter 12
-		requiredClassesIds = new HashMap<>();
-		requiredClassesIds.put("csce513",0);
-		requiredClassesIds.put("csce531",0);
-		requiredClassesIds.put("csce551",0);
-		requiredClassesIds.put("csce750",0);
-	    requiredClassesIds.put("csce791",0);
+		degreeName = "PHD";
+
+		requiredClassesIds = new HashSet<>();
+		requiredClassesIds.add("csce513");
+		requiredClassesIds.add("csce531");
+		requiredClassesIds.add("csce551");
+		requiredClassesIds.add("csce750");
+	    requiredClassesIds.add("csce791");
 
 		// Class ID followed by maximum # of credits for class
 		// Enter a value greater then zero to use this feature
@@ -52,29 +45,6 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 
 	} // End of ProgressCheckerForPHD constructor
 
-	@Override
-	RequirementCheckResult CheckCoreCourses()
- 	{
-		RequirementCheckResult result = null;
-
-		Map<String,Integer> copyRequiredClassesIds = new HashMap<>();
-		copyRequiredClassesIds.putAll(requiredClassesIds);
-
-		ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
-
-		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-		requirementCheckInput.includedCourseIds = copyRequiredClassesIds;
-		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
-		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
-
-		result = checkerCommon.CheckCoursesByInclusion(requirementCheckInput);
-		result.name = "CORE_COURSES_PHD";
-
- 		return result;
-
- 	} // End of CheckCoreCourses method
-
-
     @Override
     RequirementCheckResult CheckAdditionalCredits()
     {
@@ -82,7 +52,7 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 
 		Map<String,Integer> copyExcludedClassesIds = new HashMap<>();
 		copyExcludedClassesIds.putAll(excludedClassesIds);
-		copyExcludedClassesIds.putAll(requiredClassesIds);
+		//copyExcludedClassesIds.putAll(requiredClassesIds);
 
       	ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
 
@@ -106,7 +76,7 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
     	RequirementCheckResult result = null;
 
 		Map<String,Integer> allExcluded = excludedClassesIds;
-		allExcluded.putAll(requiredClassesIds); // Add the required core courses to the excluded list
+		//allExcluded.putAll(requiredClassesIds); // Add the required core courses to the excluded list
 
       	ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
 

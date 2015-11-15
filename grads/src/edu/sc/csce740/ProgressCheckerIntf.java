@@ -2,6 +2,7 @@ package edu.sc.csce740;
 
 import edu.sc.csce740.model.RequirementCheckResult;
 import edu.sc.csce740.model.StudentRecord;
+import edu.sc.csce740.model.Term;
 
 import java.util.List;
 
@@ -10,6 +11,6 @@ import java.util.List;
  */
 public interface ProgressCheckerIntf
 {
-    public List<RequirementCheckResult> CheckProgress(StudentRecord studentRecord) throws Exception;
-
+    List<RequirementCheckResult> CheckProgress(StudentRecord studentRecord) throws Exception;
+    void SetCurrentTerm(Term currentTerm);
 }

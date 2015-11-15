@@ -7,6 +7,17 @@ public class Term
 {
     public enum Season {FALL, SPRING, SUMMER}
 
+    public Term(int year, Season season)
+    {
+        this.semester = season;
+        this.year = year;
+    }
+
+    public boolean isExpired(Term currentTime, int yearsToExpire) {
+        /// TODO: implement it.
+        return false;
+    }
+
     public Season semester;
     public int year;
 }

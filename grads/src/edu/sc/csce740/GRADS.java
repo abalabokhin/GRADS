@@ -50,6 +50,13 @@ public class GRADS implements GRADSIntf
         programOfStudyProgressCheckers.put(Degree.Type.MS, new ProgressCheckerForMS());
         programOfStudyProgressCheckers.put(Degree.Type.MSE, new ProgressCheckerForMSE());
         graduateCertificateProgressChecker = new ProgressCheckerForINFAS();
+
+        SetCurrentTerm(new Term(2015, Term.Season.FALL));
+    }
+
+    public void SetCurrentTerm(Term currentTerm) {
+        graduateCertificateProgressChecker.SetCurrentTerm(currentTerm);
+        programOfStudyProgressCheckers.values().stream().forEach(x -> x.SetCurrentTerm(currentTerm));
     }
 
     @Override

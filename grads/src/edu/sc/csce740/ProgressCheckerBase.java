@@ -1,11 +1,10 @@
 package edu.sc.csce740;
 
 import edu.sc.csce740.ProgressCheckerIntf;
-import edu.sc.csce740.model.RequirementCheckResult;
-import edu.sc.csce740.model.StudentRecord;
+import edu.sc.csce740.model.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created by paladin on 11/5/15.
@@ -18,9 +17,9 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
  		currentStudentRecord = studentRecord;
         List<RequirementCheckResult> result = new ArrayList<RequirementCheckResult>();
 
-        RequirementCheckResult checkingCoreCourcesResult = CheckCoreCourses();
-        if (checkingCoreCourcesResult != null)
-            result.add(checkingCoreCourcesResult);
+        RequirementCheckResult checkingCoreCoursesResult = CheckCoreCourses();
+        if (checkingCoreCoursesResult != null)
+            result.add(checkingCoreCoursesResult);
 
         RequirementCheckResult checkingAdditionalCreditsResult = CheckAdditionalCredits();
         if (checkingAdditionalCreditsResult != null)
@@ -50,13 +49,37 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         if (checkingExperienceResult != null)
             result.add(checkingExperienceResult);
 
-        /// TODO: add all the other Check* functions results to the list
         return result;
+    }
+
+    @Override
+    public void SetCurrentTerm(Term currentTerm) {
+        this.currentTerm = currentTerm;
     }
 
     RequirementCheckResult CheckCoreCourses()
     {
-        return null;
+        RequirementCheckResult result = new RequirementCheckResult();
+
+        List<CourseTaken> takenRequiredCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
+                x -> requiredClassesIds.contains(x.course.id) && x.term.isExpired(currentTerm, yearsToFinishClasses)).
+                toArray(CourseTaken[]::new));
+
+        result.details.courses = takenRequiredCourses;
+        Set<String> uniqueTakenRequiredCourses =
+                takenRequiredCourses.stream().map(x -> x.course.id).collect(Collectors.toSet());
+
+        if (uniqueTakenRequiredCourses.size() == requiredClassesIds.size()) {
+            result.passed = true;
+        } else {
+            result.passed = false;
+            Set<String> leftClasses = new HashSet<>(requiredClassesIds);
+            leftClasses.removeAll(uniqueTakenRequiredCourses);
+            result.details.notes.add("Core courses [" + String.join(", ", leftClasses) + "] are left to be taken.");
+        }
+
+        result.name = "CORE_COURSES_" + degreeName;
+        return result;
     }
 
     RequirementCheckResult CheckAdditionalCredits()
@@ -94,9 +117,10 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         return null;
     }
 
-    String degreeName;
-    List<String> requiredClassesIds;
-    int yearsToFinishClasses;
+    protected Term currentTerm;
+    protected String degreeName;
+    protected Set<String> requiredClassesIds;
+    int yearsToFinishClasses = 6;
     /// number of additional classes (not included in required classes) of 7 hundred and above
     int additionalCredits;
     int degreeBasedCredits;

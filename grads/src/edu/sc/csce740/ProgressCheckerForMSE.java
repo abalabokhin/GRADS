@@ -4,18 +4,13 @@ import edu.sc.csce740.model.RequirementCheckInput;
 import edu.sc.csce740.model.RequirementCheckResult;
 import edu.sc.csce740.model.StudentRecord;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by paladin on 11/3/15.
  */
 public class ProgressCheckerForMSE extends ProgressCheckerBase
 {
-
-    Map<String,Integer> requiredClassesIds = null;
 	Map<String,Integer> optionalClassesIds = null;
 	Map<String,Integer> experienceClassesIds = null;
 
@@ -25,18 +20,19 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
 
 	public ProgressCheckerForMSE()
 	{
+		degreeName = "MSE";
 		// Class ID followed by minimum # of credits for class
 		// Enter a value greater then zero to use this feature
 		// If need to take a class like 899 for 12 credits total enter 12
 		// If zero is entered class can be taken once
 		// If desired the actual credits for the course could be
 		// entered and result would be the same
-		requiredClassesIds = new HashMap<>();
-		requiredClassesIds.put("csce740",0);
-		requiredClassesIds.put("csce741",0);
-		requiredClassesIds.put("csce742",0);
-		requiredClassesIds.put("csce743",0);
-        requiredClassesIds.put("csce747",0);
+		requiredClassesIds = new HashSet<>();
+		requiredClassesIds.add("csce740");
+		requiredClassesIds.add("csce741");
+		requiredClassesIds.add("csce742");
+		requiredClassesIds.add("csce743");
+        requiredClassesIds.add("csce747");
 
 		// Class ID followed by minimum # of credits for class
 		// Enter a value greater then zero to use this feature
@@ -70,27 +66,6 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
 		experienceClassesIds = new HashMap<>();
 		experienceClassesIds.put("csce793",0);
 	}
-
-	@Override
-	RequirementCheckResult CheckCoreCourses()
- 	{
-		RequirementCheckResult result = null;
-
-		Map<String,Integer> copyRequiredClassesIds = new HashMap<>();
-		copyRequiredClassesIds.putAll(requiredClassesIds);
-
-		ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
-
-		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-		requirementCheckInput.includedCourseIds = copyRequiredClassesIds;
-		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
-		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
-
-		result = checkerCommon.CheckCoursesByInclusion(requirementCheckInput);
-		result.name = "CORE_COURSES_MSE";
-
- 		return result;
- 	}
 
     @Override
     RequirementCheckResult CheckAdditionalCredits()
