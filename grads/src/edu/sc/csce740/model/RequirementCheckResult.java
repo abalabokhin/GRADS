@@ -7,5 +7,5 @@ public class RequirementCheckResult
 {
     public String name;
     public boolean passed;
-    RequirementDetails details;
+    public RequirementDetails details;
 }

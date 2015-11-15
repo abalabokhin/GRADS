@@ -1,6 +1,7 @@
 package edu.sc.csce740;
 
 import edu.sc.csce740.model.Course;
+import edu.sc.csce740.model.RequirementCheckInput;
 import edu.sc.csce740.model.RequirementCheckResult;
 import edu.sc.csce740.model.StudentRecord;
 
