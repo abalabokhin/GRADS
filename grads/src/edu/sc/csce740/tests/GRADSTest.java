@@ -21,8 +21,7 @@ import java.util.List;
  */
 public class GRADSTest
 {
-
-   // @org.testng.annotations.Test
+    @org.testng.annotations.Test
     public static void main(String [] Args) throws Exception
     {
         GRADSIntf grads = new GRADS();

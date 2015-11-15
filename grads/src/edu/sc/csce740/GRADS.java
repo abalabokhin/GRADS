@@ -37,21 +37,13 @@ public class GRADS implements GRADSIntf
     private String department;
     private String role;
 
-	public static final int GRADE_FACTOR_A = 4;
-	public static final int GRADE_FACTOR_B = 3;
-	public static final int GRADE_FACTOR_C = 2;
-	public static final int GRADE_FACTOR_D = 1;
-	public static final int GRADE_FACTOR_F = 0;
-
-	private Map<CourseTaken.Grade, Integer> gradeFactors = null;
-
     public enum RequestType
     {
         GET_STUDENT_IDS,
         GET_TRANSCRIPT,
         ADD_NOTE,
         GENERATE_PROGRESS_SUMMARY,
-        SIMULATE_COURCES
+        SIMULATE_COURSES
     }
 
     public GRADS()
@@ -62,14 +54,6 @@ public class GRADS implements GRADSIntf
         programOfStudyProgressCheckers.put(Degree.Type.MS, new ProgressCheckerForMS());
         programOfStudyProgressCheckers.put(Degree.Type.MSE, new ProgressCheckerForMSE());
         graduateCertificateProgressChecker = new ProgressCheckerForINFAS();
-
-		gradeFactors = new HashMap<>();
-        gradeFactors.put(CourseTaken.Grade.A,GRADE_FACTOR_A);
-        gradeFactors.put(CourseTaken.Grade.B,GRADE_FACTOR_B);
-        gradeFactors.put(CourseTaken.Grade.C,GRADE_FACTOR_C);
-        gradeFactors.put(CourseTaken.Grade.D,GRADE_FACTOR_D);
-        gradeFactors.put(CourseTaken.Grade.F,GRADE_FACTOR_F);
-
     }
 
     @Override
@@ -194,7 +178,7 @@ public class GRADS implements GRADSIntf
     @Override
     public ProgressSummary simulateCourses(String userId, List<CourseTaken> courses) throws Exception
     {
-     	if (!checkAuthorization(RequestType.SIMULATE_COURCES, userId))
+     	if (!checkAuthorization(RequestType.SIMULATE_COURSES, userId))
         	throw new UserHasInsufficientPrivilegeException();
 
         StudentRecord studentRecord = getTranscript(userId);
@@ -225,7 +209,7 @@ public class GRADS implements GRADSIntf
         		rv = true;
         	else if ((requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY)) && (this.department.equals(studentDepartment)))
          		rv = true;
-            else if ((requestType.equals(RequestType.SIMULATE_COURCES)) && (this.department.equals(studentDepartment)))
+            else if ((requestType.equals(RequestType.SIMULATE_COURSES)) && (this.department.equals(studentDepartment)))
          		rv = true;
 	 	}
 	 	else
@@ -234,7 +218,7 @@ public class GRADS implements GRADSIntf
          		rv = true;
          	else if ((requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY)) && (this.loggedUserId.equals(userId)))
          		rv = true;
-            else if ((requestType.equals(RequestType.SIMULATE_COURCES)) && (this.loggedUserId.equals(userId)))
+            else if ((requestType.equals(RequestType.SIMULATE_COURSES)) && (this.loggedUserId.equals(userId)))
          		rv = true;
 		}
 
@@ -244,29 +228,27 @@ public class GRADS implements GRADSIntf
 
     private Float calculateGPA(List<CourseTaken> classes) throws Exception
     {
-        CourseTaken.Grade grade;
-        float numCredits;
-
         float sumHours = 0;
         float sumGP = 0;
-        float gpa = 0;
 
         for (CourseTaken courseTaken : classes)
         {
-			grade = courseTaken.grade;
-			numCredits = Float.parseFloat(courseTaken.course.numCredits);
-
-			if (gradeFactors.containsKey(grade))
-			{
-				sumHours += numCredits;
-				sumGP += (numCredits * gradeFactors.get(grade));
-			}
+            Integer gradeFactor = courseTaken.grade.getFactor();
+            if (gradeFactor != null) {
+                try {
+                    float numCredits = Float.parseFloat(courseTaken.course.numCredits);
+                    sumGP += (numCredits * gradeFactor);
+                    sumHours += numCredits;
+                } catch (NumberFormatException ex)
+                {
+                    throw new DBIsNotAvailableOrCorruptedException();
+                }
+            }
 		}
 
-		gpa = sumGP / sumHours;
-
-        /// TODO: implement, if GPA cannot be calculated, throw exception
-        return gpa;
+        if (sumHours == 0)
+            return null;
+		return sumGP / sumHours;
     }
 
     ProgressSummary generateProgressSummaryImpl(StudentRecord studentRecord) throws Exception
@@ -280,7 +262,7 @@ public class GRADS implements GRADSIntf
     	result.termBegan = studentRecord.termBegan;
     	result.department = studentRecord.department;
     	result.certificateSought = studentRecord.certificateSought;
-    	result. advisors = studentRecord.advisors;
+    	result.advisors = studentRecord.advisors;
        	result.committee = studentRecord.committee;
 
     /// TODO: add requirementCheck to result and data from studentRecord
