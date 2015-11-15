@@ -2,10 +2,7 @@ package edu.sc.csce740;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import edu.sc.csce740.exception.DBIsNotAvailableOrCorruptedException;
-import edu.sc.csce740.exception.DBIsNotLoadedException;
-import edu.sc.csce740.exception.InvalidDataRequestedException;
-import edu.sc.csce740.exception.UserHasInsufficientPrivilegeException;
+import edu.sc.csce740.exception.*;
 import edu.sc.csce740.model.*;
 
 import java.io.File;
@@ -39,6 +36,7 @@ public class GRADS implements GRADSIntf
     {
         GET_STUDENT_IDS,
         GET_TRANSCRIPT,
+        UPDATE_TRANSCRIPT,
         ADD_NOTE,
         GENERATE_PROGRESS_SUMMARY,
         SIMULATE_COURSES
@@ -91,9 +89,7 @@ public class GRADS implements GRADSIntf
     {
         clearSession();
         if (users == null)
-        {
             throw new DBIsNotLoadedException();
-        }
         try {
             this.loggedUser = users.stream().filter(x -> x.id.equals(userId)).findFirst().get();
         } catch (NoSuchElementException exception)
@@ -119,41 +115,22 @@ public class GRADS implements GRADSIntf
     @Override
     public List<String> getStudentIDs() throws Exception
     {
-        if (!checkAuthorization(RequestType.GET_STUDENT_IDS, ""))
-        	 throw new UserHasInsufficientPrivilegeException();
-
-  		List<String> rv;
-
-		rv = users.stream().filter(x -> x.department.equals(this.department) && x.role.equals(User.Role.STUDENT)).map(x -> x.id).collect(Collectors.toList());
-
-        /// TODO: throw new DBIsNotAvailableOrCorruptedException();
-        //  throw new InvalidDataRequestedException();
-
-       return rv;
-
+        checkAuthorization(RequestType.GET_STUDENT_IDS, null);
+  		return studentRecords.stream().filter(x -> x.department.equals(this.loggedUser.department)).
+                map(x -> x.student.id).collect(Collectors.toList());
     }
 
     @Override
     public StudentRecord getTranscript(String userId) throws Exception
     {
-     	StudentRecord rv = null;
-
-     	if (!checkAuthorization(RequestType.GET_TRANSCRIPT, userId))
-        	throw new UserHasInsufficientPrivilegeException();
-
-		rv = studentRecords.stream().filter(x -> x.student.id.equals(userId)).findFirst().get();
-        /// TODO: throw exception if the db is not loaded
-        /// TODO: return appropriate StudentRecord
-        return rv;
+     	checkAuthorization(RequestType.GET_TRANSCRIPT, userId);
+		return studentRecords.stream().filter(x -> x.student.id.equals(userId)).findFirst().get();
     }
 
     @Override
     public void updateTranscript(String userId, StudentRecord transcript, Boolean permanent) throws Exception
     {
-     	if (!checkAuthorization(RequestType.GET_TRANSCRIPT, userId))
-        	throw new UserHasInsufficientPrivilegeException();
-        /// TODO: throw exception if the db is not loaded
-
+     	checkAuthorization(RequestType.UPDATE_TRANSCRIPT, userId);
         if (permanent) {
             /// TODO: throw exception if fields cannot be updated by logged user type.
             /// TODO: change db if updating is permanent
@@ -165,19 +142,14 @@ public class GRADS implements GRADSIntf
     @Override
     public void addNote(String userId, String note, Boolean permanent) throws Exception
     {
-    	if (!checkAuthorization(RequestType.ADD_NOTE, userId))
-        	throw new UserHasInsufficientPrivilegeException();
-
+    	checkAuthorization(RequestType.ADD_NOTE, userId);
         /// TODO: add note and save DB.
     }
 
     @Override
     public ProgressSummary generateProgressSummary(String userId) throws Exception
     {
-      	if (!checkAuthorization(RequestType.GENERATE_PROGRESS_SUMMARY, userId))
-        	throw new UserHasInsufficientPrivilegeException();
-
-
+        checkAuthorization(RequestType.GENERATE_PROGRESS_SUMMARY, userId);
         StudentRecord studentRecord = getTranscript(userId);
         return generateProgressSummaryImpl(studentRecord);
     }
@@ -185,53 +157,44 @@ public class GRADS implements GRADSIntf
     @Override
     public ProgressSummary simulateCourses(String userId, List<CourseTaken> courses) throws Exception
     {
-     	if (!checkAuthorization(RequestType.SIMULATE_COURSES, userId))
-        	throw new UserHasInsufficientPrivilegeException();
-
+     	checkAuthorization(RequestType.SIMULATE_COURSES, userId);
         StudentRecord studentRecord = getTranscript(userId);
         /// TODO: update studentRecord with temporary student record (temporaryStudentRecord)
         /// TODO: add courses variable to studentRecord
         return generateProgressSummaryImpl(studentRecord);
     }
 
-    /// userId might be "" if it is not required for the request.
-    private boolean checkAuthorization(RequestType requestType, String userId) throws Exception
+    /// userId might be null if it is not required for the request.
+    private void checkAuthorization(RequestType requestType, String studentID) throws Exception
     {
-        String studentDepartment = "";
-		boolean rv = false;
+        if (loggedUser == null)
+            throw new NoUsersAreLoggedIn();
 
-        if (!userId.equals(""))
-        {
-			User studentUser = users.stream().filter(x -> x.id.equals(userId)).findFirst().get();
-			studentDepartment = studentUser.department;
-		}
+        if (studentRecords == null)
+            throw new DBIsNotLoadedException();
 
-		if (this.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR.toString()))
-		{
-			if (requestType.equals(RequestType.GET_STUDENT_IDS))
-        		rv = true;
-        	else if ((requestType.equals(RequestType.GET_TRANSCRIPT)) && (this.department.equals(studentDepartment)))
-         		rv = true;
-        	else if ((requestType.equals(RequestType.ADD_NOTE)) && (this.department.equals(studentDepartment)))
-        		rv = true;
-        	else if ((requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY)) && (this.department.equals(studentDepartment)))
-         		rv = true;
-            else if ((requestType.equals(RequestType.SIMULATE_COURSES)) && (this.department.equals(studentDepartment)))
-         		rv = true;
-	 	}
-	 	else
-	 	{
-			if ((requestType.equals(RequestType.GET_TRANSCRIPT)) && (this.loggedUserId.equals(userId)))
-         		rv = true;
-         	else if ((requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY)) && (this.loggedUserId.equals(userId)))
-         		rv = true;
-            else if ((requestType.equals(RequestType.SIMULATE_COURSES)) && (this.loggedUserId.equals(userId)))
-         		rv = true;
-		}
+        try {
+            String studentDepartment = "";
+            if (studentID != null) {
+                studentDepartment = studentRecords.stream().filter(x -> x.student.id.equals(studentID)).findFirst().get().department;
+            }
 
-		return rv;
+            if (requestType.equals(RequestType.GET_STUDENT_IDS) && loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR))
+                return;
 
-    } // End of checkAuthorization method
+            if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && studentDepartment.equals(loggedUser.department))
+                return;
+
+            if (loggedUser.role.equals(User.Role.STUDENT) && studentID.equals(loggedUser.id) &&
+                    requestType.equals(RequestType.GET_TRANSCRIPT) && requestType.equals(RequestType.UPDATE_TRANSCRIPT) &&
+                    requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY) && requestType.equals(RequestType.SIMULATE_COURSES))
+                return;
+
+            throw new UserHasInsufficientPrivilegeException();
+        } catch (NoSuchElementException ex) {
+            throw new InvalidDataRequestedException();
+        }
+    }
 
     public Float calculateGPA(List<CourseTaken> classes) throws Exception
     {
@@ -248,7 +211,7 @@ public class GRADS implements GRADSIntf
                     sumHours += numCredits;
                 } catch (NumberFormatException ex)
                 {
-                    throw new DBIsNotAvailableOrCorruptedException();
+                    throw new StringParsingException();
                 }
             }
 		}
@@ -278,12 +241,11 @@ public class GRADS implements GRADSIntf
 
     private List<RequirementCheckResult> calculateMilestones(StudentRecord record) throws Exception
     {
-     List<RequirementCheckResult> progress =
+        List<RequirementCheckResult> progress =
                 programOfStudyProgressCheckers.get(record.degreeSought.name).CheckProgress(record);
-     // if (record.degreeSought != null)
-     //       progress.addAll(graduateCertificateProgressChecker.CheckProgress(record));
+        if (record.degreeSought != null)
+            progress.addAll(graduateCertificateProgressChecker.CheckProgress(record));
+
         return progress;
     }
-
-
 }
