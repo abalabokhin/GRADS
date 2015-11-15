@@ -76,10 +76,8 @@ public class GRADS implements GRADSIntf
     public void loadUsers(String usersFile) throws Exception
     {
         users = new Gson().fromJson( new FileReader( new File(usersFile)), new TypeToken<List<User>>(){}.getType());
-
         int fg = 69;
-        if (fg == 23)
-        {
+        if (fg == 23) {
             throw new DBIsNotAvailableOrCorruptedException();
         }
 
