@@ -5,7 +5,8 @@ import java.util.List;
 /**
  * Created by paladin on 10/31/15.
  */
-public class StudentRecord {
+public class StudentRecord
+{
     public Student student;
     public String department;
     public Term termBegan;
@@ -17,4 +18,6 @@ public class StudentRecord {
     public List<CourseTaken> coursesTaken;
     public List<Milestone> milestonesSet;
     public List<String> notes;
+    public float gpa;
+
 }

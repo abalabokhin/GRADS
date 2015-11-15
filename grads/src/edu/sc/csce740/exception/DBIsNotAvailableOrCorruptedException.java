@@ -3,5 +3,6 @@ package edu.sc.csce740.exception;
 /**
  * Created by paladin on 11/8/15.
  */
-public class DBIsNotAvailableOrCorruptedException extends GRADSException {
+public class DBIsNotAvailableOrCorruptedException extends GRADSException
+{
 }
