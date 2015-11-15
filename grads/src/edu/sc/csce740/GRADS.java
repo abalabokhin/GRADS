@@ -3,6 +3,7 @@ package edu.sc.csce740;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import edu.sc.csce740.exception.DBIsNotAvailableOrCorruptedException;
+import edu.sc.csce740.exception.DBIsNotLoadedException;
 import edu.sc.csce740.exception.InvalidDataRequestedException;
 import edu.sc.csce740.exception.UserHasInsufficientPrivilegeException;
 import edu.sc.csce740.model.*;
@@ -29,13 +30,10 @@ public class GRADS implements GRADSIntf
 	private List<StudentRecord> studentRecords = null;
 
 	private StudentRecord temporaryStudentRecord = null;
-	private String loggedUserId = "";
+	private User loggedUser = null;
 
 	private Map<Degree.Type, ProgressCheckerIntf> programOfStudyProgressCheckers;
 	ProgressCheckerIntf graduateCertificateProgressChecker;
-
-    private String department;
-    private String role;
 
     public enum RequestType
     {
@@ -59,54 +57,63 @@ public class GRADS implements GRADSIntf
     @Override
     public void loadUsers(String usersFile) throws Exception
     {
-        users = new Gson().fromJson( new FileReader( new File(usersFile)), new TypeToken<List<User>>(){}.getType());
-        int fg = 69;
-        if (fg == 23) {
+        try {
+            users = new Gson().fromJson(new FileReader(new File(usersFile)), new TypeToken<List<User>>() {
+            }.getType());
+        } catch (Exception ex) {
             throw new DBIsNotAvailableOrCorruptedException();
         }
-
     }
 
     @Override
     public void loadCourses(String coursesFile) throws Exception {
-        allCourses = new Gson().fromJson( new FileReader( new File(coursesFile)), new TypeToken<List<Course>>(){}.getType());
-        int fg = 67;
+        try {
+            allCourses = new Gson().fromJson(new FileReader(new File(coursesFile)), new TypeToken<List<Course>>() {
+            }.getType());
+        } catch (Exception ex) {
+            throw new DBIsNotAvailableOrCorruptedException();
+        }
     }
 
     @Override
     public void loadRecords(String recordsFile) throws Exception
     {
-        studentRecords = new Gson().fromJson( new FileReader( new File(recordsFile)), new TypeToken<List<StudentRecord>>(){}.getType());
-        int fg = 67;
+        try {
+            studentRecords = new Gson().fromJson(new FileReader(new File(recordsFile)), new TypeToken<List<StudentRecord>>() {
+            }.getType());
+        } catch (Exception ex) {
+            throw new DBIsNotAvailableOrCorruptedException();
+        }
     }
 
     @Override
     public void setUser(String userId) throws Exception
     {
-        // TODO: throw exception if the db is not loaded
-        // TODO: check that useid in the list, unless throw exception
-        this.loggedUserId = userId;
-
-		User user = users.stream().filter(x -> x.id.equals(this.loggedUserId)).findFirst().get();
-
-		this.department = user.department;
-		this.role = user.role.toString();
+        clearSession();
+        if (users == null)
+        {
+            throw new DBIsNotLoadedException();
+        }
+        try {
+            this.loggedUser = users.stream().filter(x -> x.id.equals(userId)).findFirst().get();
+        } catch (NoSuchElementException exception)
+        {
+            throw new InvalidDataRequestedException();
+        }
     }
 
     @Override
     public void clearSession() throws Exception
     {
-        this.loggedUserId = "";
+        this.loggedUser = null;
         temporaryStudentRecord = null;
-        this.department = "";
-		this.role = "";
     }
 
     @Override
     public String getUser()
     {
         // Question: Who is accepting? Shall we provide this info to anyone? Is it safe?
-        return this.loggedUserId;
+        return this.loggedUser.id;
     }
 
     @Override
@@ -226,7 +233,7 @@ public class GRADS implements GRADSIntf
 
     } // End of checkAuthorization method
 
-    private Float calculateGPA(List<CourseTaken> classes) throws Exception
+    public Float calculateGPA(List<CourseTaken> classes) throws Exception
     {
         float sumHours = 0;
         float sumGP = 0;
