@@ -14,13 +14,12 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
 	Map<String,Integer> optionalClassesIds = null;
 	Map<String,Integer> experienceClassesIds = null;
 
-	private int yearsToFinishClasses = 0;
 	private int yearsToFinishProgram = 6;
-	private int additionalCredits = 15;
 
 	public ProgressCheckerForMSE()
 	{
 		degreeName = "MSE";
+		additionalCredits = 15;
 		// Class ID followed by minimum # of credits for class
 		// Enter a value greater then zero to use this feature
 		// If need to take a class like 899 for 12 credits total enter 12
@@ -70,20 +69,21 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
     @Override
     RequirementCheckResult CheckAdditionalCredits()
     {
-		RequirementCheckResult result = null;
-
-		ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
-
-		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-		requirementCheckInput.includedCourseIds = optionalClassesIds;
-		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
-		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
-		requirementCheckInput.minNbrCredits = additionalCredits;
-
-		result = checkerCommon.CheckCoursesByInclusion(requirementCheckInput);
-		result.name = "ADDITIONAL_CREDITS_MSE";
-
- 		return result;
+		/// TODO: implement it! See implementation in ProgressCheckerBase as a template
+//		RequirementCheckResult result = null;
+//
+//		ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
+//
+//		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
+//		requirementCheckInput.includedCourseIds = optionalClassesIds;
+//		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
+//		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
+//		requirementCheckInput.minNbrCredits = additionalCredits;
+//
+//		result = checkerCommon.CheckCoursesByInclusion(requirementCheckInput);
+//		result.name = "ADDITIONAL_CREDITS_MSE";
+//
+ 		return null;
 
     } // End of CheckAdditionalCredits method
 

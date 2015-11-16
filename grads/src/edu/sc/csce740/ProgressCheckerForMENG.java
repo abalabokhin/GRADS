@@ -11,10 +11,7 @@ import java.util.*;
  */
 public class ProgressCheckerForMENG extends ProgressCheckerBase
 {
-	Map<String,Integer> excludedClassesIds = null;
-
 	private int yearsToFinishProgram = 6;
-	private int additionalCredits = 11;
 
 	private int degreeBasedCreditsGraduate = 30;
 	private int degreeBasedCreditsCSCE = 24;
@@ -22,6 +19,7 @@ public class ProgressCheckerForMENG extends ProgressCheckerBase
 	public ProgressCheckerForMENG()
 	{
 		degreeName = "MENG";
+		additionalCredits = 11;
 		// Class ID followed by minimum # of credits for class
 		// Enter a value greater then zero to use this feature
 		// If need to take a class like 899 for 12 credits total enter 12
@@ -39,10 +37,9 @@ public class ProgressCheckerForMENG extends ProgressCheckerBase
 		// If need to limit a class to 6 credits (2 classes) enter 6
 		// If zero is entered class can not be taken at all to
 		// meet the additional credits requirement. thesis check seperate.
-		excludedClassesIds = new HashMap<>();
-		excludedClassesIds.put("csce797",0);
-		excludedClassesIds.put("csce798",3);
-		excludedClassesIds.put("csce799",0);
+		excludedClassesIds = new HashSet<>();
+		excludedClassesIds.add("csce797");
+		excludedClassesIds.add("csce799");
 	}
 
 	@Override
@@ -67,43 +64,17 @@ public class ProgressCheckerForMENG extends ProgressCheckerBase
  	}
 
     @Override
-    RequirementCheckResult CheckAdditionalCredits()
-    {
-    	RequirementCheckResult result = null;
-
-		Map<String,Integer> copyExcludedClassesIds = new HashMap<>();
-		copyExcludedClassesIds.putAll(excludedClassesIds);
-		//copyExcludedClassesIds.putAll(requiredClassesIds);
-
-      	ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
-
-		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-		requirementCheckInput.excludedCourseIds = copyExcludedClassesIds;
-		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
-		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
-		requirementCheckInput.minNbrCredits = additionalCredits;
-
-        result = checkerCommon.CheckCoursesByExclusion(requirementCheckInput);
-		result.name = "ADDITIONAL_CREDITS_MENG";
-
-        return result;
-
-    } // End of CheckAdditionalCredits method
-
-
-
-    @Override
     RequirementCheckResult CheckDegreeBasedCredits()
     {
     	RequirementCheckResult result = null;
 
-		Map<String,Integer> allExcluded = excludedClassesIds;
+		//Map<String,Integer> allExcluded = excludedClassesIds;
 		//allExcluded.putAll(requiredClassesIds);
 
       	ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
 
 		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-		requirementCheckInput.excludedCourseIds = allExcluded;
+		//requirementCheckInput.excludedCourseIds = allExcluded;
 		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
 		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
 		requirementCheckInput.minNbrCredits = degreeBasedCreditsCSCE;

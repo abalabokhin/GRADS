@@ -62,7 +62,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         RequirementCheckResult result = new RequirementCheckResult();
 
         List<CourseTaken> takenRequiredCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
-                x -> requiredClassesIds.contains(x.course.id) && x.term.isExpired(currentTerm, yearsToFinishClasses)).
+                x -> requiredClassesIds.contains(x.course.id) && !x.term.isExpired(currentTerm, yearsToFinishClasses)).
                 toArray(CourseTaken[]::new));
 
         result.details.courses = takenRequiredCourses;
@@ -84,7 +84,27 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
 
     RequirementCheckResult CheckAdditionalCredits()
     {
-        return null;
+        RequirementCheckResult result = new RequirementCheckResult();
+
+        /// collect all non expired csce classes above 7 hundred excluding requiredClassesIds and excludedClassesIds.
+        List<CourseTaken> takenAdditionalCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
+                x -> (x.course.Is7xx() && x.course.IsCSCE()) &&
+                        !requiredClassesIds.contains(x.course.id) && !excludedClassesIds.contains(x.course.id) &&
+                        !x.term.isExpired(currentTerm, yearsToFinishClasses)).toArray(CourseTaken[]::new));
+
+        int additionalCreditHoursTaken = takenAdditionalCourses.stream().mapToInt(
+                x -> Integer.parseInt(x.course.numCredits)).sum();
+
+        if (additionalCreditHoursTaken >= additionalCredits)
+            result.passed = true;
+        else {
+            result.passed = false;
+            result.details.notes.add("Must pass " +
+                    String.valueOf(additionalCredits - additionalCreditHoursTaken) +
+                    " more hours of CSCE courses numbered above 700 that are not core courses.");
+        }
+        result.name = "ADDITIONAL_CREDITS_" + degreeName;
+        return result;
     }
 
     RequirementCheckResult CheckDegreeBasedCredits()
@@ -120,11 +140,12 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
     protected Term currentTerm;
     protected String degreeName;
     protected Set<String> requiredClassesIds;
-    int yearsToFinishClasses = 6;
+    protected int yearsToFinishClasses = 6;
     /// number of additional classes (not included in required classes) of 7 hundred and above
-    int additionalCredits;
+    protected int additionalCredits;
+    /// These classes are excluded from additional_credits and degree_based_credits
+    Set<String> excludedClassesIds;
     int degreeBasedCredits;
-    List<String> excludedClassesIds;
     int thesisCredits;
     String thesisClassId;
     int yearsToFinishDegree;
