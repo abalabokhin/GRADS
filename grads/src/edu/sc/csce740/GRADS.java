@@ -203,31 +203,6 @@ public class GRADS implements GRADSIntf
         }
     }
 
-    public Float calculateGPA(List<CourseTaken> classes) throws Exception
-    {
-        float sumHours = 0;
-        float sumGP = 0;
-
-        for (CourseTaken courseTaken : classes)
-        {
-            Integer gradeFactor = courseTaken.grade.getFactor();
-            if (gradeFactor != null) {
-                try {
-                    float numCredits = Float.parseFloat(courseTaken.course.numCredits);
-                    sumGP += (numCredits * gradeFactor);
-                    sumHours += numCredits;
-                } catch (NumberFormatException ex)
-                {
-                    throw new StringParsingException();
-                }
-            }
-		}
-
-        if (sumHours == 0)
-            return null;
-		return sumGP / sumHours;
-    }
-
     ProgressSummary generateProgressSummaryImpl(StudentRecord studentRecord) throws Exception
     {
         List<RequirementCheckResult> requirementCheck = calculateMilestones(studentRecord);

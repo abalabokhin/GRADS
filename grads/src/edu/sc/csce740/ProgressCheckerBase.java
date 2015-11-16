@@ -1,5 +1,6 @@
 package edu.sc.csce740;
 
+import edu.sc.csce740.exception.StringParsingException;
 import edu.sc.csce740.model.*;
 
 import java.util.*;
@@ -207,9 +208,45 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         return result;
     }
 
-    RequirementCheckResult CheckGPA()
+    RequirementCheckResult CheckGPA() throws Exception
     {
-        return null;
+        List<CourseTaken> takenGradCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
+                x -> x.course.IsGraduate() && !x.term.isExpired(currentTerm, yearsToFinishClasses)).
+                toArray(CourseTaken[]::new));
+
+        Float gradGPA = calculateGPA(takenGradCourses);
+
+        List<CourseTaken> taken7xxCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
+                x -> x.course.Is7xx() && !x.term.isExpired(currentTerm, yearsToFinishClasses)).
+                toArray(CourseTaken[]::new));
+
+        Float classes7GPA = calculateGPA(taken7xxCourses);
+
+        RequirementCheckResult result = new RequirementCheckResult();
+        if (gradGPA == null) {
+            result.passed = true;
+            result.details = new RequirementDetails();
+            result.details.notes = new ArrayList<>();
+            result.details.notes.add("Must have any graduate unexpired courses");
+        } else if (gradGPA >= 3.0 && (classes7GPA == null || (classes7GPA != null && classes7GPA >= 3.0))) {
+            result.passed = true;
+            result.details = new RequirementDetails();
+            result.details.gpa = gradGPA;
+        } else {
+            result.passed = false;
+            result.details = new RequirementDetails();
+            result.details.gpa = gradGPA;
+            result.details.notes = new ArrayList<>();
+            if (gradGPA < 3.0) {
+                result.details.notes.add("Must have GPA >= 3.0");
+            }
+            if (classes7GPA != null && classes7GPA < 3.0) {
+                result.details.notes.add("Must have 7xx classes GPA >= 3.0");
+            }
+        }
+
+        result.name = "GPA";
+        return result;
     }
 
     RequirementCheckResult CheckMilestones()
@@ -217,9 +254,35 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         return null;
     }
 
+    /// It uses only in one children, so basic implementation do nothing. This method overrides in MSE.
     RequirementCheckResult CheckExperience()
     {
         return null;
+    }
+
+    protected Float calculateGPA(List<CourseTaken> classes) throws Exception
+    {
+        float sumHours = 0;
+        float sumGP = 0;
+
+        for (CourseTaken courseTaken : classes)
+        {
+            Integer gradeFactor = courseTaken.grade.getFactor();
+            if (gradeFactor != null) {
+                try {
+                    float numCredits = Float.parseFloat(courseTaken.course.numCredits);
+                    sumGP += (numCredits * gradeFactor);
+                    sumHours += numCredits;
+                } catch (NumberFormatException ex)
+                {
+                    throw new StringParsingException();
+                }
+            }
+        }
+
+        if (sumHours == 0)
+            return null;
+        return sumGP / sumHours;
     }
 
     protected Term currentTerm;

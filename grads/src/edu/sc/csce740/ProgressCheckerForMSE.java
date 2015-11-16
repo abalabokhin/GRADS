@@ -100,18 +100,20 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
     @Override
     RequirementCheckResult CheckExperience()
     {
-		RequirementCheckResult result = null;
-
-		ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
-
-		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-		requirementCheckInput.includedCourseIds = experienceClassesIds;
-		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
-		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
-
-		result = checkerCommon.CheckCoursesByInclusion(requirementCheckInput);
-		result.name = "EXPERIENCE";
-
- 		return result;
+		/// TODO. Implement it.
+//		RequirementCheckResult result = null;
+//
+//		ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
+//
+//		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
+//		requirementCheckInput.includedCourseIds = experienceClassesIds;
+//		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
+//		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
+//
+//		result = checkerCommon.CheckCoursesByInclusion(requirementCheckInput);
+//		result.name = "EXPERIENCE";
+//
+// 		return result;
+		return null;
     }
 }
