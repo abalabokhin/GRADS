@@ -197,7 +197,14 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
 
     RequirementCheckResult CheckTimeLimit()
     {
-        return null;
+        RequirementCheckResult result = new RequirementCheckResult();
+        if (!currentStudentRecord.termBegan.isExpired(currentTerm, yearsToFinishDegree))
+            result.passed = true;
+        else
+            result.passed = false;
+
+        result.name = "TIME_LIMIT_" + degreeName;
+        return result;
     }
 
     RequirementCheckResult CheckGPA()
