@@ -65,10 +65,7 @@ public class ProgressCheckerForINFAS extends ProgressCheckerBase
 
 
     @Override
-    RequirementCheckResult CheckThesisCredits()
-    {
-        return null;
-    }
+    RequirementCheckResult CheckThesisCredits() { return null; }
 
     @Override
     RequirementCheckResult CheckMilestones()

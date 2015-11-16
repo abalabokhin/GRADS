@@ -1,6 +1,5 @@
 package edu.sc.csce740;
 
-import edu.sc.csce740.ProgressCheckerIntf;
 import edu.sc.csce740.model.*;
 
 import java.util.*;
@@ -87,13 +86,11 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         RequirementCheckResult result = new RequirementCheckResult();
 
         /// collect all non expired csce classes above 7 hundred excluding requiredClassesIds and excludedClassesIds.
-        List<CourseTaken> takenAdditionalCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
-                x -> (x.course.Is7xx() && x.course.IsCSCE()) &&
+        int additionalCreditHoursTaken = currentStudentRecord.coursesTaken.stream().filter(
+                x -> x.course.Is7xx() && x.course.IsCSCE() &&
                         !requiredClassesIds.contains(x.course.id) && !excludedClassesIds.contains(x.course.id) &&
-                        !x.term.isExpired(currentTerm, yearsToFinishClasses)).toArray(CourseTaken[]::new));
-
-        int additionalCreditHoursTaken = takenAdditionalCourses.stream().mapToInt(
-                x -> Integer.parseInt(x.course.numCredits)).sum();
+                        !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
+                y -> Integer.parseInt(y.course.numCredits)).sum();
 
         if (additionalCreditHoursTaken >= additionalCredits)
             result.passed = true;
@@ -109,7 +106,59 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
 
     RequirementCheckResult CheckDegreeBasedCredits()
     {
-        return null;
+        /*
+        Students​ must pass a minimum of 24 credit hours in graduate courses
+        (excluding CSCE 799).
+        Students may count a maximum of 6 hours in non­CSCE courses
+        At most, 3 hours of CSCE 798 may be applied toward the degree.
+        CSCE 797 may not be applied toward the degree.
+        */
+
+        String specialCource = "csce798";
+        int specialCourceMaxCredits = 3;
+
+        RequirementCheckResult result = new RequirementCheckResult();
+
+        /// collect all non expired csce grad classes excluding excludedClassesIds and csce798
+        int specialCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
+                x -> specialCource.equals(x.course.id) &&
+                        !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
+                y -> Integer.parseInt(y.course.numCredits)).sum();
+
+        /// collect all non expired csce grad classes excluding excludedClassesIds and csce798
+        int graduateScseCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
+            x -> x.course.IsGraduate() && x.course.IsCSCE() && !specialCource.equals(x.course.id) &&
+                    !excludedClassesIds.contains(x.course.id) &&
+                    !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
+            y -> Integer.parseInt(y.course.numCredits)).sum();
+
+        /// collect all non expired non csce grad classes.
+        int graduateNonScseCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
+                x -> x.course.IsGraduate() && !x.course.IsCSCE() &&
+                        !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
+                y -> Integer.parseInt(y.course.numCredits)).sum();
+
+        int totalHours = Math.min(specialCoursesHours, specialCourceMaxCredits) + graduateScseCoursesHours +
+                Math.min(nonCsceCredits, graduateNonScseCoursesHours);
+
+        if (totalHours >= degreeBasedCredits)
+            result.passed = true;
+        else {
+            result.passed = false;
+            result.details.notes.add("Must pass " +
+                            String.valueOf(additionalCredits - totalHours) +
+                            " more hours of graduate courses.");
+
+        }
+
+        List<CourseTaken> takenGradCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
+                x -> x.course.IsGraduate() && !x.term.isExpired(currentTerm, yearsToFinishClasses)).
+                toArray(CourseTaken[]::new));
+
+        result.details.courses = takenGradCourses;
+        result.name = "ADDITIONAL_CREDITS_" + degreeName;
+
+        return result;
     }
 
     RequirementCheckResult CheckThesisCredits()
@@ -145,12 +194,12 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
     protected int additionalCredits;
     /// These classes are excluded from additional_credits and degree_based_credits
     Set<String> excludedClassesIds;
-    int degreeBasedCredits;
+    protected int degreeBasedCredits;
+    protected int nonCsceCredits;
     int thesisCredits;
     String thesisClassId;
     int yearsToFinishDegree;
     List<String> milestones;
-    int nonCSCEcredits;
 
     StudentRecord currentStudentRecord;
 }

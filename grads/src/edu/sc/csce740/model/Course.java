@@ -20,4 +20,12 @@ public class Course
 
         return id.charAt(i) == '7' || id.charAt(i) == '8';
     }
+
+    public boolean IsGraduate() {
+        int i = 0;
+        while (!Character.isDigit(id.charAt(i)))
+            i++;
+
+        return id.charAt(i) == '7' || id.charAt(i) == '8' || id.charAt(i) == '5' || id.charAt(i) == '6';
+    }
 }

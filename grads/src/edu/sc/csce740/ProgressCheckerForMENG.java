@@ -13,13 +13,12 @@ public class ProgressCheckerForMENG extends ProgressCheckerBase
 {
 	private int yearsToFinishProgram = 6;
 
-	private int degreeBasedCreditsGraduate = 30;
-	private int degreeBasedCreditsCSCE = 24;
-
 	public ProgressCheckerForMENG()
 	{
 		degreeName = "MENG";
 		additionalCredits = 11;
+		degreeBasedCredits = 30;
+		nonCsceCredits = 6;
 		// Class ID followed by minimum # of credits for class
 		// Enter a value greater then zero to use this feature
 		// If need to take a class like 899 for 12 credits total enter 12
@@ -41,65 +40,6 @@ public class ProgressCheckerForMENG extends ProgressCheckerBase
 		excludedClassesIds.add("csce797");
 		excludedClassesIds.add("csce799");
 	}
-
-	@Override
-	RequirementCheckResult CheckCoreCourses()
- 	{
-		RequirementCheckResult result = null;
-
-		Map<String,Integer> copyRequiredClassesIds = new HashMap<>();
-		//copyRequiredClassesIds.putAll(requiredClassesIds);
-
-		ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
-
-		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-		requirementCheckInput.includedCourseIds = copyRequiredClassesIds;
-		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
-		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
-
-		result = checkerCommon.CheckCoursesByInclusion(requirementCheckInput);
-		result.name = "CORE_COURSES_MENG";
-
- 		return result;
- 	}
-
-    @Override
-    RequirementCheckResult CheckDegreeBasedCredits()
-    {
-    	RequirementCheckResult result = null;
-
-		//Map<String,Integer> allExcluded = excludedClassesIds;
-		//allExcluded.putAll(requiredClassesIds);
-
-      	ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
-
-		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-		//requirementCheckInput.excludedCourseIds = allExcluded;
-		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
-		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
-		requirementCheckInput.minNbrCredits = degreeBasedCreditsCSCE;
-		requirementCheckInput.csce700Level = true;
-
-        result = checkerCommon.CheckCoursesByExclusion(requirementCheckInput);
-		result.name = "DEGREE_BASED_CREDITS_MENG";
-
-		boolean firstTest = false;
-		if (result.passed == true)
-			firstTest = true;
-
-		requirementCheckInput.minNbrCredits = degreeBasedCreditsGraduate;
-		requirementCheckInput.csce700Level = false;
-		requirementCheckInput.graduateLevel = true;
-
-		result = checkerCommon.CheckCoursesByExclusion(requirementCheckInput);
-		result.name = "DEGREE_BASED_CREDITS_MENG";
-
-		if ((result.passed == false) || (!firstTest))
-			result.passed = false;
-
-        return result;
-
-     } // End of CheckDegreeBasedCredits method
 
     @Override
     RequirementCheckResult CheckThesisCredits()

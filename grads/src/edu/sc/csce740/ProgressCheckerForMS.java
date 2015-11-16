@@ -2,7 +2,6 @@ package edu.sc.csce740;
 
 import edu.sc.csce740.model.RequirementCheckInput;
 import edu.sc.csce740.model.RequirementCheckResult;
-import edu.sc.csce740.model.StudentRecord;
 
 import java.util.*;
 
@@ -15,13 +14,13 @@ public class ProgressCheckerForMS extends ProgressCheckerBase
 
 	private int yearsToFinishProgram = 6;
 
-	private int degreeBasedCreditsGraduate = 24;
-	private int degreeBasedCreditsCSCE = 18;
-
 	public ProgressCheckerForMS()
 	{
 		degreeName = "MS";
 		additionalCredits = 8;
+		degreeBasedCredits = 24;
+		nonCsceCredits = 6;
+
 		// Class ID followed by minimum # of credits for class
 		// Enter a value greater then zero to use this feature
 		// If need to take a class like 899 for 12 credits total enter 12
@@ -46,44 +45,6 @@ public class ProgressCheckerForMS extends ProgressCheckerBase
 		thesisClassesIds = new HashMap<>();
 		thesisClassesIds.put("csce799",6);
 	}
-
-    @Override
-    RequirementCheckResult CheckDegreeBasedCredits()
-    {
-    	RequirementCheckResult result = null;
-
-		//Map<String,Integer> allExcluded = excludedClassesIds;
-		//allExcluded.putAll(requiredClassesIds);
-
-      	ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
-
-		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-		//requirementCheckInput.excludedCourseIds = allExcluded;
-		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
-		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
-		requirementCheckInput.minNbrCredits = degreeBasedCreditsCSCE;
-		requirementCheckInput.csce700Level = true;
-
-        result = checkerCommon.CheckCoursesByExclusion(requirementCheckInput);
-		result.name = "DEGREE_BASED_CREDITS_MS";
-
-		boolean firstTest = false;
-		if (result.passed == true)
-			firstTest = true;
-
-		requirementCheckInput.minNbrCredits = degreeBasedCreditsGraduate;
-		requirementCheckInput.csce700Level = false;
-		requirementCheckInput.graduateLevel = true;
-
-		result = checkerCommon.CheckCoursesByExclusion(requirementCheckInput);
-		result.name = "DEGREE_BASED_CREDITS_MS";
-
-		if ((result.passed == false) || (!firstTest))
-			result.passed = false;
-
-        return result;
-
-    } // End of CheckDegreeBasedCredits method
 
     @Override
     RequirementCheckResult CheckThesisCredits()

@@ -47,54 +47,56 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
     @Override
     RequirementCheckResult CheckDegreeBasedCredits()
     {
-    	RequirementCheckResult result = null;
-
-		//Map<String,Integer> allExcluded = excludedClassesIds;
-		//allExcluded.putAll(requiredClassesIds); // Add the required core courses to the excluded list
-
-      	ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
-
-		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-		//requirementCheckInput.excludedCourseIds = allExcluded;
-		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
-		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
-		requirementCheckInput.minNbrCredits = degreeBasedCreditsWithMasters;
-		requirementCheckInput.csce700Level = true; // Count only CSCE courses 700 and above
-
-        result = checkerCommon.CheckCoursesByExclusion(requirementCheckInput);
-		result.name = "DEGREE_BASED_CREDITS_PHD";
-
-		List<Degree.Type> listDegrees = null;
-		listDegrees = currentStudentRecord.previousDegrees.stream().map(x -> x.name).collect(Collectors.toList());
-
-		// Check to see if the candidate has a masters degree already. If so then we can return current result
-		if (listDegrees != null)
-		{
-			if ((listDegrees.contains(Degree.Type.MS)) ||
-                (listDegrees.contains(Degree.Type.MENG)) ||
-                (listDegrees.contains(Degree.Type.MSE)))
-        	{
-				return result;
-			}
-		} // End of if for having a previous degree
-
-		// No masters so we need to check for total graduate courses. Keep the result of the 1st test as either result
-		// will cause the overall test to fail
-		boolean firstTest = false;
-		if (result.passed == true)
-			firstTest = true;
-
-		requirementCheckInput.minNbrCredits = degreeBasedCreditsWithoutMasters;
-		requirementCheckInput.csce700Level = false;
-		requirementCheckInput.graduateLevel = true; // Count all graduate courses
-
-		result = checkerCommon.CheckCoursesByExclusion(requirementCheckInput);
-		result.name = "DEGREE_BASED_CREDITS_PHD";
-
-		if ((result.passed == false) || (!firstTest))
-			result.passed = false;
-
-        return result;
+		/// TODO: Implement it. See implementation in Base class as a template.
+//    	RequirementCheckResult result = null;
+//
+//		//Map<String,Integer> allExcluded = excludedClassesIds;
+//		//allExcluded.putAll(requiredClassesIds); // Add the required core courses to the excluded list
+//
+//      	ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
+//
+//		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
+//		//requirementCheckInput.excludedCourseIds = allExcluded;
+//		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
+//		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
+//		requirementCheckInput.minNbrCredits = degreeBasedCreditsWithMasters;
+//		requirementCheckInput.csce700Level = true; // Count only CSCE courses 700 and above
+//
+//        result = checkerCommon.CheckCoursesByExclusion(requirementCheckInput);
+//		result.name = "DEGREE_BASED_CREDITS_PHD";
+//
+//		List<Degree.Type> listDegrees = null;
+//		listDegrees = currentStudentRecord.previousDegrees.stream().map(x -> x.name).collect(Collectors.toList());
+//
+//		// Check to see if the candidate has a masters degree already. If so then we can return current result
+//		if (listDegrees != null)
+//		{
+//			if ((listDegrees.contains(Degree.Type.MS)) ||
+//                (listDegrees.contains(Degree.Type.MENG)) ||
+//                (listDegrees.contains(Degree.Type.MSE)))
+//        	{
+//				return result;
+//			}
+//		} // End of if for having a previous degree
+//
+//		// No masters so we need to check for total graduate courses. Keep the result of the 1st test as either result
+//		// will cause the overall test to fail
+//		boolean firstTest = false;
+//		if (result.passed == true)
+//			firstTest = true;
+//
+//		requirementCheckInput.minNbrCredits = degreeBasedCreditsWithoutMasters;
+//		requirementCheckInput.csce700Level = false;
+//		requirementCheckInput.graduateLevel = true; // Count all graduate courses
+//
+//		result = checkerCommon.CheckCoursesByExclusion(requirementCheckInput);
+//		result.name = "DEGREE_BASED_CREDITS_PHD";
+//
+//		if ((result.passed == false) || (!firstTest))
+//			result.passed = false;
+//
+//        return result;
+		return null;
 
     } // End of CheckDegreeBasedCredits method
 
