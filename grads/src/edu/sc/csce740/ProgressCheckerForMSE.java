@@ -89,10 +89,7 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
 
 
     @Override
-    RequirementCheckResult CheckDegreeBasedCredits()
-    {
-        return null;
-    }
+    RequirementCheckResult CheckDegreeBasedCredits() { return null; }
 
     @Override
     RequirementCheckResult CheckThesisCredits()

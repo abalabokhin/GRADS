@@ -64,6 +64,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
                 x -> requiredClassesIds.contains(x.course.id) && !x.term.isExpired(currentTerm, yearsToFinishClasses)).
                 toArray(CourseTaken[]::new));
 
+        result.details = new RequirementDetails();
         result.details.courses = takenRequiredCourses;
         Set<String> uniqueTakenRequiredCourses =
                 takenRequiredCourses.stream().map(x -> x.course.id).collect(Collectors.toSet());
@@ -74,6 +75,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
             result.passed = false;
             Set<String> leftClasses = new HashSet<>(requiredClassesIds);
             leftClasses.removeAll(uniqueTakenRequiredCourses);
+            result.details.notes = new ArrayList<>();
             result.details.notes.add("Core courses [" + String.join(", ", leftClasses) + "] are left to be taken.");
         }
 
@@ -96,6 +98,8 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
             result.passed = true;
         else {
             result.passed = false;
+            result.details = new RequirementDetails();
+            result.details.notes = new ArrayList<>();
             result.details.notes.add("Must pass " +
                     String.valueOf(additionalCredits - additionalCreditHoursTaken) +
                     " more hours of CSCE courses numbered above 700 that are not core courses.");
@@ -114,20 +118,20 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         CSCE 797 may not be applied toward the degree.
         */
 
-        String specialCource = "csce798";
-        int specialCourceMaxCredits = 3;
+        String specialCourse = "csce798";
+        int specialCourseMaxCredits = 3;
 
         RequirementCheckResult result = new RequirementCheckResult();
 
         /// collect all non expired csce grad classes excluding excludedClassesIds and csce798
         int specialCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
-                x -> specialCource.equals(x.course.id) &&
+                x -> specialCourse.equals(x.course.id) &&
                         !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
                 y -> Integer.parseInt(y.course.numCredits)).sum();
 
         /// collect all non expired csce grad classes excluding excludedClassesIds and csce798
         int graduateScseCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
-            x -> x.course.IsGraduate() && x.course.IsCSCE() && !specialCource.equals(x.course.id) &&
+            x -> x.course.IsGraduate() && x.course.IsCSCE() && !specialCourse.equals(x.course.id) &&
                     !excludedClassesIds.contains(x.course.id) &&
                     !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
             y -> Integer.parseInt(y.course.numCredits)).sum();
@@ -138,17 +142,18 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
                         !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
                 y -> Integer.parseInt(y.course.numCredits)).sum();
 
-        int totalHours = Math.min(specialCoursesHours, specialCourceMaxCredits) + graduateScseCoursesHours +
+        int totalHours = Math.min(specialCoursesHours, specialCourseMaxCredits) + graduateScseCoursesHours +
                 Math.min(nonCsceCredits, graduateNonScseCoursesHours);
 
         if (totalHours >= degreeBasedCredits)
             result.passed = true;
         else {
             result.passed = false;
+            result.details = new RequirementDetails();
+            result.details.notes = new ArrayList<>();
             result.details.notes.add("Must pass " +
                             String.valueOf(additionalCredits - totalHours) +
                             " more hours of graduate courses.");
-
         }
 
         List<CourseTaken> takenGradCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
@@ -163,7 +168,31 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
 
     RequirementCheckResult CheckThesisCredits()
     {
-        return null;
+        RequirementCheckResult result = new RequirementCheckResult();
+        /// collect all non expired thesis class hours
+        int thesisCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
+                x -> thesisClassId.equals(x.course.id) &&
+                        !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
+                y -> Integer.parseInt(y.course.numCredits)).sum();
+
+        if (thesisCoursesHours >= thesisCredits)
+            result.passed = true;
+        else {
+            result.passed = false;
+            result.details = new RequirementDetails();
+            result.details.notes = new ArrayList<>();
+            result.details.notes.add("Must pass " +
+                    String.valueOf(thesisCredits - thesisCoursesHours) +
+                    " more hours of " + thesisClassId + ".");
+        }
+
+        List<CourseTaken> takenGradCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
+                x -> thesisClassId.equals(x.course.id) && !x.term.isExpired(currentTerm, yearsToFinishClasses)).
+                toArray(CourseTaken[]::new));
+
+        result.details.courses = takenGradCourses;
+        result.name = "THESIS_CREDITS_" + degreeName;
+        return result;
     }
 
     RequirementCheckResult CheckTimeLimit()

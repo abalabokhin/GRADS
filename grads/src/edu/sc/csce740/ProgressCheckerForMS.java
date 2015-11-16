@@ -10,8 +10,6 @@ import java.util.*;
  */
 public class ProgressCheckerForMS extends ProgressCheckerBase
 {
-	Map<String,Integer> thesisClassesIds = null;
-
 	private int yearsToFinishProgram = 6;
 
 	public ProgressCheckerForMS()
@@ -20,6 +18,8 @@ public class ProgressCheckerForMS extends ProgressCheckerBase
 		additionalCredits = 8;
 		degreeBasedCredits = 24;
 		nonCsceCredits = 6;
+		thesisCredits = 6;
+		thesisClassId = "csce799";
 
 		// Class ID followed by minimum # of credits for class
 		// Enter a value greater then zero to use this feature
@@ -41,27 +41,5 @@ public class ProgressCheckerForMS extends ProgressCheckerBase
 		excludedClassesIds = new HashSet<>();
 		excludedClassesIds.add("csce797");
 		excludedClassesIds.add("csce799");
-
-		thesisClassesIds = new HashMap<>();
-		thesisClassesIds.put("csce799",6);
 	}
-
-    @Override
-    RequirementCheckResult CheckThesisCredits()
-    {
-		RequirementCheckResult result = null;
-
-		ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
-
-		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-		requirementCheckInput.includedCourseIds = thesisClassesIds;
-		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
-		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
-
-		result = checkerCommon.CheckCoursesByInclusion(requirementCheckInput);
-		result.name = "THESIS_CREDITS_MS";
-
- 		return result;
-    }
-
 }

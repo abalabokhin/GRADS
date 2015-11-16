@@ -62,8 +62,6 @@ public class ProgressCheckerForINFAS extends ProgressCheckerBase
 
     } // End of CheckAdditionalCredits method
 
-
-
     @Override
     RequirementCheckResult CheckThesisCredits() { return null; }
 

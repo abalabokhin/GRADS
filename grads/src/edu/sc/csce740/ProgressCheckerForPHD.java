@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
  */
 public class ProgressCheckerForPHD extends ProgressCheckerBase
 {
-	Map<String,Integer> thesisClassesIds = null;
-
 	private int degreeBasedCreditsWithMasters = 24;
 	private int degreeBasedCreditsWithoutMasters = 48;
 
@@ -19,6 +17,8 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 	{
 		degreeName = "PHD";
 		additionalCredits = 20;
+		thesisCredits = 12;
+		thesisClassId = "csce899";
 
 		requiredClassesIds = new HashSet<>();
 		requiredClassesIds.add("csce513");
@@ -35,13 +35,6 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 		excludedClassesIds = new HashSet<>();
 		excludedClassesIds.add("csce799");
 		excludedClassesIds.add("csce899");
-
-		// Class ID followed by minimum # of credits for class
-		// Enter a value greater then zero to use this feature
-		// If need to take a class like 899 for 12 credits total enter 12
-		thesisClassesIds = new HashMap<>();
-		thesisClassesIds.put("csce899",12);
-
 	} // End of ProgressCheckerForPHD constructor
 
     @Override
@@ -99,23 +92,5 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 		return null;
 
     } // End of CheckDegreeBasedCredits method
-
-    @Override
-    RequirementCheckResult CheckThesisCredits()
-    {
-		RequirementCheckResult result = null;
-
-		ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
-
-		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-		requirementCheckInput.includedCourseIds = thesisClassesIds;
-		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
-		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
-
-		result = checkerCommon.CheckCoursesByInclusion(requirementCheckInput);
-		result.name = "THESIS_CREDITS_PHD";
-
- 		return result;
-    }
 
 } // End of ProgressCheckerForPHD class
