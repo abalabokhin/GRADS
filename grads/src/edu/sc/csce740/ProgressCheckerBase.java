@@ -119,9 +119,6 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         CSCE 797 may not be applied toward the degree.
         */
 
-        String specialCourse = "csce798";
-        int specialCourseMaxCredits = 3;
-
         RequirementCheckResult result = new RequirementCheckResult();
 
         /// collect all non expired csce grad classes excluding excludedClassesIds and csce798
@@ -251,6 +248,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
 
     RequirementCheckResult CheckMilestones()
     {
+        // TODO: implement it.
         return null;
     }
 
@@ -292,13 +290,16 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
     /// number of additional classes (not included in required classes) of 7 hundred and above
     protected int additionalCredits;
     /// These classes are excluded from additional_credits and degree_based_credits
-    Set<String> excludedClassesIds;
+    protected Set<String> excludedClassesIds;
     protected int degreeBasedCredits;
     protected int nonCsceCredits;
-    int thesisCredits;
-    String thesisClassId;
-    int yearsToFinishDegree;
-    List<String> milestones;
+    protected int thesisCredits;
+    protected String thesisClassId;
+    protected int yearsToFinishDegree;
+    Set<Milestone.MilestoneType> milestones;
+
+    String specialCourse = "csce798";
+    int specialCourseMaxCredits = 3;
 
     StudentRecord currentStudentRecord;
 }

@@ -5,35 +5,30 @@ package edu.sc.csce740.model;
  */
 public class Milestone
 {
-    enum MilestoneType {
-
+    public enum MilestoneType {
         DISSERTATION_ADVISOR_SELECTED,
-        DISSERTATION_COMMITTEE_FORMED
+        PROGRAM_OF_STUDY_SUBMITTED,
+        DISSERTATION_COMMITTEE_FORMED,
+        QUALIFYING_EXAM_PASSED,
+        DISSERTATION_PROPOSAL_SCHEDULED,
+        COMPREHENSIVE_EXAM_PASSED,
+        DISSERTATION_SUBMITTED,
+        DISSERTATION_DEFENSE_SCHEDULED,
+        DISSERTATION_DEFENSE_PASSED,
 
-        /// TODO: Add more:
-//        Program of Study Submitted
-//        Dissertation Advisor Selected
-//        Program of Study Submitted
-//        Dissertation Committee Formed
-//        Qualifying Exam Passed
-//        Dissertation Proposal Scheduled
-//        Comprehensive Exam Passed
-//        Dissertation Submitted
-//        Dissertation Defense Scheduled
-//        Dissertation Defense Passed
-//
-//        Academic Advisor Appointed
-//        Thesis Advisor Selected
-//        Thesis Committee Formed
-//        Thesis Proposal Scheduled
-//        Thesis Proposal Approved
-//        Thesis Submitted
-//        Thesis Defense Scheduled
-//        Thesis Defense Passed
-//
-//        Report Submitted
-//        Report Approved
+        ACADEMIC_ADVISOR_APPOINTED,
+        THESIS_ADVISOR_SELECTED,
+        THESIS_COMMITTEE_FORMED,
+        THESIS_PROPOSAL_SCHEDULED,
+        THESIS_PROPOSAL_APPROVED,
+        THESIS_SUBMITTED,
+        THESIS_DEFENSE_SCHEDULED,
+        THESIS_DEFENSE_PASSED,
+
+        REPORT_SUBMITTED,
+        REPORT_APPROVED,
         }
-    public String milestone;
+
+    public MilestoneType milestone;
     public Term term;
 }

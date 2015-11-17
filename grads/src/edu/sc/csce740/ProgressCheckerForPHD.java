@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
  */
 public class ProgressCheckerForPHD extends ProgressCheckerBase
 {
-	private int degreeBasedCreditsWithMasters = 24;
-	private int degreeBasedCreditsWithoutMasters = 48;
+	int degreeBasedCreditsWithMasters = 24;
+	int degreeBasedCreditsWithoutMasters = 48;
 
 	public ProgressCheckerForPHD()
 	{
@@ -19,6 +19,7 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 		additionalCredits = 20;
 		thesisCredits = 12;
 		thesisClassId = "csce899";
+		yearsToFinishDegree = 8;
 
 		requiredClassesIds = new HashSet<>();
 		requiredClassesIds.add("csce513");
@@ -27,70 +28,27 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 		requiredClassesIds.add("csce750");
 	    requiredClassesIds.add("csce791");
 
-		// Class ID followed by maximum # of credits for class
-		// Enter a value greater then zero to use this feature
-		// If need to limit a class to 6 credits (2 classes) enter 6
-		// If zero is entered class can not be taken at all to
-		// meet the additional credits requirement. thesis check seperate.
 		excludedClassesIds = new HashSet<>();
 		excludedClassesIds.add("csce799");
 		excludedClassesIds.add("csce899");
+
+		milestones = new HashSet<>();
+		milestones.add(Milestone.MilestoneType.DISSERTATION_ADVISOR_SELECTED);
+		milestones.add(Milestone.MilestoneType.PROGRAM_OF_STUDY_SUBMITTED);
+		milestones.add(Milestone.MilestoneType.DISSERTATION_COMMITTEE_FORMED);
+		milestones.add(Milestone.MilestoneType.QUALIFYING_EXAM_PASSED);
+		milestones.add(Milestone.MilestoneType.DISSERTATION_PROPOSAL_SCHEDULED);
+		milestones.add(Milestone.MilestoneType.COMPREHENSIVE_EXAM_PASSED);
+		milestones.add(Milestone.MilestoneType.DISSERTATION_SUBMITTED);
+		milestones.add(Milestone.MilestoneType.DISSERTATION_DEFENSE_SCHEDULED);
+		milestones.add(Milestone.MilestoneType.DISSERTATION_DEFENSE_PASSED);
 	} // End of ProgressCheckerForPHD constructor
 
     @Override
     RequirementCheckResult CheckDegreeBasedCredits()
     {
 		/// TODO: Implement it. See implementation in Base class as a template.
-//    	RequirementCheckResult result = null;
-//
-//		//Map<String,Integer> allExcluded = excludedClassesIds;
-//		//allExcluded.putAll(requiredClassesIds); // Add the required core courses to the excluded list
-//
-//      	ProgressCheckerCommon checkerCommon = new ProgressCheckerCommon();
-//
-//		RequirementCheckInput requirementCheckInput = new RequirementCheckInput();
-//		//requirementCheckInput.excludedCourseIds = allExcluded;
-//		requirementCheckInput.coursesTaken = currentStudentRecord.coursesTaken;
-//		requirementCheckInput.yearsToFinishClasses = yearsToFinishClasses;
-//		requirementCheckInput.minNbrCredits = degreeBasedCreditsWithMasters;
-//		requirementCheckInput.csce700Level = true; // Count only CSCE courses 700 and above
-//
-//        result = checkerCommon.CheckCoursesByExclusion(requirementCheckInput);
-//		result.name = "DEGREE_BASED_CREDITS_PHD";
-//
-//		List<Degree.Type> listDegrees = null;
-//		listDegrees = currentStudentRecord.previousDegrees.stream().map(x -> x.name).collect(Collectors.toList());
-//
-//		// Check to see if the candidate has a masters degree already. If so then we can return current result
-//		if (listDegrees != null)
-//		{
-//			if ((listDegrees.contains(Degree.Type.MS)) ||
-//                (listDegrees.contains(Degree.Type.MENG)) ||
-//                (listDegrees.contains(Degree.Type.MSE)))
-//        	{
-//				return result;
-//			}
-//		} // End of if for having a previous degree
-//
-//		// No masters so we need to check for total graduate courses. Keep the result of the 1st test as either result
-//		// will cause the overall test to fail
-//		boolean firstTest = false;
-//		if (result.passed == true)
-//			firstTest = true;
-//
-//		requirementCheckInput.minNbrCredits = degreeBasedCreditsWithoutMasters;
-//		requirementCheckInput.csce700Level = false;
-//		requirementCheckInput.graduateLevel = true; // Count all graduate courses
-//
-//		result = checkerCommon.CheckCoursesByExclusion(requirementCheckInput);
-//		result.name = "DEGREE_BASED_CREDITS_PHD";
-//
-//		if ((result.passed == false) || (!firstTest))
-//			result.passed = false;
-//
-//        return result;
 		return null;
-
     } // End of CheckDegreeBasedCredits method
 
 } // End of ProgressCheckerForPHD class
