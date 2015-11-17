@@ -167,6 +167,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
     RequirementCheckResult CheckThesisCredits()
     {
         RequirementCheckResult result = new RequirementCheckResult();
+        result.details = new RequirementDetails();
         /// collect all non expired thesis class hours
         int thesisCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
                 x -> thesisClassId.equals(x.course.id) &&
@@ -177,7 +178,6 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
             result.passed = true;
         else {
             result.passed = false;
-            result.details = new RequirementDetails();
             result.details.notes = new ArrayList<>();
             result.details.notes.add("Must pass " +
                     String.valueOf(thesisCredits - thesisCoursesHours) +

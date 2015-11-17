@@ -123,7 +123,7 @@ public class GRADS implements GRADSIntf
     public List<String> getStudentIDs() throws Exception
     {
         checkAuthorization(RequestType.GET_STUDENT_IDS, null);
-  		return studentRecords.stream().filter(x -> x.department.equals(this.loggedUser.department)).
+  		return studentRecords.stream().filter(x -> x.department != null && x.department.equals(this.loggedUser.department)).
                 map(x -> x.student.id).collect(Collectors.toList());
     }
 
@@ -225,7 +225,7 @@ public class GRADS implements GRADSIntf
     {
         List<RequirementCheckResult> progress =
                 programOfStudyProgressCheckers.get(record.degreeSought.name).CheckProgress(record);
-        if (record.degreeSought != null)
+        if (record.certificateSought != null)
             progress.addAll(graduateCertificateProgressChecker.CheckProgress(record));
 
         return progress;
