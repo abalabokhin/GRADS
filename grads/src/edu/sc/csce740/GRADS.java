@@ -192,6 +192,7 @@ public class GRADS implements GRADSIntf
             if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && studentDepartment.equals(loggedUser.department))
                 return;
 
+            /// TODO: fix && with || where appropriate
             if (loggedUser.role.equals(User.Role.STUDENT) && studentID.equals(loggedUser.id) &&
                     requestType.equals(RequestType.GET_TRANSCRIPT) && requestType.equals(RequestType.UPDATE_TRANSCRIPT) &&
                     requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY) && requestType.equals(RequestType.SIMULATE_COURSES))
