@@ -8,10 +8,7 @@ import edu.sc.csce740.exception.*;
 import edu.sc.csce740.model.*;
 import org.testng.collections.Lists;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,9 +34,7 @@ public class GRADS implements GRADSIntf
 	private Map<Degree.Type, ProgressCheckerIntf> programOfStudyProgressCheckers;
 
 	ProgressCheckerIntf graduateCertificateProgressChecker;
-
-
-    private String studentRecordsFileName = "Users/razrl3u1/Downloads/GRADS_Materials/data/students.txt";
+    private String studentRecordsFileName;
 
 
     public enum RequestType
@@ -97,7 +92,20 @@ public class GRADS implements GRADSIntf
         try {
             studentRecords = new Gson().fromJson(new FileReader(new File(studentRecordsFileName)), new TypeToken<List<StudentRecord>>() {
             }.getType());
+            this.studentRecordsFileName = studentRecordsFileName;
         } catch (Exception ex) {
+            throw new DBIsNotAvailableOrCorruptedException();
+        }
+    }
+
+    private void saveRecord() throws Exception {
+        String jsonString = new Gson().toJson(new FileReader(new File(studentRecordsFileName)), new TypeToken<List<StudentRecord>>() {
+        }.getType());
+        try {
+            FileWriter writer = new FileWriter(studentRecordsFileName);
+            writer.write(jsonString);
+            writer.close();
+        } catch (IOException e) {
             throw new DBIsNotAvailableOrCorruptedException();
         }
     }
@@ -176,11 +184,6 @@ public class GRADS implements GRADSIntf
         // TODO: think what to do if it is not permanent.
     }
 
-    private void saveRecord() {
-        // TODO: add code to save all the student records.
-    }
-
-
     @Override
     public ProgressSummary generateProgressSummary(String userId) throws Exception
     {
@@ -210,7 +213,6 @@ public class GRADS implements GRADSIntf
         if (studentRecords == null) {
             throw new DBIsNotLoadedException();
         }
-
 
         try {
             String studentDepartment = "";
