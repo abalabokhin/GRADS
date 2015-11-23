@@ -35,7 +35,12 @@ public class GRADS implements GRADSIntf
 	private User loggedUser = null;
 
 	private Map<Degree.Type, ProgressCheckerIntf> programOfStudyProgressCheckers;
+
 	ProgressCheckerIntf graduateCertificateProgressChecker;
+
+
+    private String studentRecordsFileName = "Users/razrl3u1/Downloads/GRADS_Materials/data/students.txt";
+
 
     public enum RequestType
     {
@@ -158,10 +163,20 @@ public class GRADS implements GRADSIntf
     	checkAuthorization(RequestType.ADD_NOTE, userId);
         /// TODO: added notes to an array list if permanent and now need to save to student record in DB against that record.
         if(permanent == true){
-            List<StudentRecord> = studentRecords.stream().filter(x -> x.student.id.equals(userId)).findFirst().get();
-                JsonArray noteList = new JsonArray();
-                noteList.add(note);
-                List noteList = new GsonBuilder().setPrettyPrinting().create().toJson(note);
+
+            JsonArray noteList = new JsonArray();
+            noteList.add(note);
+
+            String noteJson  = new GsonBuilder().setPrettyPrinting().create().toJson(noteList);
+
+            try{
+                FileWriter writeNoteJson = new FileWriter(studentRecordsFileName);
+                writeNoteJson.write(noteJson);
+                writeNoteJson.close();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+
             }
 
 
