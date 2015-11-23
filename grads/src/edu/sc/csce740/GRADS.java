@@ -221,7 +221,7 @@ public class GRADS implements GRADSIntf
             }
 
 
-            if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && studentDepartment.equals(loggedUser.department) && (requestType!=null)){
+            if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && (requestType!=null)){
                 if (requestType.equals(RequestType.GET_STUDENT_IDS) || requestType.equals(RequestType.UPDATE_TRANSCRIPT) || requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY) || requestType.equals(RequestType.SIMULATE_COURSES) || requestType.equals(RequestType.ADD_NOTE))
                     return;
             }
