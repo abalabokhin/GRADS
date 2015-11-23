@@ -1,12 +1,17 @@
 package edu.sc.csce740;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import edu.sc.csce740.exception.*;
 import edu.sc.csce740.model.*;
+import org.testng.collections.Lists;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,10 +65,10 @@ public class GRADS implements GRADSIntf
     }
 
     @Override
-    public void loadUsers(String usersFile) throws Exception
+    public void loadUsers(String usersFileName) throws Exception
     {
         try {
-            users = new Gson().fromJson(new FileReader(new File(usersFile)), new TypeToken<List<User>>() {
+            users = new Gson().fromJson(new FileReader(new File(usersFileName)), new TypeToken<List<User>>() {
             }.getType());
         } catch (Exception ex) {
             throw new DBIsNotAvailableOrCorruptedException();
@@ -71,20 +76,21 @@ public class GRADS implements GRADSIntf
     }
 
     @Override
-    public void loadCourses(String coursesFile) throws Exception {
+    public void loadCourses(String coursesFileName) throws Exception {
         try {
-            allCourses = new Gson().fromJson(new FileReader(new File(coursesFile)), new TypeToken<List<Course>>() {
+            allCourses = new Gson().fromJson(new FileReader(new File(coursesFileName)), new TypeToken<List<Course>>() {
             }.getType());
         } catch (Exception ex) {
             throw new DBIsNotAvailableOrCorruptedException();
         }
     }
 
+
     @Override
-    public void loadRecords(String recordsFile) throws Exception
+    public void loadRecords(String studentRecordsFileName) throws Exception
     {
         try {
-            studentRecords = new Gson().fromJson(new FileReader(new File(recordsFile)), new TypeToken<List<StudentRecord>>() {
+            studentRecords = new Gson().fromJson(new FileReader(new File(studentRecordsFileName)), new TypeToken<List<StudentRecord>>() {
             }.getType());
         } catch (Exception ex) {
             throw new DBIsNotAvailableOrCorruptedException();
@@ -150,8 +156,17 @@ public class GRADS implements GRADSIntf
     public void addNote(String userId, String note, Boolean permanent) throws Exception
     {
     	checkAuthorization(RequestType.ADD_NOTE, userId);
-        /// TODO: add note and save DB.
+        /// TODO: added notes to an array list if permanent and now need to save to student record in DB against that record.
+        if(permanent == true){
+            List<StudentRecord> = studentRecords.stream().filter(x -> x.student.id.equals(userId)).findFirst().get();
+                JsonArray noteList = new JsonArray();
+                noteList.add(note);
+                List noteList = new GsonBuilder().setPrettyPrinting().create().toJson(note);
+            }
+
+
     }
+
 
     @Override
     public ProgressSummary generateProgressSummary(String userId) throws Exception
@@ -174,11 +189,15 @@ public class GRADS implements GRADSIntf
     /// userId might be null if it is not required for the request.
     private void checkAuthorization(RequestType requestType, String studentID) throws Exception
     {
-        if (loggedUser == null)
+        if (loggedUser == null) {
             throw new NoUsersAreLoggedIn();
+        }
 
-        if (studentRecords == null)
+
+        if (studentRecords == null) {
             throw new DBIsNotLoadedException();
+        }
+
 
         try {
             String studentDepartment = "";
@@ -186,19 +205,24 @@ public class GRADS implements GRADSIntf
                 studentDepartment = studentRecords.stream().filter(x -> x.student.id.equals(studentID)).findFirst().get().department;
             }
 
-            if (requestType.equals(RequestType.GET_STUDENT_IDS) && loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR))
-                return;
 
-            if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && studentDepartment.equals(loggedUser.department))
-                return;
+            if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && studentDepartment.equals(loggedUser.department) && (requestType!=null)){
+                if (requestType.equals(RequestType.GET_STUDENT_IDS) || requestType.equals(RequestType.UPDATE_TRANSCRIPT) || requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY) || requestType.equals(RequestType.SIMULATE_COURSES) || requestType.equals(RequestType.ADD_NOTE))
+                    return;
+            }
+            else{
+                throw new UserHasInsufficientPrivilegeException();
+            }
 
-            /// TODO: fix && with || where appropriate
-            if (loggedUser.role.equals(User.Role.STUDENT) && studentID.equals(loggedUser.id) &&
-                    requestType.equals(RequestType.GET_TRANSCRIPT) && requestType.equals(RequestType.UPDATE_TRANSCRIPT) &&
-                    requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY) && requestType.equals(RequestType.SIMULATE_COURSES))
-                return;
 
-            throw new UserHasInsufficientPrivilegeException();
+            if (loggedUser.role.equals(User.Role.STUDENT) && studentID.equals(loggedUser.id) && (requestType != null)){
+                   if ((requestType.equals(RequestType.GET_TRANSCRIPT) || requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY) || requestType.equals(RequestType.SIMULATE_COURSES)))
+                       //TODO verify the amend request type spec for the student users. Include a new request type if necessary and write the code for that logic.
+                return;
+            }
+            else{
+                throw new UserHasInsufficientPrivilegeException();
+            }
         } catch (NoSuchElementException ex) {
             throw new InvalidDataRequestedException();
         }

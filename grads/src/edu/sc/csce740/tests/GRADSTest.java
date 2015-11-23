@@ -25,11 +25,11 @@ public class GRADSTest
     public static void test() throws Exception
     {
         GRADSIntf grads = new GRADS();
-        grads.loadUsers("DB/users.txt");
+        grads.loadUsers("/Users/razrl3u1/Downloads/GRADS_Materials/data/users.txt");
 
         grads.setUser("mmatthews");
-		grads.loadCourses("DB/courses.txt");
-		grads.loadRecords("DB/students.txt");
+		grads.loadCourses("/Users/razrl3u1/Downloads/GRADS_Materials/data/courses.txt");
+		grads.loadRecords("/Users/razrl3u1/Downloads/GRADS_Materials/data/students.txt");
 
 		// Print the student IDs
 		List<String> studendIDs = grads.getStudentIDs();
