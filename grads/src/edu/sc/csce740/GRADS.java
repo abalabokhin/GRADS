@@ -229,24 +229,23 @@ public class GRADS implements GRADSIntf
                 studentDepartment = studentRecords.stream().filter(x -> x.student.id.equals(studentID)).findFirst().get().department;
             }
 
-
-            if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && (requestType!=null)){
-                if (requestType.equals(RequestType.GET_STUDENT_IDS) || requestType.equals(RequestType.UPDATE_TRANSCRIPT) || requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY) || requestType.equals(RequestType.SIMULATE_COURSES) || requestType.equals(RequestType.ADD_NOTE))
-                    return;
-            }
-            else{
-                throw new UserHasInsufficientPrivilegeException();
-            }
-
-
-            if (loggedUser.role.equals(User.Role.STUDENT) && studentID.equals(loggedUser.id) && (requestType != null)){
-                   if ((requestType.equals(RequestType.GET_TRANSCRIPT) || requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY) || requestType.equals(RequestType.SIMULATE_COURSES)))
-                       //TODO verify the amend request type spec for the student users. Include a new request type if necessary and write the code for that logic.
+            if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && (requestType != null) && requestType.equals(RequestType.GET_STUDENT_IDS)) {
                 return;
             }
-            else{
-                throw new UserHasInsufficientPrivilegeException();
+
+            if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && studentDepartment.equals(loggedUser.department)){
+                return;
             }
+
+            if (loggedUser.role.equals(User.Role.STUDENT) && studentID.equals(loggedUser.id) && (requestType != null)
+                    && (requestType.equals(RequestType.GET_TRANSCRIPT)
+                    || requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY)
+                    || requestType.equals(RequestType.SIMULATE_COURSES)
+                    || requestType.equals(RequestType.UPDATE_TRANSCRIPT))) {
+                return;
+            }
+
+            throw new UserHasInsufficientPrivilegeException();
         } catch (NoSuchElementException ex) {
             throw new InvalidDataRequestedException();
         }
