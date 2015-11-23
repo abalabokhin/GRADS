@@ -201,8 +201,13 @@ public class GRADS implements GRADSIntf
     {
      	checkAuthorization(RequestType.SIMULATE_COURSES, userId);
         StudentRecord studentRecord = getTranscript(userId);
-        /// TODO: update studentRecord with temporary student record (temporaryStudentRecord)
-        /// TODO: add courses variable to studentRecord
+        if (temporaryStudentRecord == null) {
+            studentRecord = temporaryStudentRecord;
+        }
+        if (studentRecord.coursesTaken == null) {
+            studentRecord.coursesTaken = new ArrayList<>();
+        }
+        studentRecord.coursesTaken.addAll(courses);
         return generateProgressSummaryImpl(studentRecord);
     }
 
