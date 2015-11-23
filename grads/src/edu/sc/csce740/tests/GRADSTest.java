@@ -32,8 +32,8 @@ public class GRADSTest
 		grads.loadRecords("DB/students.txt");
 
 		// Print the student IDs
-		List<String> studendIDs = grads.getStudentIDs();
-		String representation = new GsonBuilder().setPrettyPrinting().create().toJson(studendIDs);
+		List<String> studentIDs = grads.getStudentIDs();
+		String representation = new GsonBuilder().setPrettyPrinting().create().toJson(studentIDs);
 		System.out.println(representation);
 
 		// Print the transcript

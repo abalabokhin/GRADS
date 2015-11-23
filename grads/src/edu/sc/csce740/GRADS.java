@@ -1,6 +1,7 @@
 package edu.sc.csce740;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import edu.sc.csce740.exception.*;
 import edu.sc.csce740.model.*;
@@ -139,6 +140,17 @@ public class GRADS implements GRADSIntf
     {
      	checkAuthorization(RequestType.UPDATE_TRANSCRIPT, userId);
         if (permanent) {
+                try{
+                    if(userId.type != "GPC")
+                    {
+                        System.out.println("User is not eligible to update fields");
+                    }
+                  }
+                catch(Exception IE)
+                {
+                    throw new userTypeMismatchException();
+                }
+            String finalTranscript = new GsonBuilder().setPrettyPrinting().create().toJson(transcript);
             /// TODO: throw exception if fields cannot be updated by logged user type.
             /// TODO: change db if updating is permanent
         } else {
