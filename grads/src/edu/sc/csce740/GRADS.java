@@ -99,11 +99,19 @@ public class GRADS implements GRADSIntf
     }
 
     private void saveRecord() throws Exception {
-        String jsonString = new Gson().toJson(new FileReader(new File(studentRecordsFileName)), new TypeToken<List<StudentRecord>>() {
-        }.getType());
+//
+//        JsonWriter writer = new JsonWriter(new OutputStreamWriter(out, "UTF-8"));
+//        writer.setIndentSpaces(4);
+//        writeMessagesArray(writer, messages);
+        //writer.close();
+
+
+        //String jsonString = new Gson().toJson(studentRecords);
         try {
             FileWriter writer = new FileWriter(studentRecordsFileName);
-            writer.write(jsonString);
+            JsonWriter jsonWriter = new JsonWriter(writer);
+            jsonWriter.setIndent("    ");
+            new Gson().toJson(studentRecords, studentRecords.getClass(), jsonWriter);
             writer.close();
         } catch (IOException e) {
             throw new DBIsNotAvailableOrCorruptedException();
@@ -169,19 +177,20 @@ public class GRADS implements GRADSIntf
     public void addNote(String userId, String note, Boolean permanent) throws Exception
     {
     	checkAuthorization(RequestType.ADD_NOTE, userId);
-        try {
-            if (permanent == true) {
+        if (permanent == true) {
+            try {
+
                 StudentRecord currentStudentRecord = studentRecords.stream().filter(x -> x.student.id.equals(userId)).findFirst().get();
                 if (currentStudentRecord.notes == null) {
                     currentStudentRecord.notes = new ArrayList<>();
                 }
                 currentStudentRecord.notes.add(note);
                 saveRecord();
+            } catch (NoSuchElementException ex) {
+                throw new InvalidDataRequestedException();
             }
-        } catch (NoSuchElementException ex) {
-            throw new InvalidDataRequestedException();
         }
-        // TODO: think what to do if it is not permanent.
+        /// Do nothing if note is not permanent. It is not going to influence anything.
     }
 
     @Override
