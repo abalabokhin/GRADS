@@ -99,14 +99,6 @@ public class GRADS implements GRADSIntf
     }
 
     private void saveRecord() throws Exception {
-//
-//        JsonWriter writer = new JsonWriter(new OutputStreamWriter(out, "UTF-8"));
-//        writer.setIndentSpaces(4);
-//        writeMessagesArray(writer, messages);
-        //writer.close();
-
-
-        //String jsonString = new Gson().toJson(studentRecords);
         try {
             FileWriter writer = new FileWriter(studentRecordsFileName);
             JsonWriter jsonWriter = new JsonWriter(writer);
@@ -158,13 +150,19 @@ public class GRADS implements GRADSIntf
     public StudentRecord getTranscript(String userId) throws Exception
     {
      	checkAuthorization(RequestType.GET_TRANSCRIPT, userId);
-		return studentRecords.stream().filter(x -> x.student.id.equals(userId)).findFirst().get();
+        try {
+            StudentRecord result = studentRecords.stream().filter(x -> x.student.id.equals(userId)).findFirst().get();
+            return (StudentRecord) cloneSerializableObject(result);
+        } catch (NoSuchElementException ex) {
+            throw new InvalidDataRequestedException();
+        }
     }
 
     @Override
     public void updateTranscript(String userId, StudentRecord transcript, Boolean permanent) throws Exception
     {
-     	checkAuthorization(RequestType.UPDATE_TRANSCRIPT, userId);
+        /// Assuming that the record can be updated as is 
+        checkAuthorization(RequestType.UPDATE_TRANSCRIPT, userId);
         if (permanent) {
             /// TODO: throw exception if fields cannot be updated by logged user type.
             /// TODO: change db if updating is permanent
@@ -264,8 +262,6 @@ public class GRADS implements GRADSIntf
     	result.certificateSought = studentRecord.certificateSought;
     	result.advisors = studentRecord.advisors;
        	result.committee = studentRecord.committee;
-
-    /// TODO: add requirementCheck to result and data from studentRecord
         return result;
     }
 
@@ -277,5 +273,11 @@ public class GRADS implements GRADSIntf
             progress.addAll(graduateCertificateProgressChecker.CheckProgress(record));
 
         return progress;
+    }
+
+    private Object cloneSerializableObject(Object object) {
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(object);
+        return gson.fromJson(jsonString, object.getClass());
     }
 }
