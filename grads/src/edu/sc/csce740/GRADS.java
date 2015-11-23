@@ -154,6 +154,7 @@ public class GRADS implements GRADSIntf
     }
 
     @Override
+    /// We return copy of the object it is safe to do any operations to the object, it is not gonna affect our DB.
     public StudentRecord getTranscript(String userId) throws Exception
     {
      	checkAuthorization(RequestType.GET_TRANSCRIPT, userId);
@@ -165,8 +166,33 @@ public class GRADS implements GRADSIntf
     {
         checkAuthorization(RequestType.UPDATE_TRANSCRIPT, userId);
         if (permanent) {
-            StudentRecord previousStudentData = getRawTranscript(userId);
-            /// TODO: throw exception if fields cannot be updated by logged user type.
+            StudentRecord currentStudentData = getRawTranscript(userId);
+            if (loggedUser.role.equals(User.Role.STUDENT)) {
+                if (currentStudentData.student == null) {
+                    currentStudentData.student = new Student();
+                }
+                if (transcript.student.firstName != null) {
+                    currentStudentData.student.firstName = transcript.student.firstName;
+                }
+                if (transcript.student.lastName != null) {
+                    currentStudentData.student.lastName = transcript.student.lastName;
+                }
+            } else {
+                if (transcript.department == null || !transcript.department.equals(currentStudentData.department)) {
+                    throw new UserHasInsufficientPrivilegeException();
+                }
+                currentStudentData.student = transcript.student;
+                currentStudentData.termBegan = transcript.termBegan;
+                currentStudentData.degreeSought = transcript.degreeSought;
+                currentStudentData.certificateSought = transcript.certificateSought;
+                currentStudentData.previousDegrees = transcript.previousDegrees;
+                currentStudentData.advisors = transcript.advisors;
+                currentStudentData.committee = transcript.committee;
+                currentStudentData.coursesTaken = transcript.coursesTaken;
+                currentStudentData.milestonesSet = transcript.milestonesSet;
+                currentStudentData.notes = transcript.notes;
+                currentStudentData.gpa = transcript.gpa;
+            }
             saveRecords();
         } else {
             temporaryStudentRecord = transcript;
@@ -201,7 +227,7 @@ public class GRADS implements GRADSIntf
     {
      	checkAuthorization(RequestType.SIMULATE_COURSES, userId);
         StudentRecord studentRecord = getTranscript(userId);
-        if (temporaryStudentRecord == null) {
+        if (temporaryStudentRecord != null) {
             studentRecord = temporaryStudentRecord;
         }
         if (studentRecord.coursesTaken == null) {
