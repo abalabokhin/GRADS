@@ -161,25 +161,23 @@ public class GRADS implements GRADSIntf
     public void addNote(String userId, String note, Boolean permanent) throws Exception
     {
     	checkAuthorization(RequestType.ADD_NOTE, userId);
-        /// TODO: added notes to an array list if permanent and now need to save to student record in DB against that record.
-        if(permanent == true){
-
-            JsonArray noteList = new JsonArray();
-            noteList.add(note);
-
-            String noteJson  = new GsonBuilder().setPrettyPrinting().create().toJson(noteList);
-
-            try{
-                FileWriter writeNoteJson = new FileWriter(studentRecordsFileName);
-                writeNoteJson.write(noteJson);
-                writeNoteJson.close();
-            } catch (IOException e){
-                e.printStackTrace();
+        try {
+            if (permanent == true) {
+                StudentRecord currentStudentRecord = studentRecords.stream().filter(x -> x.student.id.equals(userId)).findFirst().get();
+                if (currentStudentRecord.notes == null) {
+                    currentStudentRecord.notes = new ArrayList<>();
+                }
+                currentStudentRecord.notes.add(note);
+                saveRecord();
             }
+        } catch (NoSuchElementException ex) {
+            throw new InvalidDataRequestedException();
+        }
+        // TODO: think what to do if it is not permanent.
+    }
 
-            }
-
-
+    private void saveRecord() {
+        // TODO: add code to save all the student records.
     }
 
 
