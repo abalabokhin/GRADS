@@ -2,11 +2,9 @@ package edu.sc.csce740;
 
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import edu.sc.csce740.exception.*;
 import edu.sc.csce740.model.*;
-import org.testng.collections.Lists;
 
 import java.io.*;
 import java.util.HashMap;
@@ -14,8 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import java.util.stream.Collectors;
-import java.util.Comparator;
-import java.util.Collections;
 import java.util.*;
 
 
@@ -98,7 +94,7 @@ public class GRADS implements GRADSIntf
         }
     }
 
-    private void saveRecord() throws Exception {
+    private void saveRecords() throws Exception {
         try {
             FileWriter writer = new FileWriter(studentRecordsFileName);
             JsonWriter jsonWriter = new JsonWriter(writer);
@@ -146,26 +142,32 @@ public class GRADS implements GRADSIntf
                 map(x -> x.student.id).collect(Collectors.toList());
     }
 
-    @Override
-    public StudentRecord getTranscript(String userId) throws Exception
+    /// Get raw transcript, we do not copy it now. We use this method to have a student record to modify, for instance.
+    private StudentRecord getRawTranscript(String userId) throws Exception
     {
-     	checkAuthorization(RequestType.GET_TRANSCRIPT, userId);
         try {
             StudentRecord result = studentRecords.stream().filter(x -> x.student.id.equals(userId)).findFirst().get();
-            return (StudentRecord) cloneSerializableObject(result);
+            return result;
         } catch (NoSuchElementException ex) {
             throw new InvalidDataRequestedException();
         }
     }
 
     @Override
+    public StudentRecord getTranscript(String userId) throws Exception
+    {
+     	checkAuthorization(RequestType.GET_TRANSCRIPT, userId);
+        return (StudentRecord) cloneSerializableObject(getRawTranscript(userId));
+    }
+
+    @Override
     public void updateTranscript(String userId, StudentRecord transcript, Boolean permanent) throws Exception
     {
-        /// Assuming that the record can be updated as is 
         checkAuthorization(RequestType.UPDATE_TRANSCRIPT, userId);
         if (permanent) {
+            StudentRecord previousStudentData = getRawTranscript(userId);
             /// TODO: throw exception if fields cannot be updated by logged user type.
-            /// TODO: change db if updating is permanent
+            saveRecords();
         } else {
             temporaryStudentRecord = transcript;
         }
@@ -176,17 +178,12 @@ public class GRADS implements GRADSIntf
     {
     	checkAuthorization(RequestType.ADD_NOTE, userId);
         if (permanent == true) {
-            try {
-
-                StudentRecord currentStudentRecord = studentRecords.stream().filter(x -> x.student.id.equals(userId)).findFirst().get();
-                if (currentStudentRecord.notes == null) {
-                    currentStudentRecord.notes = new ArrayList<>();
-                }
-                currentStudentRecord.notes.add(note);
-                saveRecord();
-            } catch (NoSuchElementException ex) {
-                throw new InvalidDataRequestedException();
+            StudentRecord currentStudentRecord = getRawTranscript(userId);
+            if (currentStudentRecord.notes == null) {
+                currentStudentRecord.notes = new ArrayList<>();
             }
+            currentStudentRecord.notes.add(note);
+            saveRecords();
         }
         /// Do nothing if note is not permanent. It is not going to influence anything.
     }
@@ -215,7 +212,6 @@ public class GRADS implements GRADSIntf
         if (loggedUser == null) {
             throw new NoUsersAreLoggedIn();
         }
-
 
         if (studentRecords == null) {
             throw new DBIsNotLoadedException();
