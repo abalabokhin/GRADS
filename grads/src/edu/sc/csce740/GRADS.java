@@ -140,16 +140,16 @@ public class GRADS implements GRADSIntf
     {
      	checkAuthorization(RequestType.UPDATE_TRANSCRIPT, userId);
         if (permanent) {
-                try{
-                    if(userId.type != "GPC")
-                    {
-                        System.out.println("User is not eligible to update fields");
-                    }
-                  }
-                catch(Exception IE)
-                {
-                    throw new userTypeMismatchException();
-                }
+//                try{
+//                    if(userId != "GPC")
+//                    {
+//                        System.out.println("User is not eligible to update fields");
+//                    }
+//                  }
+//                catch(Exception IE)
+//                {
+//                    throw new userTypeMismatchException();
+//                }
             String finalTranscript = new GsonBuilder().setPrettyPrinting().create().toJson(transcript);
             /// TODO: throw exception if fields cannot be updated by logged user type.
             /// TODO: change db if updating is permanent
