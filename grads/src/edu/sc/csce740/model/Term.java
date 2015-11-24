@@ -1,5 +1,6 @@
 package edu.sc.csce740.model;
 
+
 /**
  * Created by paladin on 11/1/15.
  */
@@ -14,8 +15,19 @@ public class Term
     }
 
     public boolean isExpired(Term currentTime, int yearsToExpire) {
-        /// TODO: implement it.
-        return false;
+
+        if((currentTime.year - this.year) < yearsToExpire){
+            return false;
+        }
+        if((currentTime.year - this.year) == yearsToExpire) {
+            if(this.semester == Season.FALL && currentTime.semester != Season.FALL) {
+                return false;
+            }
+            if(this.semester == Season.SUMMER && currentTime.semester == Season.SPRING) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public Season semester;
