@@ -10,8 +10,7 @@ import java.util.List;
  * This interface is accessible to the calling methods to perform verification of
  * the eligibility checks applicable to the program of study linked to the student record.
  */
-public interface ProgressCheckerIntf
-{
+public interface ProgressCheckerIntf {
     List<RequirementCheckResult> CheckProgress(StudentRecord studentRecord) throws Exception;
     void SetCurrentTerm(Term currentTerm);
 }

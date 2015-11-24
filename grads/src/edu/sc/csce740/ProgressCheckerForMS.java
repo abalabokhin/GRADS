@@ -7,10 +7,8 @@ import java.util.*;
 /**
  * This class covers requirements related to the 'MS' program of study.
  */
-public class ProgressCheckerForMS extends ProgressCheckerBase
-{
-	public ProgressCheckerForMS()
-	{
+public class ProgressCheckerForMS extends ProgressCheckerBase {
+	public ProgressCheckerForMS() {
 		degreeName = "MS";
 		additionalCredits = 8;
 		degreeBasedCredits = 24;

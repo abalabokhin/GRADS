@@ -11,13 +11,11 @@ import java.util.Set;
 /**
  * This class covers requirements related to the 'MSE' program of study.
  */
-public class ProgressCheckerForMSE extends ProgressCheckerBase
-{
+public class ProgressCheckerForMSE extends ProgressCheckerBase {
 	Set<String> optionalClassesIds = null;
 	String workExperienceEquivalentClassId = "csce793";
 
-	public ProgressCheckerForMSE()
-	{
+	public ProgressCheckerForMSE() {
 		degreeName = "MSE";
 		additionalCredits = 15;
 		yearsToFinishDegree = 6;
@@ -67,8 +65,7 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
 	 * @return
      */
     @Override
-    RequirementCheckResult CheckAdditionalCredits()
-    {
+    RequirementCheckResult CheckAdditionalCredits() {
 		RequirementCheckResult result = new RequirementCheckResult();
 
 		/// collect all non expired csce grad classes that are from optionalClassesIds list
@@ -100,13 +97,14 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
 
 
     @Override
-    RequirementCheckResult CheckDegreeBasedCredits()
-	{
+    RequirementCheckResult CheckDegreeBasedCredits() {
+
 		return null;
 	}
 
     @Override
-    RequirementCheckResult CheckThesisCredits() { return null; }
+    RequirementCheckResult CheckThesisCredits() {
+		return null; }
 
 
 
@@ -118,8 +116,7 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
 	 * @return
 	 */
     @Override
-    RequirementCheckResult CheckExperience()
-    {
+    RequirementCheckResult CheckExperience() {
 		RequirementCheckResult result = new RequirementCheckResult();
 		if(currentStudentRecord.coursesTaken.stream().filter(x -> x.course.id.equals(workExperienceEquivalentClassId)
 				&& !x.term.isExpired(currentTerm, yearsToFinishClasses)).findFirst().isPresent()) {

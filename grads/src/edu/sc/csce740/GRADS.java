@@ -53,8 +53,7 @@ public class GRADS implements GRADSIntf
 * This enumeration lists the valid request types accepted by GRADS from all valid users roles configured to use GRADS.
 */
 
-    public enum RequestType
-    {
+    public enum RequestType {
         GET_STUDENT_IDS,
         GET_TRANSCRIPT,
         UPDATE_TRANSCRIPT,
@@ -64,8 +63,7 @@ public class GRADS implements GRADSIntf
     }
 
 
-    public GRADS()
-    {
+    public GRADS() {
         programOfStudyProgressCheckers = new HashMap<>();
         programOfStudyProgressCheckers.put(Degree.Type.MENG, new ProgressCheckerForMENG());
         programOfStudyProgressCheckers.put(Degree.Type.PHD, new ProgressCheckerForPHD());
@@ -94,8 +92,7 @@ public class GRADS implements GRADSIntf
      * @throws Exception
      */
     @Override
-    public void loadUsers(String usersFileName) throws Exception
-    {
+    public void loadUsers(String usersFileName) throws Exception {
         try {
             users = new Gson().fromJson(new FileReader(new File(getClass().getClassLoader().getResource(usersFileName).getFile())), new TypeToken<List<User>>() {
             }.getType());
@@ -128,8 +125,7 @@ public class GRADS implements GRADSIntf
      * @throws Exception
      */
     @Override
-    public void loadRecords(String studentRecordsFileName) throws Exception
-    {
+    public void loadRecords(String studentRecordsFileName) throws Exception {
         try {
             studentRecords = new Gson().fromJson(new FileReader(new File(getClass().getClassLoader().getResource(studentRecordsFileName).getFile())), new TypeToken<List<StudentRecord>>() {
             }.getType());
@@ -162,8 +158,7 @@ public class GRADS implements GRADSIntf
      * @throws Exception
      */
     @Override
-    public void setUser(String userId) throws Exception
-    {
+    public void setUser(String userId) throws Exception {
         clearSession();
         if (users == null) {
             throw new DBIsNotLoadedException("");
@@ -183,8 +178,7 @@ public class GRADS implements GRADSIntf
      * @throws Exception
      */
     @Override
-    public void clearSession() throws Exception
-    {
+    public void clearSession() throws Exception {
         this.loggedUser = null;
         temporaryStudentRecord = null;
     }
@@ -195,8 +189,7 @@ public class GRADS implements GRADSIntf
      * @return
      */
     @Override
-    public String getUser()
-    {
+    public String getUser() {
         // Question: Who is accepting? Shall we provide this info to anyone? Is it safe?
         return this.loggedUser.id;
     }
@@ -208,8 +201,7 @@ public class GRADS implements GRADSIntf
      * @throws Exception
      */
     @Override
-    public List<String> getStudentIDs() throws Exception
-    {
+    public List<String> getStudentIDs() throws Exception {
         checkAuthorization(RequestType.GET_STUDENT_IDS, null);
   		return studentRecords.stream().filter(x -> x.department != null && x.department.equals(this.loggedUser.department)).
                 map(x -> x.student.id).collect(Collectors.toList());
@@ -222,8 +214,7 @@ public class GRADS implements GRADSIntf
      * @return
      * @throws Exception
      */
-    private StudentRecord getRawTranscript(String userId) throws Exception
-    {
+    private StudentRecord getRawTranscript(String userId) throws Exception {
         try {
             StudentRecord result = studentRecords.stream().filter(x -> x.student.id.equals(userId)).findFirst().get();
             return result;
@@ -244,9 +235,9 @@ public class GRADS implements GRADSIntf
      * @throws Exception
      */
     @Override
-    public StudentRecord getTranscript(String userId) throws Exception
-    {
-     	checkAuthorization(RequestType.GET_TRANSCRIPT, userId);
+    public StudentRecord getTranscript(String userId) throws Exception {
+
+        checkAuthorization(RequestType.GET_TRANSCRIPT, userId);
         return (StudentRecord) cloneSerializableObject(getRawTranscript(userId));
     }
 
@@ -260,9 +251,10 @@ public class GRADS implements GRADSIntf
      * @throws Exception
      */
     @Override
-    public void updateTranscript(String userId, StudentRecord transcript, Boolean permanent) throws Exception
-    {
+    public void updateTranscript(String userId, StudentRecord transcript, Boolean permanent) throws Exception {
+
         checkAuthorization(RequestType.UPDATE_TRANSCRIPT, userId);
+
         if (permanent) {
             StudentRecord currentStudentData = getRawTranscript(userId);
             if (loggedUser.role.equals(User.Role.STUDENT)) {
@@ -291,7 +283,9 @@ public class GRADS implements GRADSIntf
                 currentStudentData.notes = transcript.notes;
                 currentStudentData.gpa = transcript.gpa;
             }
+
             saveRecords();
+
         } else {
             temporaryStudentRecord = transcript;
         }
@@ -307,9 +301,10 @@ public class GRADS implements GRADSIntf
      * @throws Exception
      */
     @Override
-    public void addNote(String userId, String note, Boolean permanent) throws Exception
-    {
+    public void addNote(String userId, String note, Boolean permanent) throws Exception {
+
     	checkAuthorization(RequestType.ADD_NOTE, userId);
+
         if (permanent == true) {
             StudentRecord currentStudentRecord = getRawTranscript(userId);
             if (currentStudentRecord.notes == null) {
@@ -317,6 +312,7 @@ public class GRADS implements GRADSIntf
             }
             currentStudentRecord.notes.add(note);
             saveRecords();
+
         }else{
             /// Do nothing if note is not permanent. It is not going to influence anything.
             System.out.println("Supplied Note is not added to the record permanently.");
@@ -332,10 +328,11 @@ public class GRADS implements GRADSIntf
      * @throws Exception
      */
     @Override
-    public ProgressSummary generateProgressSummary(String userId) throws Exception
-    {
+    public ProgressSummary generateProgressSummary(String userId) throws Exception {
+
         checkAuthorization(RequestType.GENERATE_PROGRESS_SUMMARY, userId);
         StudentRecord studentRecord = getTranscript(userId);
+
         return generateProgressSummaryImpl(studentRecord);
     }
 
@@ -348,10 +345,11 @@ public class GRADS implements GRADSIntf
      * @throws Exception
      */
     @Override
-    public ProgressSummary simulateCourses(String userId, List<CourseTaken> courses) throws Exception
-    {
+    public ProgressSummary simulateCourses(String userId, List<CourseTaken> courses) throws Exception {
+
      	checkAuthorization(RequestType.SIMULATE_COURSES, userId);
         StudentRecord studentRecord = getTranscript(userId);
+
         if (temporaryStudentRecord != null) {
             studentRecord = temporaryStudentRecord;
         }
@@ -359,6 +357,7 @@ public class GRADS implements GRADSIntf
             studentRecord.coursesTaken = new ArrayList<>();
         }
         studentRecord.coursesTaken.addAll(courses);
+
         return generateProgressSummaryImpl(studentRecord);
     }
 
@@ -370,8 +369,7 @@ public class GRADS implements GRADSIntf
      * @param studentID
      * @throws Exception
      */
-    private void checkAuthorization(RequestType requestType, String studentID) throws Exception
-    {
+    private void checkAuthorization(RequestType requestType, String studentID) throws Exception {
         if (loggedUser == null) {
             throw new NoUsersAreLoggedIn("");
         }
@@ -417,8 +415,8 @@ public class GRADS implements GRADSIntf
      * @return
      * @throws Exception
      */
-    ProgressSummary generateProgressSummaryImpl(StudentRecord studentRecord) throws Exception
-    {
+    ProgressSummary generateProgressSummaryImpl(StudentRecord studentRecord) throws Exception {
+
         List<RequirementCheckResult> requirementCheck = calculateMilestones(studentRecord);
         ProgressSummary result = new ProgressSummary();
 
@@ -430,6 +428,7 @@ public class GRADS implements GRADSIntf
     	result.certificateSought = studentRecord.certificateSought;
     	result.advisors = studentRecord.advisors;
        	result.committee = studentRecord.committee;
+
         return result;
     }
 
@@ -440,10 +439,11 @@ public class GRADS implements GRADSIntf
      * @return
      * @throws Exception
      */
-    private List<RequirementCheckResult> calculateMilestones(StudentRecord record) throws Exception
-    {
+    private List<RequirementCheckResult> calculateMilestones(StudentRecord record) throws Exception {
+
         List<RequirementCheckResult> progress =
                 programOfStudyProgressCheckers.get(record.degreeSought.name).CheckProgress(record);
+
         if (record.certificateSought != null) {
             progress.addAll(graduateCertificateProgressChecker.CheckProgress(record));
         }
@@ -461,6 +461,7 @@ public class GRADS implements GRADSIntf
     private Object cloneSerializableObject(Object object) {
         Gson gson = new Gson();
         String jsonString = gson.toJson(object);
+
         return gson.fromJson(jsonString, object.getClass());
     }
 }
