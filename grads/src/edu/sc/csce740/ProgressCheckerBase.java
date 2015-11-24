@@ -248,8 +248,29 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
 
     RequirementCheckResult CheckMilestones()
     {
-        // TODO: implement it.
-        return null;
+        /// Copy all the milestones
+        RequirementCheckResult result = new RequirementCheckResult();
+        result.details = new RequirementDetails();
+        result.details.notes = new ArrayList<>();
+        result.details.milestones = currentStudentRecord.milestonesSet;
+        Set<Milestone.MilestoneType> milestonesToPass = new HashSet<>(milestones);
+
+        List<Milestone.MilestoneType> passedMilestones = new ArrayList();
+        if (currentStudentRecord.milestonesSet != null) {
+            passedMilestones.addAll(
+                    currentStudentRecord.milestonesSet.stream().filter(x -> !x.term.isExpired(currentTerm, yearsToFinishDegree)).map(x -> x.milestone).collect(Collectors.toList()));
+        }
+
+        result.passed = false;
+        milestonesToPass.removeAll(passedMilestones);
+        if (milestonesToPass.isEmpty()) {
+            result.passed = true;
+        } else {
+            milestonesToPass.stream().forEach(x -> result.details.notes.add("Missing milestone " + x.toString()));
+        }
+
+        result.name = "MILESTONES_" + degreeName;
+        return result;
     }
 
     /// It uses only in one children, so basic implementation do nothing. This method overrides in MSE.
