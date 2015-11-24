@@ -6,7 +6,7 @@ import edu.sc.csce740.model.RequirementDetails;
 import java.util.*;
 
 /**
- * Created by paladin on 11/3/15.
+ * This class covers requirements related to the Information Assurance Certificate program of study.
  */
 public class ProgressCheckerForINFAS extends ProgressCheckerBase
 {
@@ -27,6 +27,15 @@ public class ProgressCheckerForINFAS extends ProgressCheckerBase
 		excludedClassesIds.add("csce799");
 	}
 
+
+
+
+
+
+    /**
+     * This method is used to compute all additional course credits completed by the student.
+     * @return
+     */
     @Override
     RequirementCheckResult CheckAdditionalCredits(){
         RequirementCheckResult result = new RequirementCheckResult();
@@ -73,8 +82,12 @@ public class ProgressCheckerForINFAS extends ProgressCheckerBase
         return result;
     }
 
+
+
     @Override
     RequirementCheckResult CheckThesisCredits() { return null; }
+
+
 
     @Override
     RequirementCheckResult CheckMilestones() { return null; }

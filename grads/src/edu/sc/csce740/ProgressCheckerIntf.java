@@ -7,7 +7,8 @@ import edu.sc.csce740.model.Term;
 import java.util.List;
 
 /**
- * Created by paladin on 11/3/15.
+ * This interface is accessible to the calling methods to perform verification of
+ * the eligibility checks applicable to the program of study linked to the student record.
  */
 public interface ProgressCheckerIntf
 {

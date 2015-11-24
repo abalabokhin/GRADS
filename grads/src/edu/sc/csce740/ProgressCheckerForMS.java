@@ -5,7 +5,7 @@ import edu.sc.csce740.model.Milestone;
 import java.util.*;
 
 /**
- * Created by paladin on 11/3/15.
+ * This class covers requirements related to the 'MS' program of study.
  */
 public class ProgressCheckerForMS extends ProgressCheckerBase
 {

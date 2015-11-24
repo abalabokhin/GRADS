@@ -17,9 +17,32 @@ import java.util.stream.Collectors;
 
 /**
  * Created by paladin on 11/5/15.
+ * This is a reusable class. All its methods can be used for any specific program of study associated with the student record.
  */
 public class ProgressCheckerBase implements ProgressCheckerIntf
 {
+
+    protected Term currentTerm;
+    protected String degreeName;
+    protected Set<String> requiredClassesIds;
+    protected int yearsToFinishClasses = 6;
+    /// number of additional classes (not included in required classes) of 7 hundred and above
+    protected int additionalCredits;
+    /// These classes are excluded from additional_credits and degree_based_credits
+    protected Set<String> excludedClassesIds;
+    protected int degreeBasedCredits;
+    protected int nonCsceCredits;
+    protected int thesisCredits;
+    protected String thesisClassId;
+    protected int yearsToFinishDegree;
+    Set<Milestone.MilestoneType> milestones;
+
+    String specialCourse = "csce798";
+    int specialCourseMaxCredits = 3;
+    StudentRecord currentStudentRecord;
+
+
+
     @Override
     public List<RequirementCheckResult> CheckProgress(StudentRecord studentRecord) throws Exception
     {
@@ -69,11 +92,26 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         return result;
     }
 
+
+
+
+    /**
+     * This method is used to assign the current term for any student record.
+     * @param currentTerm
+     */
     @Override
     public void SetCurrentTerm(Term currentTerm) {
         this.currentTerm = currentTerm;
     }
 
+
+
+
+    /**
+     * This method is used to verify the completion of all the core courses recommended
+     * for a specific program of study associated with a student record.
+     * @return
+     */
     RequirementCheckResult CheckCoreCourses()
     {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -101,11 +139,18 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         return result;
     }
 
+
+
+
+
+    /**
+     * This method is used to compute all non expired csce classes above 7 hundred excluding requiredClassesIds and excludedClassesIds.
+     * @return
+     */
     RequirementCheckResult CheckAdditionalCredits()
     {
         RequirementCheckResult result = new RequirementCheckResult();
 
-        /// collect all non expired csce classes above 7 hundred excluding requiredClassesIds and excludedClassesIds.
         int additionalCreditHoursTaken = currentStudentRecord.coursesTaken.stream().filter(
                 x -> x.course.Is7xx() && x.course.IsCSCE() &&
                         !requiredClassesIds.contains(x.course.id) && !excludedClassesIds.contains(x.course.id) &&
@@ -126,6 +171,15 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         return result;
     }
 
+
+
+
+
+    /**
+     * This method is used to compute the total number of degree based credits accrued
+     * by a student as per the list of courses completed by them within their program of study.
+     * @return
+     */
     RequirementCheckResult CheckDegreeBasedCredits()
     {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -178,6 +232,16 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         return result;
     }
 
+
+
+
+
+
+    /**
+     * This method is used to compute the total number of thesis based credits accrued
+     * by a student within their program of study.
+     * @return
+     */
     RequirementCheckResult CheckThesisCredits()
     {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -207,6 +271,16 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         return result;
     }
 
+
+
+
+
+
+    /**
+     * This method is used to compute the total time spent by the student in their
+     * current program of study and validate it against the maximum time permitted for that program of study.
+     * @return
+     */
     RequirementCheckResult CheckTimeLimit()
     {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -220,6 +294,17 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         return result;
     }
 
+
+
+
+
+
+    /**
+     * This method is used to validate the total GPA accrued by the student against
+     * the required GPA to complete their program of study.
+     * @return
+     * @throws Exception
+     */
     RequirementCheckResult CheckGPA() throws Exception
     {
         List<CourseTaken> takenGradCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
@@ -261,6 +346,17 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         return result;
     }
 
+
+
+
+
+
+
+    /**
+     * This method is used to compute the milestones achieved by the student
+     * against the list of milestones to be achieved within their program of study.
+     * @return
+     */
     RequirementCheckResult CheckMilestones()
     {
         /// Copy all the milestones
@@ -288,12 +384,32 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         return result;
     }
 
-    /// It uses only in one children, so basic implementation do nothing. This method overrides in MSE.
+
+
+
+
+
+    /**
+     * This method is used only for one program of study 'MSE' and hence is over ridden in that specific class.
+     * @return
+     */
     RequirementCheckResult CheckExperience()
     {
         return null;
     }
 
+
+
+
+
+
+    /**
+     * This method is used to compute the total GPA accrued by the student.
+
+     * @param classes
+     * @return
+     * @throws Exception
+     */
     protected Float calculateGPA(List<CourseTaken> classes) throws Exception
     {
         float sumHours = 0;
@@ -320,23 +436,5 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         return sumGP / sumHours;
     }
 
-    protected Term currentTerm;
-    protected String degreeName;
-    protected Set<String> requiredClassesIds;
-    protected int yearsToFinishClasses = 6;
-    /// number of additional classes (not included in required classes) of 7 hundred and above
-    protected int additionalCredits;
-    /// These classes are excluded from additional_credits and degree_based_credits
-    protected Set<String> excludedClassesIds;
-    protected int degreeBasedCredits;
-    protected int nonCsceCredits;
-    protected int thesisCredits;
-    protected String thesisClassId;
-    protected int yearsToFinishDegree;
-    Set<Milestone.MilestoneType> milestones;
 
-    String specialCourse = "csce798";
-    int specialCourseMaxCredits = 3;
-
-    StudentRecord currentStudentRecord;
 }

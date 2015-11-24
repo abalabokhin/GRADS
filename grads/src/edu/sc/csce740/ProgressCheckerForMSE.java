@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by paladin on 11/3/15.
+ * This class covers requirements related to the 'MSE' program of study.
  */
 public class ProgressCheckerForMSE extends ProgressCheckerBase
 {
@@ -58,6 +58,14 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
 		optionalClassesIds.add("mgsc872");
 	}
 
+
+
+
+
+    /**
+	 * This method is used to compute all additional course credits completed by the student.
+	 * @return
+     */
     @Override
     RequirementCheckResult CheckAdditionalCredits()
     {
@@ -88,6 +96,9 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
 		return result;
 	}
 
+
+
+
     @Override
     RequirementCheckResult CheckDegreeBasedCredits()
 	{
@@ -97,6 +108,15 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
     @Override
     RequirementCheckResult CheckThesisCredits() { return null; }
 
+
+
+
+
+
+    /**
+	 * This method is used to compute if the work experience equivalent course is completed by the student successfully.
+	 * @return
+	 */
     @Override
     RequirementCheckResult CheckExperience()
     {

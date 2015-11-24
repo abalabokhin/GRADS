@@ -6,7 +6,7 @@ import edu.sc.csce740.model.RequirementCheckResult;
 import java.util.*;
 
 /**
- * Created by paladin on 11/3/15.
+ * This class covers requirements related to the 'MENG' program of study.
  */
 public class ProgressCheckerForMENG extends ProgressCheckerBase
 {

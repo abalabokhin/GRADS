@@ -46,8 +46,12 @@ public class GRADS implements GRADSIntf
 	private Map<Degree.Type, ProgressCheckerIntf> programOfStudyProgressCheckers;
 
 	ProgressCheckerIntf graduateCertificateProgressChecker;
+
     private String studentRecordsFileName;
 
+/**
+* This enumeration lists the valid request types accepted by GRADS from all valid users roles configured to use GRADS.
+*/
 
     public enum RequestType
     {
@@ -58,6 +62,7 @@ public class GRADS implements GRADSIntf
         GENERATE_PROGRESS_SUMMARY,
         SIMULATE_COURSES
     }
+
 
     public GRADS()
     {
@@ -71,11 +76,23 @@ public class GRADS implements GRADSIntf
         SetCurrentTerm(new Term(2015, Term.Season.FALL));
     }
 
+
+    /**
+     * This method specifies the current academic term applicable for all student progress verification criteria within GRADS.
+     * @param currentTerm
+     */
+
     public void SetCurrentTerm(Term currentTerm) {
         graduateCertificateProgressChecker.SetCurrentTerm(currentTerm);
         programOfStudyProgressCheckers.values().stream().forEach(x -> x.SetCurrentTerm(currentTerm));
     }
 
+
+    /**
+     * This method refers to the list of valid users permitted to interact with GRADS at any given instance.
+     * @param usersFileName
+     * @throws Exception
+     */
     @Override
     public void loadUsers(String usersFileName) throws Exception
     {
@@ -87,6 +104,13 @@ public class GRADS implements GRADSIntf
         }
     }
 
+
+    /**
+     * This method refers to the list of valid courses permitted to be listed within GRADS at any given instance.
+
+     * @param coursesFileName
+     * @throws Exception
+     */
     @Override
     public void loadCourses(String coursesFileName) throws Exception {
         try {
@@ -98,6 +122,11 @@ public class GRADS implements GRADSIntf
     }
 
 
+    /**
+     * This method refers to the student information accessible with GRADS at any given instance.
+     * @param studentRecordsFileName
+     * @throws Exception
+     */
     @Override
     public void loadRecords(String studentRecordsFileName) throws Exception
     {
@@ -110,6 +139,11 @@ public class GRADS implements GRADSIntf
         }
     }
 
+
+    /**
+     * This method is designed to persist data into a desired data store permanently.
+     * @throws Exception
+     */
     private void saveRecords() throws Exception {
         try {
             FileWriter writer = new FileWriter(studentRecordsFileName);
@@ -122,6 +156,11 @@ public class GRADS implements GRADSIntf
         }
     }
 
+    /**
+     * This method provides the driver method an ability to specify the interacting user's identity to GRADS.
+     * @param userId  the id of the user to log in.
+     * @throws Exception
+     */
     @Override
     public void setUser(String userId) throws Exception
     {
@@ -137,6 +176,12 @@ public class GRADS implements GRADSIntf
         }
     }
 
+
+    /**
+     * This method provides the calling function to reset its user and student information stored during each
+     * interaction initiated by the driver method. This is expected to be called after any user session termination.
+     * @throws Exception
+     */
     @Override
     public void clearSession() throws Exception
     {
@@ -144,6 +189,11 @@ public class GRADS implements GRADSIntf
         temporaryStudentRecord = null;
     }
 
+
+    /**
+     * This method returns the userID of the user currently interacting with GRADS by means of a driver method.
+     * @return
+     */
     @Override
     public String getUser()
     {
@@ -151,6 +201,12 @@ public class GRADS implements GRADSIntf
         return this.loggedUser.id;
     }
 
+
+    /**
+     * This method returns the list of student ID's requested from GRADS by means of a driver method.
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<String> getStudentIDs() throws Exception
     {
@@ -159,7 +215,13 @@ public class GRADS implements GRADSIntf
                 map(x -> x.student.id).collect(Collectors.toList());
     }
 
-    /// Get raw transcript, we do not copy it now. We use this method to have a student record to modify, for instance.
+
+    /**
+     * This method is used to retrieve all the Student information associated with the provided userID from the data store.
+     * @param userId
+     * @return
+     * @throws Exception
+     */
     private StudentRecord getRawTranscript(String userId) throws Exception
     {
         try {
@@ -170,14 +232,33 @@ public class GRADS implements GRADSIntf
         }
     }
 
+
+    /**
+     * This method is used to make a copy of all the Student information associated
+     * with the provided userID from the getRawTranscript() method.
+     * This copy of the student record object may be utilized for any data manipulation
+     * without impacting the corresponding data from the data store. This is designed
+     * to maintain disparate objects of the same type for various verification criteria in the calling methods.
+     * @param userId  the identifier of the student.
+     * @return
+     * @throws Exception
+     */
     @Override
-    /// We return copy of the object it is safe to do any operations to the object, it is not gonna affect our DB.
     public StudentRecord getTranscript(String userId) throws Exception
     {
      	checkAuthorization(RequestType.GET_TRANSCRIPT, userId);
         return (StudentRecord) cloneSerializableObject(getRawTranscript(userId));
     }
 
+
+    /**
+     * This method is used to modify and persist the modified student information back to the permanent data store.
+     * @param userId the student ID to overwrite.
+     * @param transcript  the new student record
+     * @param permanent  a status flag indicating whether (if false) to make a
+     * temporary edit to the in-memory structure or (if true) a permanent edit.
+     * @throws Exception
+     */
     @Override
     public void updateTranscript(String userId, StudentRecord transcript, Boolean permanent) throws Exception
     {
@@ -216,6 +297,15 @@ public class GRADS implements GRADSIntf
         }
     }
 
+
+    /**
+     * This method is used to add notes to the retrieved student record.
+     * @param userId the student ID to add a note to.
+     * @param note  the note to append
+     * @param permanent  a status flag indicating whether (if false) to make a
+     * temporary edit to the in-memory structure or (if true) a permanent edit.
+     * @throws Exception
+     */
     @Override
     public void addNote(String userId, String note, Boolean permanent) throws Exception
     {
@@ -227,10 +317,20 @@ public class GRADS implements GRADSIntf
             }
             currentStudentRecord.notes.add(note);
             saveRecords();
+        }else{
+            /// Do nothing if note is not permanent. It is not going to influence anything.
+            System.out.println("Supplied Note is not added to the record permanently.");
         }
-        /// Do nothing if note is not permanent. It is not going to influence anything.
+
     }
 
+
+    /**
+     * This method is used to generate a summary of student progress using various eligibility checks relevant to their program of study.
+     * @param userId the student to generate the record for.
+     * @return
+     * @throws Exception
+     */
     @Override
     public ProgressSummary generateProgressSummary(String userId) throws Exception
     {
@@ -239,6 +339,14 @@ public class GRADS implements GRADSIntf
         return generateProgressSummaryImpl(studentRecord);
     }
 
+
+    /**
+     * This method provides a summary of the student progress based on the submitted list of prospective courses.
+     * @param userId the student to generate the record for.
+     * @param courses a list of the prospective courses.
+     * @return
+     * @throws Exception
+     */
     @Override
     public ProgressSummary simulateCourses(String userId, List<CourseTaken> courses) throws Exception
     {
@@ -254,7 +362,14 @@ public class GRADS implements GRADSIntf
         return generateProgressSummaryImpl(studentRecord);
     }
 
+
     /// userId might be null if it is not required for the request.
+    /**
+     * This method is used to authenticate requester user ID and the submitted request type.
+     * @param requestType
+     * @param studentID
+     * @throws Exception
+     */
     private void checkAuthorization(RequestType requestType, String studentID) throws Exception
     {
         if (loggedUser == null) {
@@ -271,7 +386,9 @@ public class GRADS implements GRADSIntf
                 studentDepartment = studentRecords.stream().filter(x -> x.student.id.equals(studentID)).findFirst().get().department;
             }
 
-            if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && (requestType != null) && requestType.equals(RequestType.GET_STUDENT_IDS)) {
+            if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR)
+                    && (requestType != null)
+                    && requestType.equals(RequestType.GET_STUDENT_IDS)) {
                 return;
             }
 
@@ -293,6 +410,13 @@ public class GRADS implements GRADSIntf
         }
     }
 
+
+    /**
+     * This method is used to generate the required information items for building a progress summary.
+     * @param studentRecord
+     * @return
+     * @throws Exception
+     */
     ProgressSummary generateProgressSummaryImpl(StudentRecord studentRecord) throws Exception
     {
         List<RequirementCheckResult> requirementCheck = calculateMilestones(studentRecord);
@@ -309,6 +433,13 @@ public class GRADS implements GRADSIntf
         return result;
     }
 
+
+    /**
+     * This method is used to compute the various progress milestones associated with the program of study linked to a student record.
+     * @param record
+     * @return
+     * @throws Exception
+     */
     private List<RequirementCheckResult> calculateMilestones(StudentRecord record) throws Exception
     {
         List<RequirementCheckResult> progress =
@@ -320,6 +451,13 @@ public class GRADS implements GRADSIntf
         return progress;
     }
 
+
+    /**
+     * This method is private to the calling function and creates a clone of the object passed as a parameter to it.
+     * This is used to retain the integrity of the original object and perform all manipulations only to its cloned version.
+     * @param object
+     * @return
+     */
     private Object cloneSerializableObject(Object object) {
         Gson gson = new Gson();
         String jsonString = gson.toJson(object);

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by paladin on 11/3/15.
+ * This class covers requirements related to the 'PhD' program of study.
  */
 public class ProgressCheckerForPHD extends ProgressCheckerBase
 {
@@ -54,6 +54,17 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 		mastersDegrees.add(Degree.Type.MS);
 	} // End of ProgressCheckerForPHD constructor
 
+
+
+
+
+
+
+	/**
+	 * This method is used to compute the total number of degree based credits accrued
+	 * by a student as per the list of courses completed by them within their program of study.
+ 	 * @return
+     */
     @Override
     RequirementCheckResult CheckDegreeBasedCredits()
     {
