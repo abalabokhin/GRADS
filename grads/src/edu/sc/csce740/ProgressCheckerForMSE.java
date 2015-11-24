@@ -119,32 +119,22 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
 	}
 
     @Override
-    RequirementCheckResult CheckThesisCredits()
-    {
-
-		return null;
-    }
+    RequirementCheckResult CheckThesisCredits() { return null; }
 
     @Override
     RequirementCheckResult CheckExperience()
     {
-		RequirementCheckResult result = new RequirementCheckResult()
-
-			if(currentStudentRecord.coursesTaken.stream().filter(x -> x.course.id.equals(workExperienceEquivalentClassId)
-					&& !x.term.isExpired(currentTerm, yearsToFinishClasses)).findFirst().isPresent()){
-				result.passed = true;
-
-			} else {
-				result.passed = false;
-				result.details = new RequirementDetails();
-				result.details.notes = new ArrayList<>();
-				result.details.notes.add("Must pass " +
-						String.valueOf(workExperienceEquivalentClassId));
-			}
-
-		return result;
+		RequirementCheckResult result = new RequirementCheckResult();
+		if(currentStudentRecord.coursesTaken.stream().filter(x -> x.course.id.equals(workExperienceEquivalentClassId)
+				&& !x.term.isExpired(currentTerm, yearsToFinishClasses)).findFirst().isPresent()){
+			result.passed = true;
+		} else {
+			result.passed = false;
+			result.details = new RequirementDetails();
+			result.details.notes = new ArrayList<>();
+			result.details.notes.add("Must pass " +
+					String.valueOf(workExperienceEquivalentClassId));
 		}
-
-
-
+		return result;
+	}
 }
