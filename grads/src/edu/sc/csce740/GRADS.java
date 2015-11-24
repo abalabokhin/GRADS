@@ -1,18 +1,18 @@
 package edu.sc.csce740;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonWriter;
 import edu.sc.csce740.exception.*;
 import edu.sc.csce740.model.*;
 
-import java.io.*;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 import java.util.stream.Collectors;
-import java.util.*;
 
 
 /**
@@ -67,7 +67,7 @@ public class GRADS implements GRADSIntf
             users = new Gson().fromJson(new FileReader(new File(usersFileName)), new TypeToken<List<User>>() {
             }.getType());
         } catch (Exception ex) {
-            throw new DBIsNotAvailableOrCorruptedException();
+            throw new DBIsNotAvailableOrCorruptedException(ex);
         }
     }
 
@@ -77,7 +77,7 @@ public class GRADS implements GRADSIntf
             allCourses = new Gson().fromJson(new FileReader(new File(coursesFileName)), new TypeToken<List<Course>>() {
             }.getType());
         } catch (Exception ex) {
-            throw new DBIsNotAvailableOrCorruptedException();
+            throw new DBIsNotAvailableOrCorruptedException(ex);
         }
     }
 
@@ -90,7 +90,7 @@ public class GRADS implements GRADSIntf
             }.getType());
             this.studentRecordsFileName = studentRecordsFileName;
         } catch (Exception ex) {
-            throw new DBIsNotAvailableOrCorruptedException();
+            throw new DBIsNotAvailableOrCorruptedException(ex);
         }
     }
 
@@ -101,8 +101,8 @@ public class GRADS implements GRADSIntf
             jsonWriter.setIndent("    ");
             new Gson().toJson(studentRecords, studentRecords.getClass(), jsonWriter);
             writer.close();
-        } catch (IOException e) {
-            throw new DBIsNotAvailableOrCorruptedException();
+        } catch (IOException ex) {
+            throw new DBIsNotAvailableOrCorruptedException(ex);
         }
     }
 
@@ -111,12 +111,12 @@ public class GRADS implements GRADSIntf
     {
         clearSession();
         if (users == null)
-            throw new DBIsNotLoadedException();
+            throw new DBIsNotLoadedException("");
         try {
             this.loggedUser = users.stream().filter(x -> x.id.equals(userId)).findFirst().get();
-        } catch (NoSuchElementException exception)
+        } catch (NoSuchElementException ex)
         {
-            throw new InvalidDataRequestedException();
+            throw new InvalidDataRequestedException(ex);
         }
     }
 
@@ -149,7 +149,7 @@ public class GRADS implements GRADSIntf
             StudentRecord result = studentRecords.stream().filter(x -> x.student.id.equals(userId)).findFirst().get();
             return result;
         } catch (NoSuchElementException ex) {
-            throw new InvalidDataRequestedException();
+            throw new InvalidDataRequestedException(ex);
         }
     }
 
@@ -179,7 +179,7 @@ public class GRADS implements GRADSIntf
                 }
             } else {
                 if (transcript.department == null || !transcript.department.equals(currentStudentData.department)) {
-                    throw new UserHasInsufficientPrivilegeException();
+                    throw new UserHasInsufficientPrivilegeException("");
                 }
                 currentStudentData.student = transcript.student;
                 currentStudentData.termBegan = transcript.termBegan;
@@ -241,11 +241,11 @@ public class GRADS implements GRADSIntf
     private void checkAuthorization(RequestType requestType, String studentID) throws Exception
     {
         if (loggedUser == null) {
-            throw new NoUsersAreLoggedIn();
+            throw new NoUsersAreLoggedIn("");
         }
 
         if (studentRecords == null) {
-            throw new DBIsNotLoadedException();
+            throw new DBIsNotLoadedException("Student record DB is not loaded.");
         }
 
         try {
@@ -270,9 +270,9 @@ public class GRADS implements GRADSIntf
                 return;
             }
 
-            throw new UserHasInsufficientPrivilegeException();
+            throw new UserHasInsufficientPrivilegeException("");
         } catch (NoSuchElementException ex) {
-            throw new InvalidDataRequestedException();
+            throw new InvalidDataRequestedException(ex);
         }
     }
 

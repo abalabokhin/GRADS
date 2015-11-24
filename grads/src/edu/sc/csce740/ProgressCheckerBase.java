@@ -291,7 +291,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
                     sumHours += numCredits;
                 } catch (NumberFormatException ex)
                 {
-                    throw new StringParsingException();
+                    throw new StringParsingException(ex);
                 }
             }
         }

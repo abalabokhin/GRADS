@@ -5,4 +5,12 @@ package edu.sc.csce740.exception;
  */
 public class GRADSException extends Exception
 {
+    public GRADSException(Throwable var1)
+    {
+        super(var1);
+    }
+    public GRADSException(String what)
+    {
+        super(what);
+    }
 }

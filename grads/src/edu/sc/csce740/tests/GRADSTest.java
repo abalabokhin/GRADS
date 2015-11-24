@@ -26,11 +26,11 @@ public class GRADSTest
     @org.testng.annotations.Test
     public static void test() throws Exception {
 		GRADSIntf grads = new GRADS();
-		grads.loadUsers("DB/users.txt");
+		grads.loadUsers("grads/resources/users.txt");
 
 		grads.setUser("mmatthews");
-		grads.loadCourses("DB/courses.txt");
-		grads.loadRecords("DB/students.txt");
+		grads.loadCourses("grads/resources/courses.txt");
+		grads.loadRecords("grads/resources/students.txt");
 
 		//grads.addNote("mhunt", "New Note", true);
 
