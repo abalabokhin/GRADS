@@ -1,9 +1,7 @@
 package edu.sc.csce740;
 
 import edu.sc.csce740.model.Milestone;
-import edu.sc.csce740.model.RequirementCheckInput;
 import edu.sc.csce740.model.RequirementCheckResult;
-import edu.sc.csce740.model.StudentRecord;
 
 import java.util.*;
 

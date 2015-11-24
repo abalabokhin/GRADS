@@ -3,15 +3,31 @@ package edu.sc.csce740;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonWriter;
-import edu.sc.csce740.exception.*;
-import edu.sc.csce740.model.*;
+import edu.sc.csce740.exception.DBIsNotAvailableOrCorruptedException;
+import edu.sc.csce740.exception.DBIsNotLoadedException;
+import edu.sc.csce740.exception.InvalidDataRequestedException;
+import edu.sc.csce740.exception.NoUsersAreLoggedIn;
+import edu.sc.csce740.exception.UserHasInsufficientPrivilegeException;
+import edu.sc.csce740.model.Course;
+import edu.sc.csce740.model.CourseTaken;
+import edu.sc.csce740.model.Degree;
+import edu.sc.csce740.model.ProgressSummary;
+import edu.sc.csce740.model.RequirementCheckResult;
+import edu.sc.csce740.model.Student;
+import edu.sc.csce740.model.StudentRecord;
+import edu.sc.csce740.model.Term;
+import edu.sc.csce740.model.User;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 

@@ -1,9 +1,18 @@
 package edu.sc.csce740;
 
 import edu.sc.csce740.exception.StringParsingException;
-import edu.sc.csce740.model.*;
+import edu.sc.csce740.model.CourseTaken;
+import edu.sc.csce740.model.Milestone;
+import edu.sc.csce740.model.RequirementCheckResult;
+import edu.sc.csce740.model.RequirementDetails;
+import edu.sc.csce740.model.StudentRecord;
+import edu.sc.csce740.model.Term;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
