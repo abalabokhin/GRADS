@@ -12,6 +12,8 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 {
 	int degreeBasedCreditsWithMasters = 24;
 	int degreeBasedCreditsWithoutMasters = 48;
+	int degreeBasedCredits7xx = 24;
+	Set<Degree.Type> mastersDegrees;
 
 	public ProgressCheckerForPHD()
 	{
@@ -42,13 +44,59 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 		milestones.add(Milestone.MilestoneType.DISSERTATION_SUBMITTED);
 		milestones.add(Milestone.MilestoneType.DISSERTATION_DEFENSE_SCHEDULED);
 		milestones.add(Milestone.MilestoneType.DISSERTATION_DEFENSE_PASSED);
+
+		mastersDegrees = new HashSet<>();
+		mastersDegrees.add(Degree.Type.MENG);
+		mastersDegrees.add(Degree.Type.MSE);
+		mastersDegrees.add(Degree.Type.MS);
 	} // End of ProgressCheckerForPHD constructor
 
     @Override
     RequirementCheckResult CheckDegreeBasedCredits()
     {
-		/// TODO: Implement it. See implementation in Base class as a template.
-		return null;
+		RequirementCheckResult result = new RequirementCheckResult();
+		result.name = "DEGREE_BASED_CREDITS_" + degreeName;
+		result.details = new RequirementDetails();
+
+		/// sum all credit hours from all non expired csce 7xx grad classes excluding excludedClassesIds.
+		int graduate7xxScseCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
+				x -> x.course.Is7xx() && x.course.IsCSCE() && !excludedClassesIds.contains(x.course.id) &&
+						!x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
+				y -> Integer.parseInt(y.course.numCredits)).sum();
+
+		/// collect all non expired non csce grad classes.
+		int graduateScseCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
+				x -> x.course.IsGraduate() && x.course.IsCSCE() && !excludedClassesIds.contains(x.course.id) &&
+						!x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
+				y -> Integer.parseInt(y.course.numCredits)).sum();
+
+		boolean hasMasterDegree = currentStudentRecord.previousDegrees.stream().filter(x -> mastersDegrees.contains(x.name)).findAny().isPresent();
+
+		int graduateScseCourcesLeft = Math.max(0,
+				hasMasterDegree ? degreeBasedCreditsWithMasters - graduateScseCoursesHours : degreeBasedCreditsWithoutMasters - graduateScseCoursesHours);
+		int graduateScseCources7xxLeft = Math.max(0, degreeBasedCredits7xx - graduate7xxScseCoursesHours);
+
+		if (graduateScseCourcesLeft == 0 && graduateScseCources7xxLeft == 0) {
+			result.passed = true;
+		} else {
+			result.passed = false;
+			result.details.notes = new ArrayList<>();
+			/*"Must pass 25 more hours of graduate courses.",
+                 "Must pass 11 more hours of CSCE courses numbered above 700."*/
+			if (graduateScseCourcesLeft > 0) {
+				result.details.notes.add("Must pass " + Integer.toString(graduateScseCourcesLeft) + " more hours of graduate courses.");
+			}
+			if (graduateScseCources7xxLeft > 0) {
+				result.details.notes.add("Must pass " + Integer.toString(graduateScseCources7xxLeft) + " more hours of CSCE courses numbered above 700.");
+			}
+		}
+
+		List<CourseTaken> takenGradCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
+				x -> x.course.IsGraduate() && !x.term.isExpired(currentTerm, yearsToFinishClasses) && !excludedClassesIds.contains(x.course.id)).
+				toArray(CourseTaken[]::new));
+
+		result.details.courses = takenGradCourses;
+		return result;
     } // End of CheckDegreeBasedCredits method
 
 } // End of ProgressCheckerForPHD class

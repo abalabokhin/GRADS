@@ -121,7 +121,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
 
         RequirementCheckResult result = new RequirementCheckResult();
 
-        /// collect all non expired csce grad classes excluding excludedClassesIds and csce798
+        /// collect special class hours
         int specialCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
                 x -> specialCourse.equals(x.course.id) &&
                         !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
@@ -155,11 +155,11 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         }
 
         List<CourseTaken> takenGradCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
-                x -> x.course.IsGraduate() && !x.term.isExpired(currentTerm, yearsToFinishClasses)).
+                x -> x.course.IsGraduate() && !x.term.isExpired(currentTerm, yearsToFinishClasses) && !excludedClassesIds.contains(x.course.id)).
                 toArray(CourseTaken[]::new));
 
         result.details.courses = takenGradCourses;
-        result.name = "ADDITIONAL_CREDITS_" + degreeName;
+        result.name = "DEGREE_BASED_CREDITS_" + degreeName;
 
         return result;
     }
