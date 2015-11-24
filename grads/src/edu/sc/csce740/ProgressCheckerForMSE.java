@@ -1,10 +1,8 @@
 package edu.sc.csce740;
 
-import edu.sc.csce740.model.Milestone;
-import edu.sc.csce740.model.RequirementCheckInput;
-import edu.sc.csce740.model.RequirementCheckResult;
-import edu.sc.csce740.model.StudentRecord;
+import edu.sc.csce740.model.*;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -13,7 +11,7 @@ import java.util.*;
 public class ProgressCheckerForMSE extends ProgressCheckerBase
 {
 	Set<String> optionalClassesIds = null;
-	String experienceClasseId = "csce793";
+	String workExperienceEquivalentClassId = "csce793";
 
 	public ProgressCheckerForMSE()
 	{
@@ -60,23 +58,93 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
     @Override
     RequirementCheckResult CheckAdditionalCredits()
     {
-		/// TODO: implement it! See implementation in ProgressCheckerBase as a template
- 		return null;
-    }
+        /*
+        Students​ must pass a minimum of 15 credit hours in graduate courses
+        (excluding required courses).
+        */
+
+		RequirementCheckResult result = new RequirementCheckResult();
+
+		/// collect all non expired csce grad classes excluding excludedClassesIds and csce798
+		int specialCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
+				x -> specialCourse.equals(x.course.id) &&
+						!x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
+				y -> Integer.parseInt(y.course.numCredits)).sum();
+
+		/// collect all non expired csce grad classes excluding excludedClassesIds and csce798
+		int graduateScseCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
+				x -> x.course.IsGraduate() && x.course.IsCSCE() && !specialCourse.equals(x.course.id) &&
+						!excludedClassesIds.contains(x.course.id) &&
+						!x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
+				y -> Integer.parseInt(y.course.numCredits)).sum();
+
+		/// collect all non expired non csce grad classes.
+		int graduateNonScseCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
+				x -> x.course.IsGraduate() && !x.course.IsCSCE() &&
+						!x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
+				y -> Integer.parseInt(y.course.numCredits)).sum();
+
+		int totalHours = Math.min(specialCoursesHours, specialCourseMaxCredits) + graduateScseCoursesHours +
+				Math.min(nonCsceCredits, graduateNonScseCoursesHours);
+
+		if (totalHours >= degreeBasedCredits)
+			result.passed = true;
+		else {
+			result.passed = false;
+			result.details = new RequirementDetails();
+			result.details.notes = new ArrayList<>();
+			result.details.notes.add("Must pass " +
+					String.valueOf(additionalCredits - totalHours) +
+					" more hours of graduate courses.");
+		}
+
+		List<CourseTaken> takenGradCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
+				x -> x.course.IsGraduate() && !x.term.isExpired(currentTerm, yearsToFinishClasses)).
+				toArray(CourseTaken[]::new));
+
+		result.details.courses = takenGradCourses;
+		result.name = "ADDITIONAL_CREDITS_" + degreeName;
+
+		return result;
+	}
+
+
+
+
 
     @Override
-    RequirementCheckResult CheckDegreeBasedCredits() { return null; }
+    RequirementCheckResult CheckDegreeBasedCredits()
+	{
+		return null;
+	}
 
     @Override
     RequirementCheckResult CheckThesisCredits()
     {
-        return null;
+
+		return null;
     }
 
     @Override
     RequirementCheckResult CheckExperience()
     {
-		/// TODO. Implement it.
-		return null;
-    }
+		RequirementCheckResult result = new RequirementCheckResult()
+
+			if(currentStudentRecord.coursesTaken.stream().filter(x -> x.course.id.equals(workExperienceEquivalentClassId)
+					&& !x.term.isExpired(currentTerm, yearsToFinishClasses)).findFirst().isPresent()){
+				result.passed = true;
+
+			} else {
+				result.passed = false;
+				result.details = new RequirementDetails();
+				result.details.notes = new ArrayList<>();
+				result.details.notes.add("Must pass " +
+						String.valueOf(workExperienceEquivalentClassId));
+			}
+
+		return result;
+		}
+
+
+
 }
