@@ -66,8 +66,8 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
  	 * @return
      */
     @Override
-    RequirementCheckResult CheckDegreeBasedCredits()
-    {
+    RequirementCheckResult CheckDegreeBasedCredits() {
+
 		RequirementCheckResult result = new RequirementCheckResult();
 		result.name = "DEGREE_BASED_CREDITS_" + degreeName;
 		result.details = new RequirementDetails();
@@ -95,6 +95,8 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 		} else {
 			result.passed = false;
 			result.details.notes = new ArrayList<>();
+
+
 			/*"Must pass 25 more hours of graduate courses.",
                  "Must pass 11 more hours of CSCE courses numbered above 700."*/
 			if (graduateScseCourcesLeft > 0) {
@@ -110,6 +112,7 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 				toArray(CourseTaken[]::new));
 
 		result.details.courses = takenGradCourses;
+
 		return result;
     } // End of CheckDegreeBasedCredits method
 

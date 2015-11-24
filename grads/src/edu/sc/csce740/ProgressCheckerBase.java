@@ -19,8 +19,7 @@ import java.util.stream.Collectors;
  * Created by paladin on 11/5/15.
  * This is a reusable class. All its methods can be used for any specific program of study associated with the student record.
  */
-public class ProgressCheckerBase implements ProgressCheckerIntf
-{
+public class ProgressCheckerBase implements ProgressCheckerIntf {
 
     protected Term currentTerm;
     protected String degreeName;
@@ -44,8 +43,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
 
 
     @Override
-    public List<RequirementCheckResult> CheckProgress(StudentRecord studentRecord) throws Exception
-    {
+    public List<RequirementCheckResult> CheckProgress(StudentRecord studentRecord) throws Exception {
  		currentStudentRecord = studentRecord;
         List<RequirementCheckResult> result = new ArrayList<RequirementCheckResult>();
 
@@ -101,6 +99,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
      */
     @Override
     public void SetCurrentTerm(Term currentTerm) {
+
         this.currentTerm = currentTerm;
     }
 
@@ -112,8 +111,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
      * for a specific program of study associated with a student record.
      * @return
      */
-    RequirementCheckResult CheckCoreCourses()
-    {
+    RequirementCheckResult CheckCoreCourses() {
         RequirementCheckResult result = new RequirementCheckResult();
 
         List<CourseTaken> takenRequiredCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
@@ -147,8 +145,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
      * This method is used to compute all non expired csce classes above 7 hundred excluding requiredClassesIds and excludedClassesIds.
      * @return
      */
-    RequirementCheckResult CheckAdditionalCredits()
-    {
+    RequirementCheckResult CheckAdditionalCredits() {
         RequirementCheckResult result = new RequirementCheckResult();
 
         int additionalCreditHoursTaken = currentStudentRecord.coursesTaken.stream().filter(
@@ -180,8 +177,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
      * by a student as per the list of courses completed by them within their program of study.
      * @return
      */
-    RequirementCheckResult CheckDegreeBasedCredits()
-    {
+    RequirementCheckResult CheckDegreeBasedCredits() {
         RequirementCheckResult result = new RequirementCheckResult();
 
         /// collect special class hours
@@ -242,8 +238,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
      * by a student within their program of study.
      * @return
      */
-    RequirementCheckResult CheckThesisCredits()
-    {
+    RequirementCheckResult CheckThesisCredits() {
         RequirementCheckResult result = new RequirementCheckResult();
         result.details = new RequirementDetails();
         /// collect all non expired thesis class hours
@@ -281,8 +276,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
      * current program of study and validate it against the maximum time permitted for that program of study.
      * @return
      */
-    RequirementCheckResult CheckTimeLimit()
-    {
+    RequirementCheckResult CheckTimeLimit() {
         RequirementCheckResult result = new RequirementCheckResult();
         if (!currentStudentRecord.termBegan.isExpired(currentTerm, yearsToFinishDegree)) {
             result.passed = true;
@@ -305,8 +299,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
      * @return
      * @throws Exception
      */
-    RequirementCheckResult CheckGPA() throws Exception
-    {
+    RequirementCheckResult CheckGPA() throws Exception {
         List<CourseTaken> takenGradCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
                 x -> x.course.IsGraduate() && !x.term.isExpired(currentTerm, yearsToFinishClasses)).
                 toArray(CourseTaken[]::new));
@@ -357,8 +350,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
      * against the list of milestones to be achieved within their program of study.
      * @return
      */
-    RequirementCheckResult CheckMilestones()
-    {
+    RequirementCheckResult CheckMilestones() {
         /// Copy all the milestones
         RequirementCheckResult result = new RequirementCheckResult();
         result.details = new RequirementDetails();
@@ -393,8 +385,8 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
      * This method is used only for one program of study 'MSE' and hence is over ridden in that specific class.
      * @return
      */
-    RequirementCheckResult CheckExperience()
-    {
+    RequirementCheckResult CheckExperience() {
+
         return null;
     }
 
@@ -410,13 +402,11 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
      * @return
      * @throws Exception
      */
-    protected Float calculateGPA(List<CourseTaken> classes) throws Exception
-    {
+    protected Float calculateGPA(List<CourseTaken> classes) throws Exception {
         float sumHours = 0;
         float sumGP = 0;
 
-        for (CourseTaken courseTaken : classes)
-        {
+        for (CourseTaken courseTaken : classes) {
             Integer gradeFactor = courseTaken.grade.getFactor();
             if (gradeFactor != null) {
                 try {

@@ -8,11 +8,10 @@ import java.util.*;
 /**
  * This class covers requirements related to the Information Assurance Certificate program of study.
  */
-public class ProgressCheckerForINFAS extends ProgressCheckerBase
-{
+public class ProgressCheckerForINFAS extends ProgressCheckerBase {
     int additional7xxCredits = 9;
-    public ProgressCheckerForINFAS()
-	{
+
+    public ProgressCheckerForINFAS() {
 		degreeName = "INFAS";
 		additionalCredits = 18;
         yearsToFinishDegree = 6;
@@ -61,6 +60,7 @@ public class ProgressCheckerForINFAS extends ProgressCheckerBase
         nonCSCECourses = Math.max(6, nonCSCECourses);
 
         int totalHours = CSCE5xxCourses + nonCSCECourses + CSCE7xxCourses;
+
         if (totalHours >= additionalCredits && CSCE7xxCourses >= additional7xxCredits) {
             result.passed = true;
         } else {
@@ -85,10 +85,12 @@ public class ProgressCheckerForINFAS extends ProgressCheckerBase
 
 
     @Override
-    RequirementCheckResult CheckThesisCredits() { return null; }
+    RequirementCheckResult CheckThesisCredits() {
+        return null; }
 
 
 
     @Override
-    RequirementCheckResult CheckMilestones() { return null; }
+    RequirementCheckResult CheckMilestones() {
+        return null; }
 }

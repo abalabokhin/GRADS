@@ -8,10 +8,8 @@ import java.util.*;
 /**
  * This class covers requirements related to the 'MENG' program of study.
  */
-public class ProgressCheckerForMENG extends ProgressCheckerBase
-{
-	public ProgressCheckerForMENG()
-	{
+public class ProgressCheckerForMENG extends ProgressCheckerBase {
+	public ProgressCheckerForMENG() {
 		degreeName = "MENG";
 		additionalCredits = 11;
 		degreeBasedCredits = 30;
@@ -35,8 +33,8 @@ public class ProgressCheckerForMENG extends ProgressCheckerBase
 	}
 
     @Override
-    RequirementCheckResult CheckThesisCredits()
-    {
-        return null;
+    RequirementCheckResult CheckThesisCredits() {
+
+		return null;
     }
 }
