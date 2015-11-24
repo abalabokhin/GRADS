@@ -64,7 +64,7 @@ public class GRADS implements GRADSIntf
     public void loadUsers(String usersFileName) throws Exception
     {
         try {
-            users = new Gson().fromJson(new FileReader(new File(usersFileName)), new TypeToken<List<User>>() {
+            users = new Gson().fromJson(new FileReader(new File(getClass().getClassLoader().getResource(usersFileName).getFile())), new TypeToken<List<User>>() {
             }.getType());
         } catch (Exception ex) {
             throw new DBIsNotAvailableOrCorruptedException(ex);
@@ -74,7 +74,7 @@ public class GRADS implements GRADSIntf
     @Override
     public void loadCourses(String coursesFileName) throws Exception {
         try {
-            allCourses = new Gson().fromJson(new FileReader(new File(coursesFileName)), new TypeToken<List<Course>>() {
+            allCourses = new Gson().fromJson(new FileReader(new File(getClass().getClassLoader().getResource(coursesFileName).getFile())), new TypeToken<List<Course>>() {
             }.getType());
         } catch (Exception ex) {
             throw new DBIsNotAvailableOrCorruptedException(ex);
@@ -86,7 +86,7 @@ public class GRADS implements GRADSIntf
     public void loadRecords(String studentRecordsFileName) throws Exception
     {
         try {
-            studentRecords = new Gson().fromJson(new FileReader(new File(studentRecordsFileName)), new TypeToken<List<StudentRecord>>() {
+            studentRecords = new Gson().fromJson(new FileReader(new File(getClass().getClassLoader().getResource(studentRecordsFileName).getFile())), new TypeToken<List<StudentRecord>>() {
             }.getType());
             this.studentRecordsFileName = studentRecordsFileName;
         } catch (Exception ex) {
