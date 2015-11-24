@@ -323,9 +323,9 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method is used to generate a summary of student progress using various eligibility checks relevant to their program of study.
-     * @param userId the student to generate the record for.
-     * @return progress summary 
-     * @throws Exception
+     * @param userId id of the student whose progress summary is being analyzed
+     * @return  student record to the method generateProgressSummaryImpl
+     * @throws Exception when unable to return the record
      */
     @Override
     public ProgressSummary generateProgressSummary(String userId) throws Exception {
@@ -341,8 +341,8 @@ public class GRADS implements GRADSIntf
      * This method provides a summary of the student progress based on the submitted list of prospective courses.
      * @param userId the student to generate the record for.
      * @param courses a list of the prospective courses.
-     * @return
-     * @throws Exception
+     * @return student record of the user whose progress was analyzed by simulating courses to be taken in the future terms
+     * @throws Exception unable to simulate courses and return student record
      */
     @Override
     public ProgressSummary simulateCourses(String userId, List<CourseTaken> courses) throws Exception {
@@ -380,16 +380,17 @@ public class GRADS implements GRADSIntf
 
         try {
             String studentDepartment = "";
+            // when a student id value exists
             if (studentID != null) {
                 studentDepartment = studentRecords.stream().filter(x -> x.student.id.equals(studentID)).findFirst().get().department;
             }
-
+            //if the role of the user logged in is GPC
             if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR)
                     && (requestType != null)
                     && requestType.equals(RequestType.GET_STUDENT_IDS)) {
                 return;
             }
-
+            //
             if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && studentDepartment.equals(loggedUser.department)){
                 return;
             }
