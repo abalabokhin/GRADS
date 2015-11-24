@@ -16,7 +16,7 @@ public class Term
 
     public boolean isExpired(Term currentTime, int yearsToExpire) {
 
-        if((currentTime.year - this.year) < yearsToExpire){
+        if((currentTime.year - this.year) < yearsToExpire) {
             return false;
         }
         if((currentTime.year - this.year) == yearsToExpire) {

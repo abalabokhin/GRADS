@@ -33,13 +33,13 @@ public class ProgressCheckerForINFAS extends ProgressCheckerBase
     RequirementCheckResult CheckAdditionalCredits(){
         RequirementCheckResult result = new RequirementCheckResult();
         /// collect all non expired csce classes above 7 hundred excluding requiredClassesIds and excludedClassesIds.
-        int CSCE7xxcourses = currentStudentRecord.coursesTaken.stream().filter(
+        int CSCE7xxCourses = currentStudentRecord.coursesTaken.stream().filter(
                 x -> x.course.Is7xx() && x.course.IsCSCE() &&
                         !requiredClassesIds.contains(x.course.id) && !excludedClassesIds.contains(x.course.id) &&
                         !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
                 y -> Integer.parseInt(y.course.numCredits)).sum();
 
-        int nonCSCEcourses = currentStudentRecord.coursesTaken.stream().filter(
+        int nonCSCECourses = currentStudentRecord.coursesTaken.stream().filter(
                 x -> !x.course.IsCSCE() && x.course.IsGraduate() &&
                         !requiredClassesIds.contains(x.course.id) && !excludedClassesIds.contains(x.course.id) &&
                         !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
@@ -51,10 +51,10 @@ public class ProgressCheckerForINFAS extends ProgressCheckerBase
                         !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
                 y -> Integer.parseInt(y.course.numCredits)).sum();
 
-        nonCSCEcourses = Math.max(6, nonCSCEcourses);
+        nonCSCECourses = Math.max(6, nonCSCECourses);
 
-        int totalHours = CSCE5xxCourses + nonCSCEcourses + CSCE7xxcourses;
-        if (totalHours >= additionalCredits && CSCE7xxcourses >= additional7xxCredits) {
+        int totalHours = CSCE5xxCourses + nonCSCECourses + CSCE7xxCourses;
+        if (totalHours >= additionalCredits && CSCE7xxCourses >= additional7xxCredits) {
             result.passed = true;
         } else {
             result.passed = false;
@@ -65,9 +65,9 @@ public class ProgressCheckerForINFAS extends ProgressCheckerBase
                         String.valueOf(additionalCredits - totalHours) +
                         " more hours that are not core courses.");
             }
-            if (CSCE7xxcourses < additional7xxCredits) {
+            if (CSCE7xxCourses < additional7xxCredits) {
                 result.details.notes.add("Must pass " +
-                        String.valueOf(additional7xxCredits - CSCE7xxcourses) +
+                        String.valueOf(additional7xxCredits - CSCE7xxCourses) +
                         " more hours of CSCE courses numbered above 700 that are not core courses.");
             }
         }

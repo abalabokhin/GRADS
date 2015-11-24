@@ -18,36 +18,44 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         List<RequirementCheckResult> result = new ArrayList<RequirementCheckResult>();
 
         RequirementCheckResult checkingCoreCoursesResult = CheckCoreCourses();
-        if (checkingCoreCoursesResult != null)
+        if (checkingCoreCoursesResult != null) {
             result.add(checkingCoreCoursesResult);
+        }
 
         RequirementCheckResult checkingAdditionalCreditsResult = CheckAdditionalCredits();
-        if (checkingAdditionalCreditsResult != null)
+        if (checkingAdditionalCreditsResult != null) {
             result.add(checkingAdditionalCreditsResult);
+        }
 
         RequirementCheckResult checkingDegreeBasedCreditsResult = CheckDegreeBasedCredits();
-        if (checkingDegreeBasedCreditsResult != null)
+        if (checkingDegreeBasedCreditsResult != null) {
             result.add(checkingDegreeBasedCreditsResult);
+        }
 
         RequirementCheckResult checkingThesisCreditsResult = CheckThesisCredits();
-        if (checkingThesisCreditsResult != null)
+        if (checkingThesisCreditsResult != null) {
             result.add(checkingThesisCreditsResult);
+        }
 
         RequirementCheckResult checkingTimeLimitResult = CheckTimeLimit();
-        if (checkingTimeLimitResult != null)
+        if (checkingTimeLimitResult != null) {
             result.add(checkingTimeLimitResult);
+        }
 
         RequirementCheckResult checkingGPAResult = CheckGPA();
-        if (checkingGPAResult != null)
-            result.add(checkingGPAResult );
+        if (checkingGPAResult != null) {
+            result.add(checkingGPAResult);
+        }
 
         RequirementCheckResult checkingMilestonesResult = CheckMilestones();
-        if (checkingMilestonesResult != null)
-             result.add(checkingMilestonesResult);
+        if (checkingMilestonesResult != null) {
+            result.add(checkingMilestonesResult);
+        }
 
         RequirementCheckResult checkingExperienceResult = CheckExperience();
-        if (checkingExperienceResult != null)
+        if (checkingExperienceResult != null) {
             result.add(checkingExperienceResult);
+        }
 
         return result;
     }
@@ -95,9 +103,9 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
                         !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
                 y -> Integer.parseInt(y.course.numCredits)).sum();
 
-        if (additionalCreditHoursTaken >= additionalCredits)
+        if (additionalCreditHoursTaken >= additionalCredits) {
             result.passed = true;
-        else {
+        } else {
             result.passed = false;
             result.details = new RequirementDetails();
             result.details.notes = new ArrayList<>();
@@ -140,9 +148,9 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
             /// Add 9 hour if there is a certificate.
             tempDegreeBasedCredits += 9;
         }
-        if (totalHours >= tempDegreeBasedCredits)
+        if (totalHours >= tempDegreeBasedCredits) {
             result.passed = true;
-        else {
+        } else {
             result.passed = false;
             result.details = new RequirementDetails();
             result.details.notes = new ArrayList<>();
@@ -171,9 +179,9 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
                         !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
                 y -> Integer.parseInt(y.course.numCredits)).sum();
 
-        if (thesisCoursesHours >= thesisCredits)
+        if (thesisCoursesHours >= thesisCredits) {
             result.passed = true;
-        else {
+        } else {
             result.passed = false;
             result.details.notes = new ArrayList<>();
             result.details.notes.add("Must pass " +
@@ -193,10 +201,11 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
     RequirementCheckResult CheckTimeLimit()
     {
         RequirementCheckResult result = new RequirementCheckResult();
-        if (!currentStudentRecord.termBegan.isExpired(currentTerm, yearsToFinishDegree))
+        if (!currentStudentRecord.termBegan.isExpired(currentTerm, yearsToFinishDegree)) {
             result.passed = true;
-        else
+        } else {
             result.passed = false;
+        }
 
         result.name = "TIME_LIMIT_" + degreeName;
         return result;
@@ -296,8 +305,9 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
             }
         }
 
-        if (sumHours == 0)
+        if (sumHours == 0) {
             return null;
+        }
         return sumGP / sumHours;
     }
 

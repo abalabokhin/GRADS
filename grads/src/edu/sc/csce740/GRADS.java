@@ -110,8 +110,9 @@ public class GRADS implements GRADSIntf
     public void setUser(String userId) throws Exception
     {
         clearSession();
-        if (users == null)
+        if (users == null) {
             throw new DBIsNotLoadedException("");
+        }
         try {
             this.loggedUser = users.stream().filter(x -> x.id.equals(userId)).findFirst().get();
         } catch (NoSuchElementException ex)
@@ -296,8 +297,9 @@ public class GRADS implements GRADSIntf
     {
         List<RequirementCheckResult> progress =
                 programOfStudyProgressCheckers.get(record.degreeSought.name).CheckProgress(record);
-        if (record.certificateSought != null)
+        if (record.certificateSought != null) {
             progress.addAll(graduateCertificateProgressChecker.CheckProgress(record));
+        }
 
         return progress;
     }

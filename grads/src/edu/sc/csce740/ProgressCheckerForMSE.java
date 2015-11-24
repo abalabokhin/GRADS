@@ -65,9 +65,9 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
 				x -> optionalClassesIds.contains(x.course.id) && !x.term.isExpired(currentTerm, yearsToFinishClasses) && x.course.Is7xx()).mapToInt(
 				y -> Integer.parseInt(y.course.numCredits)).sum();
 
-		if (optionalCoursesHours >= additionalCredits)
+		if (optionalCoursesHours >= additionalCredits) {
 			result.passed = true;
-		else {
+		} else {
 			result.passed = false;
 			result.details = new RequirementDetails();
 			result.details.notes = new ArrayList<>();
@@ -99,7 +99,7 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase
     {
 		RequirementCheckResult result = new RequirementCheckResult();
 		if(currentStudentRecord.coursesTaken.stream().filter(x -> x.course.id.equals(workExperienceEquivalentClassId)
-				&& !x.term.isExpired(currentTerm, yearsToFinishClasses)).findFirst().isPresent()){
+				&& !x.term.isExpired(currentTerm, yearsToFinishClasses)).findFirst().isPresent()) {
 			result.passed = true;
 		} else {
 			result.passed = false;
