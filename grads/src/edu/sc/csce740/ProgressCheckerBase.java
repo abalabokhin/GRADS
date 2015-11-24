@@ -111,14 +111,6 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
 
     RequirementCheckResult CheckDegreeBasedCredits()
     {
-        /*
-        Students​ must pass a minimum of 24 credit hours in graduate courses
-        (excluding CSCE 799).
-        Students may count a maximum of 6 hours in non­CSCE courses
-        At most, 3 hours of CSCE 798 may be applied toward the degree.
-        CSCE 797 may not be applied toward the degree.
-        */
-
         RequirementCheckResult result = new RequirementCheckResult();
 
         /// collect special class hours
@@ -143,14 +135,19 @@ public class ProgressCheckerBase implements ProgressCheckerIntf
         int totalHours = Math.min(specialCoursesHours, specialCourseMaxCredits) + graduateScseCoursesHours +
                 Math.min(nonCsceCredits, graduateNonScseCoursesHours);
 
-        if (totalHours >= degreeBasedCredits)
+        int tempDegreeBasedCredits = degreeBasedCredits;
+        if (currentStudentRecord.certificateSought != null) {
+            /// Add 9 hour if there is a certificate.
+            tempDegreeBasedCredits += 9;
+        }
+        if (totalHours >= tempDegreeBasedCredits)
             result.passed = true;
         else {
             result.passed = false;
             result.details = new RequirementDetails();
             result.details.notes = new ArrayList<>();
             result.details.notes.add("Must pass " +
-                            String.valueOf(additionalCredits - totalHours) +
+                            String.valueOf(tempDegreeBasedCredits - totalHours) +
                             " more hours of graduate courses.");
         }
 
