@@ -60,7 +60,7 @@
         "firstName": "Tara",
         "lastName": "Crumb",
         "role": "STUDENT",
-        "department": "MECHANICAL_ENGINEERING"
+        "department": "COMPUTER_SCIENCE"
     },
     {
         "id": "ereas",
@@ -94,6 +94,13 @@
         "id": "jcostner",
         "firstName": "June",
         "lastName": "Costner",
+        "role": "STUDENT",
+        "department": "COMPUTER_SCIENCE"
+    },
+    {
+        "id": "khilton",
+        "firstName": "Kimmie",
+        "lastName": "Hilton",
         "role": "STUDENT",
         "department": "COMPUTER_SCIENCE"
     }
