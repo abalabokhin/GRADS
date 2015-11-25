@@ -16,8 +16,9 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Created by paladin on 11/5/15.
- * This is a reusable class. All its methods can be used for any specific program of study associated with the student record.
+ * The base class to check progress. It has common implementations for different Requirements.
+ * If common implementation is not enough for any of the specific implementations based on Programs of Study or
+ * special certificate, the appropriate methods of this class can be override.
  */
 public class ProgressCheckerBase implements ProgressCheckerIntf {
 
@@ -40,8 +41,13 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
     int specialCourseMaxCredits = 3;
     StudentRecord currentStudentRecord;
 
-
-
+    /**
+     * Call all the method to generate different type of requirements. The ones that returns null are ignored.
+     * The list of non null ones is returned.
+     * @param studentRecord the student record to generate the progress.
+     * @return List of RequirementCheckResult with generated progress elements.
+     * @throws Exception if any error happens.
+     */
     @Override
     public List<RequirementCheckResult> CheckProgress(StudentRecord studentRecord) throws Exception {
  		currentStudentRecord = studentRecord;
@@ -90,12 +96,9 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
         return result;
     }
 
-
-
-
     /**
      * This method is used to assign the current term for any student record.
-     * @param currentTerm
+     * @param currentTerm term to set as current.
      */
     @Override
     public void SetCurrentTerm(Term currentTerm) {
@@ -103,13 +106,10 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
         this.currentTerm = currentTerm;
     }
 
-
-
-
     /**
      * This method is used to verify the completion of all the core courses recommended
      * for a specific program of study associated with a student record.
-     * @return
+     * @return RequirementCheckResult for this check or null if it is not relevant for this program.
      */
     RequirementCheckResult CheckCoreCourses() {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -137,13 +137,9 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
         return result;
     }
 
-
-
-
-
     /**
      * This method is used to compute all non expired csce classes above 7 hundred excluding requiredClassesIds and excludedClassesIds.
-     * @return
+     * @return RequirementCheckResult for this check or null if it is not relevant for this program.
      */
     RequirementCheckResult CheckAdditionalCredits() {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -168,14 +164,10 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
         return result;
     }
 
-
-
-
-
     /**
      * This method is used to compute the total number of degree based credits accrued
      * by a student as per the list of courses completed by them within their program of study.
-     * @return
+     * @return RequirementCheckResult for this check or null if it is not relevant for this program.
      */
     RequirementCheckResult CheckDegreeBasedCredits() {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -228,15 +220,10 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
         return result;
     }
 
-
-
-
-
-
     /**
      * This method is used to compute the total number of thesis based credits accrued
      * by a student within their program of study.
-     * @return
+     * @return RequirementCheckResult for this check or null if it is not relevant for this program.
      */
     RequirementCheckResult CheckThesisCredits() {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -266,15 +253,10 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
         return result;
     }
 
-
-
-
-
-
     /**
      * This method is used to compute the total time spent by the student in their
      * current program of study and validate it against the maximum time permitted for that program of study.
-     * @return
+     * @return RequirementCheckResult for this check or null if it is not relevant for this program.
      */
     RequirementCheckResult CheckTimeLimit() {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -288,16 +270,11 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
         return result;
     }
 
-
-
-
-
-
     /**
      * This method is used to validate the total GPA accrued by the student against
      * the required GPA to complete their program of study.
-     * @return
-     * @throws Exception
+     * @return RequirementCheckResult for this check or null if it is not relevant for this program.
+     * @throws Exception can be re-thrown from calculateGPA method.
      */
     RequirementCheckResult CheckGPA() throws Exception {
         List<CourseTaken> takenGradCourses = Arrays.asList(currentStudentRecord.coursesTaken.stream().filter(
@@ -339,16 +316,10 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
         return result;
     }
 
-
-
-
-
-
-
     /**
      * This method is used to compute the milestones achieved by the student
      * against the list of milestones to be achieved within their program of study.
-     * @return
+     * @return RequirementCheckResult for this check or null if it is not relevant for this program.
      */
     RequirementCheckResult CheckMilestones() {
         /// Copy all the milestones
@@ -376,31 +347,20 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
         return result;
     }
 
-
-
-
-
-
     /**
-     * This method is used only for one program of study 'MSE' and hence is over ridden in that specific class.
-     * @return
+     * This method is used only for one program of study 'MSE' and hence is implemented in that specific class.
+     * Basic implementation returns null.
+     * @return RequirementCheckResult for this check or null if it is not relevant for this program.
      */
     RequirementCheckResult CheckExperience() {
-
         return null;
     }
 
-
-
-
-
-
     /**
      * This method is used to compute the total GPA accrued by the student.
-
-     * @param classes
-     * @return
-     * @throws Exception
+     * @param classes Data to calculate GPA - classes with credit hours and grades.
+     * @return calculated GPA or null if it is not possible to calculate GPA (eg list of classes empty).
+     * @throws StringParsingException if nu,ber of credit hours cannot be parsed.
      */
     protected Float calculateGPA(List<CourseTaken> classes) throws Exception {
         float sumHours = 0;
@@ -425,6 +385,4 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
         }
         return sumGP / sumHours;
     }
-
-
 }

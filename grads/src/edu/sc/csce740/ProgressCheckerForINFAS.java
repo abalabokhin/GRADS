@@ -12,6 +12,9 @@ import java.util.HashSet;
 public class ProgressCheckerForINFAS extends ProgressCheckerBase {
     int additional7xxCredits = 9;
 
+    /**
+     * Default constructor, set all the necessary data to the exact certificate.
+     */
     public ProgressCheckerForINFAS() {
 		degreeName = "INFAS";
 		additionalCredits = 18;
@@ -27,15 +30,6 @@ public class ProgressCheckerForINFAS extends ProgressCheckerBase {
 		excludedClassesIds.add("csce799");
 	}
 
-
-
-
-
-
-    /**
-     * This method is used to compute all additional course credits completed by the student.
-     * @return number of additional credits accrued by the student
-     */
     @Override
     RequirementCheckResult CheckAdditionalCredits(){
         RequirementCheckResult result = new RequirementCheckResult();
@@ -83,13 +77,9 @@ public class ProgressCheckerForINFAS extends ProgressCheckerBase {
         return result;
     }
 
-
-
     @Override
     RequirementCheckResult CheckThesisCredits() {
         return null; }
-
-
 
     @Override
     RequirementCheckResult CheckMilestones() {

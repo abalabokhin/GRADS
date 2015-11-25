@@ -24,6 +24,9 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase {
 	int degreeBasedCredits7xx = 24;
 	Set<Degree.Type> mastersDegrees;
 
+	/**
+	 * Default constructor, set all the necessary data to the exact program of study.
+	 */
 	public ProgressCheckerForPHD() {
 		degreeName = "PHD";
 		additionalCredits = 20;
@@ -59,17 +62,6 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase {
 		mastersDegrees.add(Degree.Type.MS);
 	} // End of ProgressCheckerForPHD constructor
 
-
-
-
-
-
-
-	/**
-	 * This method is used to compute the total number of degree based credits accrued
-	 * by a student as per the list of courses completed by them within their program of study.
- 	 * @return courses taken and degree based credits earned
-     */
     @Override
     RequirementCheckResult CheckDegreeBasedCredits() {
 
