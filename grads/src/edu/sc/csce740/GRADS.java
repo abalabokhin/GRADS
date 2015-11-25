@@ -31,26 +31,26 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 
-/** GRADS class implements the following methods namely
- * SetCurrentTerm -sets the current term
+/** GRADS class implements main functionality of GRADS system. It has methods:
+ * SetCurrentTerm - sets the current term
  * loadUsers - loads the file containing the list of users
  * loadCourses - loads the file containing the list of courses
  * loadRecords - loads the file containing the list of records
- * saveRecords - saves the changes made to a student record permanently in the DB
+ * saveRecords - saves the changes made to a student record permanently in the same file that was used to load Records.
  * setUser - sets the user ID
- * clearSession - clears the changes made temporarily
+ * clearSession - clear user id and temporary student record
  * getUser - gets the user that is currently logged in
  * getStudentIDs - gets the list of student IDs
- * getRawTranscript - gets the raw (permanent) transcript of the student
- * getTranscript - gets the trancript(temporary) of the student
- * updateTranscript - updates the transcript of the student
+ * getRawTranscript - gets the pointer to the actual transcript of the student. The record can be changed via the pointer
+ * getTranscript - gets the copy of student transcript. It is safe to change anything in this structure
+ * updateTranscript - updates the transcript of the student, temporary or permanently
  * addNote - appends notes to a student's record
  * ProgressSummary - analyzes the progress of a student in the degree enrolled in
  * simulateCourses - simulates the progress made by the student if the courses added will be taken in the future
- * checkAuthorization - checks the authorization of the user
- * generateProgressSummaryImpl - generates the progress summary of the student
+ * checkAuthorization - checks the authorization of the user to requested student by request, uses internally.
+ * generateProgressSummaryImpl - implementation of generation the progress summary of the student
  * calculateMilestones - calculates the milestones for the degree the student is enrolled in
- * cloneSerializableObject - clones the object being passed
+ * cloneSerializableObject - clones any java object by json serialization.
  *
  */
 public class GRADS implements GRADSIntf
@@ -80,7 +80,9 @@ public class GRADS implements GRADSIntf
         GENERATE_PROGRESS_SUMMARY,
         SIMULATE_COURSES
     }
-
+    /**
+     * Default constructor, set progress checkers for different programs and default current term.
+     */
 
     public GRADS() {
         programOfStudyProgressCheckers = new HashMap<>();
@@ -108,7 +110,7 @@ public class GRADS implements GRADSIntf
     /**
      * This method refers to the list of valid users permitted to interact with GRADS at any given instance.
      * @param usersFileName file containing a list of users
-     * @throws Exception if usersFile not found
+     * @throws DBIsNotAvailableOrCorruptedException if usersFile is not found
      */
     @Override
     public void loadUsers(String usersFileName) throws Exception {
@@ -123,9 +125,8 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method refers to the list of valid courses permitted to be listed within GRADS at any given instance.
-
      * @param coursesFileName file containing a list of courses
-     * @throws Exception if coursesFile not found
+     * @throws DBIsNotAvailableOrCorruptedException if coursesFile is not found
      */
     @Override
     public void loadCourses(String coursesFileName) throws Exception {
@@ -140,8 +141,8 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method refers to the student information accessible with GRADS at any given instance.
-     * @param studentRecordsFileName file containing a list of student records
-     * @throws Exception if studentRecordsFileName is not found
+     * @param studentRecordsFileName file containing a list of student records, it is saves inside class for saveRecords method.
+     * @throws DBIsNotAvailableOrCorruptedException if studentRecordsFileName is not found
      */
     @Override
     public void loadRecords(String studentRecordsFileName) throws Exception {
@@ -156,8 +157,8 @@ public class GRADS implements GRADSIntf
 
 
     /**
-     * This method is designed to persist data into a desired data store permanently.
-     * @throws Exception if DB is not available
+     * This method is designed to store all student records into the same file that was used in loadRecords method.
+     * @throws DBIsNotAvailableOrCorruptedException if the DB file cannot be written.
      */
     private void saveRecords() throws Exception {
         try {
@@ -174,7 +175,8 @@ public class GRADS implements GRADSIntf
     /**
      * This method provides the driver method an ability to specify the interacting user's identity to GRADS.
      * @param userId  the id of the user to log in.
-     * @throws Exception if invalid data is requested
+     * @throws DBIsNotLoadedException if users are not loaded by calling loadUsers
+     * @throws InvalidDataRequestedException if userId cannot be found in DB.
      */
     @Override
     public void setUser(String userId) throws Exception {
@@ -194,7 +196,7 @@ public class GRADS implements GRADSIntf
     /**
      * This method provides the calling function to reset its user and student information stored during each
      * interaction initiated by the driver method. This is expected to be called after any user session termination.
-     * @throws Exception
+     * @throws Exception No exception can be thrown from the method. But it is required from the interface.
      */
     @Override
     public void clearSession() throws Exception {
@@ -214,9 +216,9 @@ public class GRADS implements GRADSIntf
 
 
     /**
-     * This method returns the list of student ID's requested from GRADS by means of a driver method.
-     * @return returns student records for the given department (here CSCE)
-     * @throws Exception
+     * This method returns the list of student ID's requested from GRADS by GPC.
+     * @return returns student records for the department of logged GPC user.
+     * @throws UserHasInsufficientPrivilegeException if user tole is STUDENT, not GPC.
      */
     @Override
     public List<String> getStudentIDs() throws Exception {
@@ -227,10 +229,11 @@ public class GRADS implements GRADSIntf
 
 
     /**
-     * This method is used to retrieve all the Student information associated with the provided userID from the data store.
+     * This method is used to retrieve raw pointer to StudentRecord by studentId. It uses internally and it is not
+     * returned to the user, because it can be used to change data into the record.
      * @param userId id of the user whose raw transcript is requested
      * @return returns the raw transcript of the student
-     * @throws Exception if the student raw transcript does not exist in DB
+     * @throws InvalidDataRequestedException if the student raw transcript does not exist in DB
      */
     private StudentRecord getRawTranscript(String userId) throws Exception {
         try {
@@ -250,7 +253,7 @@ public class GRADS implements GRADSIntf
      * to maintain disparate objects of the same type for various verification criteria in the calling methods.
      * @param userId  the identifier of the student.
      * @return returns the student's record
-     * @throws Exception if transcript is not available
+     * @throws InvalidDataRequestedException if the student raw transcript does not exist in DB
      */
     @Override
     public StudentRecord getTranscript(String userId) throws Exception {
@@ -261,12 +264,13 @@ public class GRADS implements GRADSIntf
 
 
     /**
-     * This method is used to modify and persist the modified student information back to the permanent data store.
+     * This method is used to modify and persist the modified student information back to the permanent data store or
+     * save provided StudentRecord temporary to use into simulateCourses method.
      * @param userId the student ID to overwrite.
-     * @param transcript  the new student record
-     * @param permanent  a status flag indicating whether (if false) to make a
-     * temporary edit to the in-memory structure or (if true) a permanent edit.
-     * @throws Exception
+     * @param transcript the new student record
+     * @param permanent a status flag indicating whether (if false) to make a
+     * temporary edit to the in-memory structure or (if true) a permanent edit into DB file.
+     * @throws Exception if any error happens.
      */
     @Override
     public void updateTranscript(String userId, StudentRecord transcript, Boolean permanent) throws Exception {
@@ -316,8 +320,9 @@ public class GRADS implements GRADSIntf
      * @param userId the student ID to add a note to.
      * @param note  the note to append
      * @param permanent  a status flag indicating whether (if false) to make a
-     * temporary edit to the in-memory structure or (if true) a permanent edit.
-     * @throws Exception when unable to add note to the student record
+     * temporary edit to the in-memory structure or (if true) a permanent edit. Because temporary note influence nothing,
+     *                   only permanently saving notes is implemented.
+     * @throws Exception when unable to add note to the student record by any reasons.
      */
     @Override
     public void addNote(String userId, String note, Boolean permanent) throws Exception {
@@ -335,17 +340,17 @@ public class GRADS implements GRADSIntf
 
         }else{
             // Do nothing if note is not permanent. It is not going to influence anything.
-            System.out.println("Supplied Note is not added to the record permanently.");
         }
-
     }
 
 
     /**
-     * This method is used to generate a summary of student progress using various eligibility checks relevant to their program of study.
+     * This method is used to generate a summary of student progress using various eligibility checks
+     * relevant to their program of study. It finds student record data in DB and call generateProgressSummaryImpl
+     * method for actual creating Summary Report.
      * @param userId id of the student whose progress summary is being analyzed
      * @return  student record to the method generateProgressSummaryImpl
-     * @throws Exception when unable to return the record
+     * @throws Exception when unable to return the record by any reasons.
      */
     @Override
     public ProgressSummary generateProgressSummary(String userId) throws Exception {
@@ -359,6 +364,9 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method provides a summary of the student progress based on the submitted list of prospective courses.
+     * If temporary StudentRecord is saved after calling updateTranscript method, this one is used to create the report.
+     * It finds student record data in DB or use temporary data, add new courses and call generateProgressSummaryImpl
+     * method for actual creating the report.
      * @param userId the student to generate the record for.
      * @param courses a list of the prospective courses.
      * @return student record of the user whose progress was analyzed by simulating courses to be taken in the future terms
@@ -370,7 +378,7 @@ public class GRADS implements GRADSIntf
      	checkAuthorization(RequestType.SIMULATE_COURSES, userId);
         StudentRecord studentRecord = getTranscript(userId);
         //check to ensure that the temporary student record is not empty
-        if (temporaryStudentRecord != null) {
+        if (temporaryStudentRecord != null && temporaryStudentRecord.student.id.equals(userId)) {
             studentRecord = temporaryStudentRecord;
         }
         //check to ensure that the student has taken zero courses
@@ -383,12 +391,14 @@ public class GRADS implements GRADSIntf
     }
 
 
-    /// userId might be null if it is not required for the request.
     /**
-     * This method is used to authenticate requester user ID and the submitted request type.
+     * This method is used to authenticate requester user ID, the submitted request type and the logged user role.
      * @param requestType
-     * @param studentID id of the student whose record is being requested
-     * @throws Exception when invalid data is requested
+     * @param studentID id of the student whose record is being requested. It might be null if it is not required for the request.
+     * @throws NoUsersAreLoggedIn if no users are logged in.
+     * @throws DBIsNotLoadedException if student records DB is not loaded.
+     * @throws UserHasInsufficientPrivilegeException if the user does not have enough privileges for this request
+     * @throws InvalidDataRequestedException if there are no records with studentID in DB.
      */
     private void checkAuthorization(RequestType requestType, String studentID) throws Exception {
         //check to ensure that a user is logged in
@@ -433,8 +443,9 @@ public class GRADS implements GRADSIntf
 
 
     /**
-     * This method is used to generate the required information items for building a progress summary.
-     * @param studentRecord
+     * This method is used to generate the required information items for building a progress summary based on provided StudentRecord
+     * @param studentRecord it has all the info to generate the report.
+     *                      It should be safe to change this object (it must be cloned before providing to this method).
      * @return returns a copy of the student record now stored as result
      * @throws Exception if unable to return result
      */
@@ -458,6 +469,7 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method is used to compute the various progress milestones associated with the program of study linked to a student record.
+     * Different implementations of ProgressCheckerIntf interface is called for different program of study or INFAS.
      * @param record
      * @return returns the progress made by a student
      * @throws Exception when unable to calculate milestones
