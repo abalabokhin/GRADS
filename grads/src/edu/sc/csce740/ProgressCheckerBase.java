@@ -16,7 +16,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Created by paladin on 11/5/15.
  * This is a reusable class. All its methods can be used for any specific program of study associated with the student record.
  */
 public class ProgressCheckerBase implements ProgressCheckerIntf {
@@ -25,9 +24,9 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
     protected String degreeName;
     protected Set<String> requiredClassesIds;
     protected int yearsToFinishClasses = 6;
-    /// number of additional classes (not included in required classes) of 7 hundred and above
+    // number of additional classes (not included in required classes) of 7 hundred and above
     protected int additionalCredits;
-    /// These classes are excluded from additional_credits and degree_based_credits
+    // These classes are excluded from additional_credits and degree_based_credits
     protected Set<String> excludedClassesIds;
     protected int degreeBasedCredits;
     protected int nonCsceCredits;
@@ -48,41 +47,49 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
         List<RequirementCheckResult> result = new ArrayList<RequirementCheckResult>();
 
         RequirementCheckResult checkingCoreCoursesResult = CheckCoreCourses();
+        //check to ensure core courses returns a value
         if (checkingCoreCoursesResult != null) {
             result.add(checkingCoreCoursesResult);
         }
 
         RequirementCheckResult checkingAdditionalCreditsResult = CheckAdditionalCredits();
+        // check to ensure additional credits are not null
         if (checkingAdditionalCreditsResult != null) {
             result.add(checkingAdditionalCreditsResult);
         }
 
         RequirementCheckResult checkingDegreeBasedCreditsResult = CheckDegreeBasedCredits();
+        // check to ensure degree based credits are not null
         if (checkingDegreeBasedCreditsResult != null) {
             result.add(checkingDegreeBasedCreditsResult);
         }
 
         RequirementCheckResult checkingThesisCreditsResult = CheckThesisCredits();
+        //check to ensure thesis credits are not null
         if (checkingThesisCreditsResult != null) {
             result.add(checkingThesisCreditsResult);
         }
 
         RequirementCheckResult checkingTimeLimitResult = CheckTimeLimit();
+        // check to ensure that the time limit is already calculated
         if (checkingTimeLimitResult != null) {
             result.add(checkingTimeLimitResult);
         }
 
         RequirementCheckResult checkingGPAResult = CheckGPA();
+        // check to ensure that a value for the GPA is already calculated
         if (checkingGPAResult != null) {
             result.add(checkingGPAResult);
         }
 
         RequirementCheckResult checkingMilestonesResult = CheckMilestones();
+        // check to ensure that the milestones are already calculated
         if (checkingMilestonesResult != null) {
             result.add(checkingMilestonesResult);
         }
 
         RequirementCheckResult checkingExperienceResult = CheckExperience();
+        //check to ensure the student already has work experience
         if (checkingExperienceResult != null) {
             result.add(checkingExperienceResult);
         }
@@ -95,7 +102,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
 
     /**
      * This method is used to assign the current term for any student record.
-     * @param currentTerm
+     * @param currentTerm includes the current semester and current year that the student is enrolled in
      */
     @Override
     public void SetCurrentTerm(Term currentTerm) {
@@ -109,7 +116,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
     /**
      * This method is used to verify the completion of all the core courses recommended
      * for a specific program of study associated with a student record.
-     * @return
+     * @return the list of core courses already taken and adds notes that explicitly states the list of core courses yet to be taken
      */
     RequirementCheckResult CheckCoreCourses() {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -143,7 +150,8 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
 
     /**
      * This method is used to compute all non expired csce classes above 7 hundred excluding requiredClassesIds and excludedClassesIds.
-     * @return
+     * @return the list of courses 700 and above in the CSCE department excluding the core courses as long as the time
+     * limit is not expired and also adds some notes
      */
     RequirementCheckResult CheckAdditionalCredits() {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -175,25 +183,25 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
     /**
      * This method is used to compute the total number of degree based credits accrued
      * by a student as per the list of courses completed by them within their program of study.
-     * @return
+     * @return list of courses already taken along with notes indicating the degree based credits that are not yet taken
      */
     RequirementCheckResult CheckDegreeBasedCredits() {
         RequirementCheckResult result = new RequirementCheckResult();
 
-        /// collect special class hours
+        // collect special class hours
         int specialCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
                 x -> specialCourse.equals(x.course.id) &&
                         !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
                 y -> Integer.parseInt(y.course.numCredits)).sum();
 
-        /// collect all non expired csce grad classes excluding excludedClassesIds and csce798
+        // collect all non expired csce grad classes excluding excludedClassesIds and csce798
         int graduateScseCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
             x -> x.course.IsGraduate() && x.course.IsCSCE() && !specialCourse.equals(x.course.id) &&
                     !excludedClassesIds.contains(x.course.id) &&
                     !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
             y -> Integer.parseInt(y.course.numCredits)).sum();
 
-        /// collect all non expired non csce grad classes.
+        // collect all non expired non csce grad classes.
         int graduateNonScseCoursesHours = currentStudentRecord.coursesTaken.stream().filter(
                 x -> x.course.IsGraduate() && !x.course.IsCSCE() &&
                         !x.term.isExpired(currentTerm, yearsToFinishClasses)).mapToInt(
@@ -204,7 +212,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
 
         int tempDegreeBasedCredits = degreeBasedCredits;
         if (currentStudentRecord.certificateSought != null) {
-            /// Add 9 hour if there is a certificate.
+            // Add 9 hour if there is a certificate.
             tempDegreeBasedCredits += 9;
         }
         if (totalHours >= tempDegreeBasedCredits) {
@@ -236,7 +244,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
     /**
      * This method is used to compute the total number of thesis based credits accrued
      * by a student within their program of study.
-     * @return
+     * @return the number of thesis credit hours already taken along with notes if any thesis credit hours are remaining
      */
     RequirementCheckResult CheckThesisCredits() {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -274,7 +282,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
     /**
      * This method is used to compute the total time spent by the student in their
      * current program of study and validate it against the maximum time permitted for that program of study.
-     * @return
+     * @return the number of years the student is allowed to finish a particular degree along with the degree name
      */
     RequirementCheckResult CheckTimeLimit() {
         RequirementCheckResult result = new RequirementCheckResult();
@@ -296,7 +304,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
     /**
      * This method is used to validate the total GPA accrued by the student against
      * the required GPA to complete their program of study.
-     * @return
+     * @return the current GPA of the student based on the courses already taken
      * @throws Exception
      */
     RequirementCheckResult CheckGPA() throws Exception {
@@ -348,7 +356,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
     /**
      * This method is used to compute the milestones achieved by the student
      * against the list of milestones to be achieved within their program of study.
-     * @return
+     * @return milestones completed and pending milestones for a given degree
      */
     RequirementCheckResult CheckMilestones() {
         /// Copy all the milestones
@@ -383,7 +391,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
 
     /**
      * This method is used only for one program of study 'MSE' and hence is over ridden in that specific class.
-     * @return
+     * @return null
      */
     RequirementCheckResult CheckExperience() {
 
@@ -398,9 +406,9 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
     /**
      * This method is used to compute the total GPA accrued by the student.
 
-     * @param classes
-     * @return
-     * @throws Exception
+     * @param classes list of courses taken by a student along with credit hours
+     * @return Grade Point Average(GPA)
+     * @throws Exception if no courses have been completed by the student
      */
     protected Float calculateGPA(List<CourseTaken> classes) throws Exception {
         float sumHours = 0;
@@ -410,7 +418,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
             Integer gradeFactor = courseTaken.grade.getFactor();
             if (gradeFactor != null) {
                 try {
-                    float numCredits = Float.parseFloat(courseTaken.course.numCredits);
+                    float numCredits = Flo  at.parseFloat(courseTaken.course.numCredits);
                     sumGP += (numCredits * gradeFactor);
                     sumHours += numCredits;
                 } catch (NumberFormatException ex)

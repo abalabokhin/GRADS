@@ -96,7 +96,7 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method specifies the current academic term applicable for all student progress verification criteria within GRADS.
-     * @param currentTerm involves current semester and current year enrolled
+     * @param currentTerm includes the current semester and current year enrolled
      */
 
     public void SetCurrentTerm(Term currentTerm) {
