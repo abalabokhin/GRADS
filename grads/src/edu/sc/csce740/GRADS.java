@@ -31,7 +31,26 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 
-/**
+/** GRADS class implements the following methods namely
+ * SetCurrentTerm -sets the current term
+ * loadUsers - loads the file containing the list of users
+ * loadCourses - loads the file containing the list of courses
+ * loadRecords - loads the file containing the list of records
+ * saveRecords - saves the changes made to a student record permanently in the DB
+ * setUser - sets the user ID
+ * clearSession - clears the changes made temporarily
+ * getUser - gets the user that is currently logged in
+ * getStudentIDs - gets the list of student IDs
+ * getRawTranscript - gets the raw (permanent) transcript of the student
+ * getTranscript - gets the trancript(temporary) of the student
+ * updateTranscript - updates the transcript of the student
+ * addNote - appends notes to a student's record
+ * ProgressSummary - analyzes the progress of a student in the degree enrolled in
+ * simulateCourses - simulates the progress made by the student if the courses added will be taken in the future
+ * checkAuthorization - checks the authorization of the user
+ * generateProgressSummaryImpl - generates the progress summary of the student
+ * calculateMilestones - calculates the milestones for the degree the student is enrolled in
+ * cloneSerializableObject - clones the object being passed
  *
  */
 public class GRADS implements GRADSIntf
@@ -257,6 +276,7 @@ public class GRADS implements GRADSIntf
 
         if (permanent) {
             StudentRecord currentStudentData = getRawTranscript(userId);
+            //check to ensure if user is of role student
             if (loggedUser.role.equals(User.Role.STUDENT)) {
                 if (currentStudentData.student == null) {
                     currentStudentData.student = new Student();
@@ -307,6 +327,7 @@ public class GRADS implements GRADSIntf
 
         if (permanent == true) {
             StudentRecord currentStudentRecord = getRawTranscript(userId);
+            //if the current student record has no already existing notes
             if (currentStudentRecord.notes == null) {
                 currentStudentRecord.notes = new ArrayList<>();
             }
@@ -349,10 +370,11 @@ public class GRADS implements GRADSIntf
 
      	checkAuthorization(RequestType.SIMULATE_COURSES, userId);
         StudentRecord studentRecord = getTranscript(userId);
-
+        //check to ensure that the temporary student record is not empty
         if (temporaryStudentRecord != null) {
             studentRecord = temporaryStudentRecord;
         }
+        //check to ensure that the student has taken zero courses
         if (studentRecord.coursesTaken == null) {
             studentRecord.coursesTaken = new ArrayList<>();
         }
@@ -370,7 +392,7 @@ public class GRADS implements GRADSIntf
      * @throws Exception when invalid data is requested
      */
     private void checkAuthorization(RequestType requestType, String studentID) throws Exception {
-        //check to ensure 
+        //check to ensure that a user is logged in
         if (loggedUser == null) {
             throw new NoUsersAreLoggedIn("");
         }
