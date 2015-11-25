@@ -11,6 +11,12 @@ import java.util.List;
  * the eligibility checks applicable to the program of study linked to the student record.
  */
 public interface ProgressCheckerIntf {
+    /**
+     * Method generates progress for the exact implementation of the interface and the excat student records.
+     * @param studentRecord the student record to generate the progress.
+     * @return List of RequirementCheckResult with generated progress elements.
+     * @throws Exception if any error happens.
+     */
     List<RequirementCheckResult> CheckProgress(StudentRecord studentRecord) throws Exception;
     void SetCurrentTerm(Term currentTerm);
 }

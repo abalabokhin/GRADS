@@ -9,6 +9,10 @@ import java.util.HashSet;
  * This class covers requirements related to the 'MENG' program of study.
  */
 public class ProgressCheckerForMENG extends ProgressCheckerBase {
+
+	/**
+	 * Default constructor, set all the necessary data to the exact program of study.
+	 */
 	public ProgressCheckerForMENG() {
 		degreeName = "MENG";
 		additionalCredits = 11;
@@ -34,7 +38,6 @@ public class ProgressCheckerForMENG extends ProgressCheckerBase {
 
     @Override
     RequirementCheckResult CheckThesisCredits() {
-
 		return null;
     }
 }

@@ -8,6 +8,10 @@ import java.util.HashSet;
  * This class covers requirements related to the 'MS' program of study.
  */
 public class ProgressCheckerForMS extends ProgressCheckerBase {
+
+	/**
+	 * Default constructor, set all the necessary data to the exact program of study.
+	 */
 	public ProgressCheckerForMS() {
 		degreeName = "MS";
 		additionalCredits = 8;

@@ -20,6 +20,9 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase {
 	Set<String> optionalClassesIds = null;
 	String workExperienceEquivalentClassId = "csce793";
 
+	/**
+	 * Default constructor, set all the necessary data to the exact program of study.
+	 */
 	public ProgressCheckerForMSE() {
 		degreeName = "MSE";
 		additionalCredits = 15;
@@ -61,14 +64,6 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase {
 		optionalClassesIds.add("mgsc872");
 	}
 
-
-
-
-
-    /**
-	 * This method is used to compute all additional course credits completed by the student.
-	 * @return additional credits accrued by the student
-     */
     @Override
     RequirementCheckResult CheckAdditionalCredits() {
 		RequirementCheckResult result = new RequirementCheckResult();
@@ -98,9 +93,6 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase {
 		return result;
 	}
 
-
-
-
     @Override
     RequirementCheckResult CheckDegreeBasedCredits() {
 
@@ -111,15 +103,6 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase {
     RequirementCheckResult CheckThesisCredits() {
 		return null; }
 
-
-
-
-
-
-    /**
-	 * This method is used to compute if the work experience equivalent course is completed by the student successfully.
-	 * @return
-	 */
     @Override
     RequirementCheckResult CheckExperience() {
 		RequirementCheckResult result = new RequirementCheckResult();
