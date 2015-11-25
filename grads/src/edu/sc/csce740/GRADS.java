@@ -68,10 +68,9 @@ public class GRADS implements GRADSIntf
 
     private String studentRecordsFileName;
 
-/**
-* This enumeration lists the valid request types accepted by GRADS from all valid users roles configured to use GRADS.
-*/
-
+    /**
+    * This enumeration lists the valid request types accepted by GRADS from all valid users roles configured to use GRADS.
+    */
     public enum RequestType {
         GET_STUDENT_IDS,
         GET_TRANSCRIPT,
@@ -80,10 +79,10 @@ public class GRADS implements GRADSIntf
         GENERATE_PROGRESS_SUMMARY,
         SIMULATE_COURSES
     }
+
     /**
      * Default constructor, set progress checkers for different programs and default current term.
      */
-
     public GRADS() {
         programOfStudyProgressCheckers = new HashMap<>();
         programOfStudyProgressCheckers.put(Degree.Type.MENG, new ProgressCheckerForMENG());
@@ -100,7 +99,6 @@ public class GRADS implements GRADSIntf
      * This method specifies the current academic term applicable for all student progress verification criteria within GRADS.
      * @param currentTerm includes the current semester and current year enrolled
      */
-
     public void SetCurrentTerm(Term currentTerm) {
         graduateCertificateProgressChecker.SetCurrentTerm(currentTerm);
         programOfStudyProgressCheckers.values().stream().forEach(x -> x.SetCurrentTerm(currentTerm));

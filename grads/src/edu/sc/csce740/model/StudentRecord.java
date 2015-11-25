@@ -3,7 +3,7 @@ package edu.sc.csce740.model;
 import java.util.List;
 
 /**
- * model the relevant aspects of the data structure that stores a student’s information
+ *  Class that accumulate StudentRecord information. It uses only to store the data and does not have any methods.
  */
 public class StudentRecord
 {

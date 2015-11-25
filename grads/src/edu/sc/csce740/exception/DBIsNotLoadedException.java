@@ -1,7 +1,7 @@
 package edu.sc.csce740.exception;
 
 /**
- * Created by paladin on 11/15/15.
+ *  Exception that shows that DB is not loaded but some data is requested form this DB.
  */
 public class DBIsNotLoadedException extends GRADSException {
     public DBIsNotLoadedException(Throwable var1) {

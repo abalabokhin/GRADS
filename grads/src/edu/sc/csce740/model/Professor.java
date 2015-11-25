@@ -1,8 +1,8 @@
 package edu.sc.csce740.model;
 
 /**
- * model the relevant aspects of the data structure that stores professor information
- * */
+ *  Class that extends Human class with department.
+ */
 public class Professor extends Human
 {
     public String department;

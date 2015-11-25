@@ -1,7 +1,7 @@
 package edu.sc.csce740.exception;
 
 /**
- * Created by paladin on 11/8/15.
+ *  Exception that shows user has no privileges fro the request.
  */
 public class UserHasInsufficientPrivilegeException extends GRADSException
 {

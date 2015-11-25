@@ -1,8 +1,7 @@
 package edu.sc.csce740.model;
 
 /**
- * model the relevant aspects of the data structure that stores a result of checking
- * a program of study requirements.
+ *  Class that accumulate RequirementCheckResult information. It uses only to store the data and does not have any methods.
  */
 public class RequirementCheckResult
 {

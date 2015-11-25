@@ -1,7 +1,7 @@
 package edu.sc.csce740.model;
 
 /**
- * model the relevant aspects of the data structure that stores generic people information such names
+ *  Class that accumulate firstName and  lastName into the same class. It uses as base for other classes.
  */
 public class Human
 {

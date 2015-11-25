@@ -1,7 +1,7 @@
 package edu.sc.csce740.exception;
 
 /**
- * Created by paladin on 11/8/15.
+ *  Exception that shows that DB does not have that information that is requested. Usually it is userID.
  */
 public class InvalidDataRequestedException extends GRADSException
 {

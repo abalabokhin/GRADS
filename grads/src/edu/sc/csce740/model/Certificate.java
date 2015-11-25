@@ -1,7 +1,7 @@
 package edu.sc.csce740.model;
 
 /**
- * models the relevant aspects of the data structure that stores certificate information
+ *  Class that accumulate Certificate information. It uses only to store the data and does not have any methods.
  */
 public class Certificate
 {

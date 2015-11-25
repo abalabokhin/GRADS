@@ -1,11 +1,18 @@
 package edu.sc.csce740.model;
 
 /**
+<<<<<<< HEAD
+ *  Class that accumulate Milestone information. It uses only to store the data and does not have any methods.
+=======
  * models the relevant aspects of the data structure that stores milestone information
  * related to the student’s progress
+>>>>>>> aa3e80255b4c0e5fdef3754f09e81655c7beaca9
  */
 public class Milestone
 {
+    /**
+     *  Enum to represent all the possible milestones.
+     */
     public enum MilestoneType {
         DISSERTATION_ADVISOR_SELECTED,
         PROGRAM_OF_STUDY_SUBMITTED,

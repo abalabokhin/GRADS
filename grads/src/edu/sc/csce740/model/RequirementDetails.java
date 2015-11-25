@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- *models the relevant aspects of the data structure that stores
- *  program requirements such as gpa, courses completed and milestones.
+ *  Class that accumulate RequirementDetails information. It uses only to store the data and does not have any methods.
  */
 public class RequirementDetails
 {
