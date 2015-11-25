@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 
 
 /**
- * Created by paladin on 10/31/15.
+ *
  */
 public class GRADS implements GRADSIntf
 {
@@ -77,7 +77,7 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method specifies the current academic term applicable for all student progress verification criteria within GRADS.
-     * @param currentTerm
+     * @param currentTerm involves current semester and current year enrolled
      */
 
     public void SetCurrentTerm(Term currentTerm) {
@@ -88,8 +88,8 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method refers to the list of valid users permitted to interact with GRADS at any given instance.
-     * @param usersFileName
-     * @throws Exception
+     * @param usersFileName file containing a list of users
+     * @throws Exception if usersFile not found
      */
     @Override
     public void loadUsers(String usersFileName) throws Exception {
@@ -105,8 +105,8 @@ public class GRADS implements GRADSIntf
     /**
      * This method refers to the list of valid courses permitted to be listed within GRADS at any given instance.
 
-     * @param coursesFileName
-     * @throws Exception
+     * @param coursesFileName file containing a list of courses
+     * @throws Exception if coursesFile not found
      */
     @Override
     public void loadCourses(String coursesFileName) throws Exception {
@@ -121,8 +121,8 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method refers to the student information accessible with GRADS at any given instance.
-     * @param studentRecordsFileName
-     * @throws Exception
+     * @param studentRecordsFileName file containing a list of student records
+     * @throws Exception if studentRecordsFileName is not found
      */
     @Override
     public void loadRecords(String studentRecordsFileName) throws Exception {
@@ -138,7 +138,7 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method is designed to persist data into a desired data store permanently.
-     * @throws Exception
+     * @throws Exception if DB is not available
      */
     private void saveRecords() throws Exception {
         try {
@@ -155,7 +155,7 @@ public class GRADS implements GRADSIntf
     /**
      * This method provides the driver method an ability to specify the interacting user's identity to GRADS.
      * @param userId  the id of the user to log in.
-     * @throws Exception
+     * @throws Exception if invalid data is requested
      */
     @Override
     public void setUser(String userId) throws Exception {
@@ -186,7 +186,7 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method returns the userID of the user currently interacting with GRADS by means of a driver method.
-     * @return
+     * @return returns the id of the logged user
      */
     @Override
     public String getUser() {
@@ -197,7 +197,7 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method returns the list of student ID's requested from GRADS by means of a driver method.
-     * @return
+     * @return returns student records for the given department (here CSCE)
      * @throws Exception
      */
     @Override
@@ -210,9 +210,9 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method is used to retrieve all the Student information associated with the provided userID from the data store.
-     * @param userId
-     * @return
-     * @throws Exception
+     * @param userId id of the user whose raw transcript is requested
+     * @return returns the raw transcript of the student
+     * @throws Exception if the student raw transcript does not exist in DB
      */
     private StudentRecord getRawTranscript(String userId) throws Exception {
         try {
@@ -231,8 +231,8 @@ public class GRADS implements GRADSIntf
      * without impacting the corresponding data from the data store. This is designed
      * to maintain disparate objects of the same type for various verification criteria in the calling methods.
      * @param userId  the identifier of the student.
-     * @return
-     * @throws Exception
+     * @return returns the student's record
+     * @throws Exception if transcript is not available
      */
     @Override
     public StudentRecord getTranscript(String userId) throws Exception {
@@ -298,7 +298,7 @@ public class GRADS implements GRADSIntf
      * @param note  the note to append
      * @param permanent  a status flag indicating whether (if false) to make a
      * temporary edit to the in-memory structure or (if true) a permanent edit.
-     * @throws Exception
+     * @throws Exception when unable to add note to the student record
      */
     @Override
     public void addNote(String userId, String note, Boolean permanent) throws Exception {
@@ -314,7 +314,7 @@ public class GRADS implements GRADSIntf
             saveRecords();
 
         }else{
-            /// Do nothing if note is not permanent. It is not going to influence anything.
+            // Do nothing if note is not permanent. It is not going to influence anything.
             System.out.println("Supplied Note is not added to the record permanently.");
         }
 
@@ -323,9 +323,9 @@ public class GRADS implements GRADSIntf
 
     /**
      * This method is used to generate a summary of student progress using various eligibility checks relevant to their program of study.
-     * @param userId the student to generate the record for.
-     * @return
-     * @throws Exception
+     * @param userId id of the student whose progress summary is being analyzed
+     * @return  student record to the method generateProgressSummaryImpl
+     * @throws Exception when unable to return the record
      */
     @Override
     public ProgressSummary generateProgressSummary(String userId) throws Exception {
@@ -341,8 +341,8 @@ public class GRADS implements GRADSIntf
      * This method provides a summary of the student progress based on the submitted list of prospective courses.
      * @param userId the student to generate the record for.
      * @param courses a list of the prospective courses.
-     * @return
-     * @throws Exception
+     * @return student record of the user whose progress was analyzed by simulating courses to be taken in the future terms
+     * @throws Exception unable to simulate courses and return student record
      */
     @Override
     public ProgressSummary simulateCourses(String userId, List<CourseTaken> courses) throws Exception {
@@ -380,16 +380,17 @@ public class GRADS implements GRADSIntf
 
         try {
             String studentDepartment = "";
+            // when a student id value exists
             if (studentID != null) {
                 studentDepartment = studentRecords.stream().filter(x -> x.student.id.equals(studentID)).findFirst().get().department;
             }
-
+            //if the role of the user logged in is GPC
             if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR)
                     && (requestType != null)
                     && requestType.equals(RequestType.GET_STUDENT_IDS)) {
                 return;
             }
-
+            //
             if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && studentDepartment.equals(loggedUser.department)){
                 return;
             }

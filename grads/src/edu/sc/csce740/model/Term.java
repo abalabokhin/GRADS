@@ -2,7 +2,7 @@ package edu.sc.csce740.model;
 
 
 /**
- * Created by paladin on 11/1/15.
+ * This class calculates the duration(number of years) spent by a student in a given degree
  */
 public class Term
 {
