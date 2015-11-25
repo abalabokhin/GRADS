@@ -1,8 +1,9 @@
 package edu.sc.csce740.model;
 
 /**
- * Created by paladin on 11/2/15.
+ *  Class that accumulate Certificate information. It uses only to store the data and does not have any methods.
  */
+
 public class Certificate
 {
     public String name;

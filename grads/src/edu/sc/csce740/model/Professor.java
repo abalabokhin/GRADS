@@ -1,7 +1,7 @@
 package edu.sc.csce740.model;
 
 /**
- * Created by paladin on 11/1/15.
+ *  Class that extends Human class with department.
  */
 public class Professor extends Human
 {

@@ -3,7 +3,7 @@ package edu.sc.csce740.model;
 import java.util.List;
 
 /**
- * Created by paladin on 10/31/15.
+ *  Class that accumulate ProgressSummary information. It uses only to store the data and does not have any methods.
  */
 public class ProgressSummary
 {

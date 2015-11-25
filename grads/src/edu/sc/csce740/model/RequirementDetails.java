@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Created by paladin on 11/2/15.
+ *  Class that accumulate RequirementDetails information. It uses only to store the data and does not have any methods.
  */
 public class RequirementDetails
 {

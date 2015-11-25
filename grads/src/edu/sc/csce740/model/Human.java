@@ -1,7 +1,7 @@
 package edu.sc.csce740.model;
 
 /**
- * Created by paladin on 11/1/15.
+ *  Class that accumulate firstName and  lastName into the same class. It uses as base for other classes.
  */
 public class Human
 {

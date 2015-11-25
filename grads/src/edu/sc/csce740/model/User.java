@@ -1,10 +1,13 @@
 package edu.sc.csce740.model;
 
 /**
- * Created by paladin on 10/31/15.
+ *  Class that extends Human class with id, role and department.
  */
 public class User extends Human
 {
+    /**
+     *  Enum to represent all the possible roles.
+     */
     public enum Role {STUDENT, GRADUATE_PROGRAM_COORDINATOR}
 
     public String id;

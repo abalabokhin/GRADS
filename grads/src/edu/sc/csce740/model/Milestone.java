@@ -1,10 +1,13 @@
 package edu.sc.csce740.model;
 
 /**
- * Created by paladin on 11/1/15.
+ *  Class that accumulate Milestone information. It uses only to store the data and does not have any methods.
  */
 public class Milestone
 {
+    /**
+     *  Enum to represent all the possible milestones.
+     */
     public enum MilestoneType {
         DISSERTATION_ADVISOR_SELECTED,
         PROGRAM_OF_STUDY_SUBMITTED,
