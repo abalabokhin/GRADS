@@ -3,7 +3,7 @@ package edu.sc.csce740;
 import edu.sc.csce740.model.Milestone;
 import edu.sc.csce740.model.RequirementCheckResult;
 
-import java.util.*;
+import java.util.HashSet;
 
 /**
  * This class covers requirements related to the 'MENG' program of study.

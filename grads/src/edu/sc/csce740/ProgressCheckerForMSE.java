@@ -1,12 +1,17 @@
 package edu.sc.csce740;
 
-import edu.sc.csce740.model.*;
+
+import edu.sc.csce740.model.CourseTaken;
+import edu.sc.csce740.model.Milestone;
+import edu.sc.csce740.model.RequirementCheckResult;
+import edu.sc.csce740.model.RequirementDetails;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 
 /**
  * This class covers requirements related to the 'MSE' program of study.

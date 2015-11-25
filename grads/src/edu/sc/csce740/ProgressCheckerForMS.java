@@ -2,7 +2,7 @@ package edu.sc.csce740;
 
 import edu.sc.csce740.model.Milestone;
 
-import java.util.*;
+import java.util.HashSet;
 
 /**
  * This class covers requirements related to the 'MS' program of study.

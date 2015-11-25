@@ -1,6 +1,13 @@
 package edu.sc.csce740;
 
-import edu.sc.csce740.model.*;
+
+
+import edu.sc.csce740.model.CourseTaken;
+import edu.sc.csce740.model.Degree;
+import edu.sc.csce740.model.RequirementCheckResult;
+import edu.sc.csce740.model.RequirementDetails;
+import edu.sc.csce740.model.Milestone;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -3,7 +3,8 @@ package edu.sc.csce740;
 import edu.sc.csce740.model.RequirementCheckResult;
 import edu.sc.csce740.model.RequirementDetails;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 /**
  * This class covers requirements related to the Information Assurance Certificate program of study.
