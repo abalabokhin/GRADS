@@ -1,7 +1,7 @@
 package edu.sc.csce740.model;
 
 /**
- * Created by paladin on 11/1/15.
+ * model the relevant aspects of the data structure that stores a student name an id information
  */
 public class Student extends Human
 {

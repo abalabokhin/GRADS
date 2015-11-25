@@ -4,7 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * Created by paladin on 11/2/15.
+ *models the relevant aspects of the data structure that stores
+ *  program requirements such as gpa, courses completed and milestones.
  */
 public class RequirementDetails
 {

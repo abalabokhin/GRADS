@@ -1,7 +1,7 @@
 package edu.sc.csce740.model;
 
 /**
- * Created by paladin on 11/2/15.
+ * models the relevant aspects of the data structure that stores certificate information
  */
 public class Certificate
 {

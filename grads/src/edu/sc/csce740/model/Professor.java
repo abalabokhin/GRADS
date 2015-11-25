@@ -1,8 +1,8 @@
 package edu.sc.csce740.model;
 
 /**
- * Created by paladin on 11/1/15.
- */
+ * model the relevant aspects of the data structure that stores professor information
+ * */
 public class Professor extends Human
 {
     public String department;

@@ -1,7 +1,8 @@
 package edu.sc.csce740.model;
 
 /**
- * Created by paladin on 10/31/15.
+ * models the relevant aspects of the data structure that stores
+ * the user information associated with the department.
  */
 public class User extends Human
 {

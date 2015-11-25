@@ -1,8 +1,8 @@
 package edu.sc.csce740.model;
 
 /**
- * Created by paladin on 11/1/15.
- */
+ * models the relevant aspects of the data structure that stores degree information.
+ * */
 public class Degree
 {
     public enum Type {BS, MS, MENG, MSE, PHD}

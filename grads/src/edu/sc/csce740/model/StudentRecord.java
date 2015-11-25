@@ -3,7 +3,7 @@ package edu.sc.csce740.model;
 import java.util.List;
 
 /**
- * Created by paladin on 10/31/15.
+ * model the relevant aspects of the data structure that stores a student’s information
  */
 public class StudentRecord
 {

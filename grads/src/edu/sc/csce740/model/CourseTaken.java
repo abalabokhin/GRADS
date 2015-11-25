@@ -1,7 +1,8 @@
 package edu.sc.csce740.model;
 
 /**
- * Created by paladin on 10/31/15.
+ * models the relevant aspects of the data structure that stores the completed course information related to
+ * a student object such as name and number of credits.
  */
 public class CourseTaken
 {

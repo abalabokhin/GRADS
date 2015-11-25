@@ -209,7 +209,6 @@ public class GRADS implements GRADSIntf
      */
     @Override
     public String getUser() {
-        // Question: Who is accepting? Shall we provide this info to anyone? Is it safe?
         return this.loggedUser.id;
     }
 
