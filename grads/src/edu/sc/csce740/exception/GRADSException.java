@@ -1,7 +1,7 @@
 package edu.sc.csce740.exception;
 
 /**
- * Created by paladin on 11/8/15.
+ *  Based class for all GRADS Exceptions.
  */
 public class GRADSException extends Exception
 {

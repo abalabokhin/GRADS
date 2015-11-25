@@ -1,7 +1,7 @@
 package edu.sc.csce740.exception;
 
 /**
- * Created by paladin on 11/15/15.
+ *  Exception that shows that no users are logged in, but such a user is required to apply the request.
  */
 public class NoUsersAreLoggedIn extends GRADSException {
     public NoUsersAreLoggedIn(Throwable var1) {

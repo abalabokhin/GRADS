@@ -1,7 +1,7 @@
 package edu.sc.csce740.exception;
 
 /**
- * Created by paladin on 11/15/15.
+ *  Exception that shows that a String that must have a number cannot be parsed into number.
  */
 public class StringParsingException extends GRADSException {
 

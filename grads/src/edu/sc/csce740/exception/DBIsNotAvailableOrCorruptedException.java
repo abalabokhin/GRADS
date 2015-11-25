@@ -1,7 +1,7 @@
 package edu.sc.csce740.exception;
 
 /**
- * Created by paladin on 11/8/15.
+ *  Exception that shows that DB is not available or it has the wrong format, eg JSON is not valid, etc.
  */
 public class DBIsNotAvailableOrCorruptedException extends GRADSException
 {
