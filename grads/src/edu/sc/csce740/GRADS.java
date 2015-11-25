@@ -366,10 +366,11 @@ public class GRADS implements GRADSIntf
     /**
      * This method is used to authenticate requester user ID and the submitted request type.
      * @param requestType
-     * @param studentID
-     * @throws Exception
+     * @param studentID id of the student whose record is being requested
+     * @throws Exception when invalid data is requested
      */
     private void checkAuthorization(RequestType requestType, String studentID) throws Exception {
+        //check to ensure 
         if (loggedUser == null) {
             throw new NoUsersAreLoggedIn("");
         }
@@ -380,21 +381,21 @@ public class GRADS implements GRADSIntf
 
         try {
             String studentDepartment = "";
-            // when a student id value exists
+            // check to ensure that there exists a student ID
             if (studentID != null) {
                 studentDepartment = studentRecords.stream().filter(x -> x.student.id.equals(studentID)).findFirst().get().department;
             }
-            //if the role of the user logged in is GPC
+            //checks to ensure that the role of the user logged in is GPC
             if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR)
                     && (requestType != null)
                     && requestType.equals(RequestType.GET_STUDENT_IDS)) {
                 return;
             }
-            //
+            //check to ensure that a GPC of another department cannot access student records of the CSCE students
             if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && studentDepartment.equals(loggedUser.department)){
                 return;
             }
-
+            //check to ensure the student is requesting one's own transcript, progress summary and course simulation
             if (loggedUser.role.equals(User.Role.STUDENT) && studentID.equals(loggedUser.id) && (requestType != null)
                     && (requestType.equals(RequestType.GET_TRANSCRIPT)
                     || requestType.equals(RequestType.GENERATE_PROGRESS_SUMMARY)
@@ -413,8 +414,8 @@ public class GRADS implements GRADSIntf
     /**
      * This method is used to generate the required information items for building a progress summary.
      * @param studentRecord
-     * @return
-     * @throws Exception
+     * @return returns a copy of the student record now stored as result
+     * @throws Exception if unable to return result
      */
     ProgressSummary generateProgressSummaryImpl(StudentRecord studentRecord) throws Exception {
 
@@ -437,8 +438,8 @@ public class GRADS implements GRADSIntf
     /**
      * This method is used to compute the various progress milestones associated with the program of study linked to a student record.
      * @param record
-     * @return
-     * @throws Exception
+     * @return returns the progress made by a student
+     * @throws Exception when unable to calculate milestones
      */
     private List<RequirementCheckResult> calculateMilestones(StudentRecord record) throws Exception {
 
@@ -456,8 +457,8 @@ public class GRADS implements GRADSIntf
     /**
      * This method is private to the calling function and creates a clone of the object passed as a parameter to it.
      * This is used to retain the integrity of the original object and perform all manipulations only to its cloned version.
-     * @param object
-     * @return
+     * @param object any one of the modifications made to a student record
+     * @return returns a copy of the object modified
      */
     private Object cloneSerializableObject(Object object) {
         Gson gson = new Gson();
