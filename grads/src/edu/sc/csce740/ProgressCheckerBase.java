@@ -367,7 +367,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
         float sumGP = 0;
 
         for (CourseTaken courseTaken : classes) {
-            Integer gradeFactor = courseTaken.grade.getFactor();
+            int gradeFactor = courseTaken.grade.getFactor();
             if (gradeFactor != null) {
                 try {
                     float numCredits = Float.parseFloat(courseTaken.course.numCredits);
