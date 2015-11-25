@@ -28,10 +28,73 @@
         "department": "COMPUTER_SCIENCE"
     },
     {
+        "id": "snelakuditi",
+        "firstName": "Srihari",
+        "lastName": "Nelakuditi",
+        "role": "GRADUATE_PROGRAM_COORDINATOR",
+        "department": "COMPUTER_SCIENCE"
+    },
+    {
         "id": "jsmith",
         "firstName": "John",
         "lastName": "Smith",
         "role": "GRADUATE_PROGRAM_COORDINATOR",
         "department": "MATHEMATICS"
+    },
+    {
+        "id": "jsmythe",
+        "firstName": "Janice",
+        "lastName": "Smythe",
+        "role": "STUDENT",
+        "department": "MECHANICAL_ENGINEERING"
+    },
+    {
+        "id": "lsmith",
+        "firstName": "Laura",
+        "lastName": "Smith",
+        "role": "STUDENT",
+        "department": "MECHANICAL_ENGINEERING"
+    },
+    {
+        "id": "tcrumb",
+        "firstName": "Tara",
+        "lastName": "Crumb",
+        "role": "STUDENT",
+        "department": "MECHANICAL_ENGINEERING"
+    },
+    {
+        "id": "ereas",
+        "firstName": "Earl",
+        "lastName": "Reas",
+        "role": "STUDENT",
+        "department": "COMPUTER_SCIENCE"
+    },
+    {
+        "id": "rboothe",
+        "firstName": "Robert",
+        "lastName": "Boothe",
+        "role": "STUDENT",
+        "department": "COMPUTER_SCIENCE"
+    },
+    {
+        "id": "aclyde",
+        "firstName": "Amanda",
+        "lastName": "Clyde",
+        "role": "STUDENT",
+        "department": "COMPUTER_SCIENCE"
+    },
+    {
+        "id": "cbuchanan",
+        "firstName": "Cynthia",
+        "lastName": "Buchanan",
+        "role": "STUDENT",
+        "department": "COMPUTER_SCIENCE"
+    },
+    {
+        "id": "jcostner",
+        "firstName": "June",
+        "lastName": "Costner",
+        "role": "STUDENT",
+        "department": "COMPUTER_SCIENCE"
     }
 ]

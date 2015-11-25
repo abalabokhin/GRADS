@@ -18,15 +18,13 @@ import java.util.Set;
 /**
  * This class covers requirements related to the 'PhD' program of study.
  */
-public class ProgressCheckerForPHD extends ProgressCheckerBase
-{
+public class ProgressCheckerForPHD extends ProgressCheckerBase {
 	int degreeBasedCreditsWithMasters = 24;
 	int degreeBasedCreditsWithoutMasters = 48;
 	int degreeBasedCredits7xx = 24;
 	Set<Degree.Type> mastersDegrees;
 
-	public ProgressCheckerForPHD()
-	{
+	public ProgressCheckerForPHD() {
 		degreeName = "PHD";
 		additionalCredits = 20;
 		thesisCredits = 12;

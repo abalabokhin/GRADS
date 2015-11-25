@@ -473,5 +473,10 @@
         "name": "Dissertation Preparation",
         "id": "csce899",
         "numCredits": "1-12"
+    },
+{
+        "name": "Project Management",
+        "id": "mgsc872",
+        "numCredits": "3"
     }
 ]
