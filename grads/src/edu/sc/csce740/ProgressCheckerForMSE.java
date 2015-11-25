@@ -67,7 +67,7 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase {
 
     /**
 	 * This method is used to compute all additional course credits completed by the student.
-	 * @return
+	 * @return additional credits accrued by the student
      */
     @Override
     RequirementCheckResult CheckAdditionalCredits() {

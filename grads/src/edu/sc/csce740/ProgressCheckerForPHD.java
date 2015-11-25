@@ -70,7 +70,7 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase
 	/**
 	 * This method is used to compute the total number of degree based credits accrued
 	 * by a student as per the list of courses completed by them within their program of study.
- 	 * @return
+ 	 * @return courses taken and degree based credits earned
      */
     @Override
     RequirementCheckResult CheckDegreeBasedCredits() {
