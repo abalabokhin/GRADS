@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonWriter;
 
-
 import edu.sc.csce740.exception.DBIsNotAvailableOrCorruptedException;
 import edu.sc.csce740.exception.DBIsNotLoadedException;
 import edu.sc.csce740.exception.InvalidDataRequestedException;
@@ -31,14 +30,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.rules.ExpectedException;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.*;
 
-public class GRADSTest {
+public class GRADSTest  {
+
+
+	@Rule
+	public final ExpectedException exception = ExpectedException.none();
 
 	@Test
 	public void testSetUser() throws Exception
@@ -47,15 +48,9 @@ public class GRADSTest {
 
 		GRADS grads = new GRADS();
 
-		try
-		{
-			grads.setUser(testUser1);
-			fail();
-		}
-		catch (DBIsNotLoadedException e)
-		{
-			Assert.assertTrue(e.toString().contains("DBIsNotLoadedException"));
-		}
+		// DBIsNotLoadedException
+		exception.expect(DBIsNotLoadedException.class);
+		grads.setUser(testUser1);
 
 		grads.loadUsers("users.txt");
 		grads.setUser(testUser1);
@@ -77,6 +72,8 @@ public class GRADSTest {
 
 		grads.clearSession();
 
+		// NullPointerException add exception to GRADS?
+		exception.expect(NullPointerException.class);
 		Assert.assertEquals(grads.getUser() == null, true);
 	}
 
@@ -316,15 +313,16 @@ public class GRADSTest {
 		details.notes = new ArrayList<>();
 		result.name = "MILESTONES_" + degreeSought.name;
 		result.passed = false;
-		details.notes.add("Missing milestone DISSERTATION_ADVISOR_SELECTED");
 		details.notes.add("Missing milestone QUALIFYING_EXAM_PASSED");
-		details.notes.add("Missing milestone DISSERTATION_SUBMITTED");
-		details.notes.add("Missing milestone COMPREHENSIVE_EXAM_PASSED");
 		details.notes.add("Missing milestone PROGRAM_OF_STUDY_SUBMITTED");
 		details.notes.add("Missing milestone DISSERTATION_DEFENSE_PASSED");
-		details.notes.add("Missing milestone DISSERTATION_COMMITTEE_FORMED");
-		details.notes.add("Missing milestone DISSERTATION_DEFENSE_SCHEDULED");
+		details.notes.add("Missing milestone DISSERTATION_ADVISOR_SELECTED");
 		details.notes.add("Missing milestone DISSERTATION_PROPOSAL_SCHEDULED");
+		details.notes.add("Missing milestone DISSERTATION_SUBMITTED");
+		details.notes.add("Missing milestone COMPREHENSIVE_EXAM_PASSED");
+		details.notes.add("Missing milestone DISSERTATION_DEFENSE_SCHEDULED");
+		details.notes.add("Missing milestone DISSERTATION_COMMITTEE_FORMED");
+
 		result.details = details;
 		requirementCheckResults.add (result);
 
