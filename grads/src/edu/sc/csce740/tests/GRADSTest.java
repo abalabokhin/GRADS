@@ -98,14 +98,58 @@ public class GRADSTest  {
 	}
 
 	@Test
-	public void testGetTranscript() throws Exception {
+	public void testGetTranscript() throws Exception
+	{
+		StudentRecord studentRecord1 = createStudentRecord();
+
+		addStudentRecordtoDB(studentRecord1);
+
+		GRADS grads = new GRADS();
+
+		grads.loadRecords("students.txt");
+		grads.loadUsers("users.txt");
+		grads.setUser("mmatthews");
+
+		StudentRecord studentRecord2 = grads.getTranscript("hsmith");
+
+		String outStudentRecord1 = new GsonBuilder().setPrettyPrinting().create().toJson(studentRecord1);
+		String outStudentRecord2 = new GsonBuilder().setPrettyPrinting().create().toJson(studentRecord2);
+
+		Assert.assertEquals(outStudentRecord1.equals(outStudentRecord2),true);
 
 	}
 
 	@Test
-	public void testUpdateTranscript() throws Exception {
+	public void testUpdateTranscript() throws Exception
+	{
+		StudentRecord studentRecord = createStudentRecord();
 
+		addStudentRecordtoDB(studentRecord);
+
+		GRADS grads = new GRADS();
+
+		grads.loadRecords("students.txt");
+		grads.loadUsers("users.txt");
+		grads.setUser("mmatthews");
+
+		// get the inital date for the term began
+		studentRecord = grads.getTranscript("hsmith");
+		String termBegan1 = studentRecord.termBegan.year + " " + studentRecord.termBegan.semester.toString();
+
+	 	// update term began and save it the db
+		studentRecord.termBegan.year = 2014;
+		grads.updateTranscript("hsmith", studentRecord, true);
+
+		grads.loadRecords("students.txt");
+
+		// get the final date for the term began
+		studentRecord = grads.getTranscript("hsmith");
+		String termBegan2 = studentRecord.termBegan.year + " " + studentRecord.termBegan.semester.toString();
+
+		// Record is NOT being saved
+		Assert.assertEquals(termBegan1.equals(termBegan2), false);
 	}
+
 
 	@Test
 	public void testAddNote() throws Exception
@@ -137,7 +181,158 @@ public class GRADSTest  {
 	@Test
 	public void testGenerateProgressSummary() throws Exception
 	{
+		StudentRecord studentRecord = createStudentRecord();
+		String degreeSought = studentRecord.degreeSought.name.toString();
 
+		addStudentRecordtoDB(studentRecord);
+
+		// Create a progress summary object
+		ProgressSummary progressSummary1 =  new ProgressSummary();
+		progressSummary1.student = studentRecord.student;
+		progressSummary1.department = studentRecord.department;
+		progressSummary1.termBegan = studentRecord.termBegan;
+		progressSummary1.degreeSought = studentRecord.degreeSought;
+		progressSummary1.advisors = studentRecord.advisors;
+		progressSummary1.committee = studentRecord.committee;
+
+		List<RequirementCheckResult> requirementCheckResults = new ArrayList<>();
+		RequirementDetails details = new RequirementDetails();
+		List<String> notes = new ArrayList<>();
+
+		// Add core courses
+		RequirementCheckResult result = new RequirementCheckResult();
+		result.name = "CORE_COURSES_" + degreeSought;
+		result.passed = false;
+		details.notes = new ArrayList<>();
+		details.notes.add("Core courses [csce791, csce551, csce750, csce531, csce513] are left to be taken.");
+		result.details = details;
+		requirementCheckResults.add (result);
+
+		// Add Additional credits
+		result = new RequirementCheckResult();
+		details = new RequirementDetails();
+		details.notes = new ArrayList<>();
+		result.name = "ADDITIONAL_CREDITS_" + degreeSought;
+		result.passed = false;
+		details.notes.add("Must pass 17 more hours of CSCE courses numbered above 700 that are not core courses.");
+		result.details = details;
+		requirementCheckResults.add (result);
+
+		// Add degree based credits
+		result = new RequirementCheckResult();
+		details = new RequirementDetails();
+		details.notes = new ArrayList<>();
+		result.name = "DEGREE_BASED_CREDITS_" + degreeSought;
+		result.passed = false;
+		details.courses = studentRecord.coursesTaken;
+		details.notes.add("Must pass 45 more hours of graduate courses.");
+		details.notes.add("Must pass 21 more hours of CSCE courses numbered above 700.");
+		result.details = details;
+		requirementCheckResults.add (result);
+
+		// Add thesis credits
+		result = new RequirementCheckResult();
+		details = new RequirementDetails();
+		details.notes = new ArrayList<>();
+		result.name = "THESIS_CREDITS_" + degreeSought;
+		result.passed = false;
+		details.notes.add("Must pass 12 more hours of csce899.");
+		result.details = details;
+		requirementCheckResults.add (result);
+
+		// Add time limit
+		result = new RequirementCheckResult();
+		details = new RequirementDetails();
+		details.notes = new ArrayList<>();
+		result.name = "TIME_LIMIT_" + degreeSought;
+		result.passed = true;
+		requirementCheckResults.add (result);
+
+		// Add GPA
+		result = new RequirementCheckResult();
+		details = new RequirementDetails();
+		result.name = "GPA";
+		result.passed = true;
+		details.gpa = (float) 4.0;
+		result.details = details;
+		requirementCheckResults.add (result);
+
+		// Add milestones
+		result = new RequirementCheckResult();
+		details = new RequirementDetails();
+		details.notes = new ArrayList<>();
+		result.name = "MILESTONES_" + degreeSought;
+		result.passed = false;
+		details.notes.add("Missing milestone QUALIFYING_EXAM_PASSED");
+		details.notes.add("Missing milestone PROGRAM_OF_STUDY_SUBMITTED");
+		details.notes.add("Missing milestone DISSERTATION_DEFENSE_PASSED");
+		details.notes.add("Missing milestone DISSERTATION_ADVISOR_SELECTED");
+		details.notes.add("Missing milestone DISSERTATION_PROPOSAL_SCHEDULED");
+		details.notes.add("Missing milestone DISSERTATION_SUBMITTED");
+		details.notes.add("Missing milestone COMPREHENSIVE_EXAM_PASSED");
+		details.notes.add("Missing milestone DISSERTATION_DEFENSE_SCHEDULED");
+		details.notes.add("Missing milestone DISSERTATION_COMMITTEE_FORMED");
+
+		result.details = details;
+		requirementCheckResults.add (result);
+
+		// Add the requirement check result
+		progressSummary1.requirementCheckResults = requirementCheckResults;
+
+		// Wrrite the progress summary to a string for comparison
+		String outProgressSummary1 = new GsonBuilder().setPrettyPrinting().create().toJson(progressSummary1);
+
+		GRADS grads = new GRADS();
+
+		grads.loadRecords("students.txt");
+		grads.loadUsers("users.txt");
+		grads.loadCourses("courses.txt");
+
+		grads.setUser("mmatthews");
+
+		ProgressSummary progressSummary2 = grads.generateProgressSummary("hsmith");
+
+		String outProgressSummary2 = new GsonBuilder().setPrettyPrinting().create().toJson(progressSummary2);
+
+		Assert.assertEquals(outProgressSummary1.equals(outProgressSummary2),true);
+
+	}
+
+    @Test
+    public void testSimulateCourses() throws Exception {
+
+    }
+
+	public void addStudentRecordtoDB(StudentRecord studentRecord) throws Exception
+	{
+		// Read in the current student records
+		List<StudentRecord> studentRecords = null;
+		FileReader reader = new FileReader(getClass().getClassLoader().getResource("students.txt").getFile());
+		studentRecords = new Gson().fromJson(reader, new TypeToken<List<StudentRecord>>(){}.getType());
+
+		boolean studentExists = studentRecords.stream().anyMatch(x -> x.student.id.equals(studentRecord.student.id));
+
+		// Remove the record we are going to add if it already exists
+		if (studentExists)
+		{
+			StudentRecord result = studentRecords.stream().filter(x -> x.student.id.equals(studentRecord.student.id)).findFirst().get();
+			studentRecords.remove(result);
+		}
+
+		// Add the new student record
+		studentRecords.add(studentRecord);
+
+		// Write all records back to the db
+		FileWriter writer = new FileWriter(getClass().getClassLoader().getResource("students.txt").getFile());
+		JsonWriter jsonWriter = new JsonWriter(writer);
+		jsonWriter.setIndent("    ");
+		new Gson().toJson(studentRecords, studentRecords.getClass(), jsonWriter);
+		writer.close();
+	}
+
+
+    public StudentRecord createStudentRecord()
+    {
 		StudentRecord studentRecord = new StudentRecord();
 
 		// Student
@@ -212,144 +407,9 @@ public class GRADSTest  {
 		studentRecord.notes = new ArrayList<>();
 		studentRecord.notes.add("Bad student");
 
-		// Read in the current student records
-		List<StudentRecord> studentRecords = null;
-		FileReader reader = new FileReader(getClass().getClassLoader().getResource("students.txt").getFile());
-		studentRecords = new Gson().fromJson(reader, new TypeToken<List<StudentRecord>>(){}.getType());
-
-		boolean studentExists = studentRecords.stream().anyMatch(x -> x.student.id.equals(studentRecord.student.id));
-
-		// Remove the record we are going to add if it already exists
-		if (studentExists)
-		{
-			StudentRecord result = studentRecords.stream().filter(x -> x.student.id.equals(studentRecord.student.id)).findFirst().get();
-			studentRecords.remove(result);
-		}
-
-		// Add the new student record
-		studentRecords.add(studentRecord);
-
-		// Write all records back to the db
-		FileWriter writer = new FileWriter(getClass().getClassLoader().getResource("students.txt").getFile());
-		JsonWriter jsonWriter = new JsonWriter(writer);
-		jsonWriter.setIndent("    ");
-		new Gson().toJson(studentRecords, studentRecords.getClass(), jsonWriter);
-		writer.close();
-
-		// Create a progress summary object
-		ProgressSummary progressSummary1 =  new ProgressSummary();
-		progressSummary1.student = studentRecord.student;
-		progressSummary1.department = studentRecord.department;
-		progressSummary1.termBegan = studentRecord.termBegan;
-		progressSummary1.degreeSought = studentRecord.degreeSought;
-		progressSummary1.advisors = studentRecord.advisors;
-		progressSummary1.committee = studentRecord.committee;
-
-		List<RequirementCheckResult> requirementCheckResults = new ArrayList<>();
-		RequirementDetails details = new RequirementDetails();
-		List<String> notes = new ArrayList<>();
-
-		// Add core courses
-		RequirementCheckResult result = new RequirementCheckResult();
-		result.name = "CORE_COURSES_" + degreeSought.name;
-		result.passed = false;
-		details.notes = new ArrayList<>();
-		details.notes.add("Core courses [csce791, csce551, csce750, csce531, csce513] are left to be taken.");
-		result.details = details;
-		requirementCheckResults.add (result);
-
-		// Add Additional credits
-		result = new RequirementCheckResult();
-		details = new RequirementDetails();
-		details.notes = new ArrayList<>();
-		result.name = "ADDITIONAL_CREDITS_" + degreeSought.name;
-		result.passed = false;
-		details.notes.add("Must pass 17 more hours of CSCE courses numbered above 700 that are not core courses.");
-		result.details = details;
-		requirementCheckResults.add (result);
-
-		// Add degree based credits
-		result = new RequirementCheckResult();
-		details = new RequirementDetails();
-		details.notes = new ArrayList<>();
-		result.name = "DEGREE_BASED_CREDITS_" + degreeSought.name;
-		result.passed = false;
-		details.courses.add(courseTaken);
-		details.notes.add("Must pass 45 more hours of graduate courses.");
-		details.notes.add("Must pass 21 more hours of CSCE courses numbered above 700.");
-		result.details = details;
-		requirementCheckResults.add (result);
-
-		// Add thesis credits
-		result = new RequirementCheckResult();
-		details = new RequirementDetails();
-		details.notes = new ArrayList<>();
-		result.name = "THESIS_CREDITS_" + degreeSought.name;
-		result.passed = false;
-		details.notes.add("Must pass 12 more hours of csce899.");
-		result.details = details;
-		requirementCheckResults.add (result);
-
-		// Add time limit
-		result = new RequirementCheckResult();
-		details = new RequirementDetails();
-		details.notes = new ArrayList<>();
-		result.name = "TIME_LIMIT_" + degreeSought.name;
-		result.passed = true;
-		requirementCheckResults.add (result);
-
-		// Add GPA
-		result = new RequirementCheckResult();
-		details = new RequirementDetails();
-		result.name = "GPA";
-		result.passed = true;
-		details.gpa = (float) 4.0;
-		result.details = details;
-		requirementCheckResults.add (result);
-
-		// Add milestones
-		result = new RequirementCheckResult();
-		details = new RequirementDetails();
-		details.notes = new ArrayList<>();
-		result.name = "MILESTONES_" + degreeSought.name;
-		result.passed = false;
-		details.notes.add("Missing milestone QUALIFYING_EXAM_PASSED");
-		details.notes.add("Missing milestone PROGRAM_OF_STUDY_SUBMITTED");
-		details.notes.add("Missing milestone DISSERTATION_DEFENSE_PASSED");
-		details.notes.add("Missing milestone DISSERTATION_ADVISOR_SELECTED");
-		details.notes.add("Missing milestone DISSERTATION_PROPOSAL_SCHEDULED");
-		details.notes.add("Missing milestone DISSERTATION_SUBMITTED");
-		details.notes.add("Missing milestone COMPREHENSIVE_EXAM_PASSED");
-		details.notes.add("Missing milestone DISSERTATION_DEFENSE_SCHEDULED");
-		details.notes.add("Missing milestone DISSERTATION_COMMITTEE_FORMED");
-
-		result.details = details;
-		requirementCheckResults.add (result);
-
-		// Add the requirement check result
-		progressSummary1.requirementCheckResults = requirementCheckResults;
-
-		// Wrrite the progress summary to a string for comparison
-		String outProgressSummary1 = new GsonBuilder().setPrettyPrinting().create().toJson(progressSummary1);
-
-		GRADS grads = new GRADS();
-
-		grads.loadRecords("students.txt");
-		grads.loadUsers("users.txt");
-		grads.loadCourses("courses.txt");
-
-		grads.setUser("mmatthews");
-
-		ProgressSummary progressSummary2 = grads.generateProgressSummary("hsmith");
-
-		String outProgressSummary2 = new GsonBuilder().setPrettyPrinting().create().toJson(progressSummary2);
-
-		Assert.assertEquals(outProgressSummary1.equals(outProgressSummary2),true);
+		return studentRecord;
 
 	}
 
-    @Test
-    public void testSimulateCourses() throws Exception {
 
-    }
 }
