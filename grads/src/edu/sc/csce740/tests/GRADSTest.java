@@ -33,30 +33,37 @@ import org.junit.Assert;
 import org.junit.rules.ExpectedException;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.*;
 
 public class GRADSTest {
-
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
 
 	@Test
 	public void testSetUser() throws Exception
 	{
-		String testUser = "mmatthews";
+		String testUser1 = "mmatthews";
 
 		GRADS grads = new GRADS();
 
-		// DBIsNotLoadedException
-		thrown.expect(DBIsNotLoadedException.class);
-		grads.setUser(testUser);
+		try
+		{
+			grads.setUser(testUser1);
+			fail();
+		}
+		catch (DBIsNotLoadedException e)
+		{
+			Assert.assertTrue(e.toString().contains("DBIsNotLoadedException"));
+		}
+
 
 		grads.loadUsers("users.txt");
-		grads.setUser(testUser);
+		grads.setUser(testUser1);
+
+		Assert.assertEquals(grads.getUser().equals(testUser1), true);
 	}
 
 	@Test
-    	public void testClearSession() throws Exception
-    	{
+	public void testClearSession() throws Exception
+	{
 		String testUser1 = "mmatthews";
 
 		GRADS grads = new GRADS();
@@ -68,12 +75,12 @@ public class GRADSTest {
 
 		grads.clearSession();
 
-		Assert.assertEquals(grads.getUser().equals(testUser1), false);
+		Assert.assertEquals(grads.getUser() == null, true);
 	}
 
-    	@Test
+	@Test
 	public void testGetUser() throws Exception
-    	{
+	{
 		String testUser1 = "mmatthews";
 		String testUser2 = "notpresent";
 
@@ -128,9 +135,10 @@ public class GRADSTest {
 		Assert.assertEquals(notes.contains(note), true);
 	}
 
-    	@Test
+	@Test
 	public void testGenerateProgressSummary() throws Exception
 	{
+
 		StudentRecord studentRecord = new StudentRecord();
 
 		// Student
@@ -140,7 +148,7 @@ public class GRADSTest {
 		student.lastName = "Smith";
 		studentRecord.student = student;
 
-    		// Department
+		// Department
 		studentRecord.department = "COMPUTER_SCIENCE";
 
 		// Term began
@@ -228,13 +236,13 @@ public class GRADSTest {
 		writer.close();
 
 		// Create a progress summary object
-		//ProgressSummary progressSummary =  new ProgressSummary();
-		///progressSummary.student = studentRecord.student;
-		//progressSummary.department = studentRecord.department;
-		//progressSummary.termBegan = studentRecord.termBegan;
-		//progressSummary.degreeSought = studentRecord.degreeSought;
-		//progressSummary.advisors = studentRecord.advisors;
-		//progressSummary.committee = studentRecord.committee;
+		ProgressSummary progressSummary1 =  new ProgressSummary();
+		progressSummary1.student = studentRecord.student;
+		progressSummary1.department = studentRecord.department;
+		progressSummary1.termBegan = studentRecord.termBegan;
+		progressSummary1.degreeSought = studentRecord.degreeSought;
+		progressSummary1.advisors = studentRecord.advisors;
+		progressSummary1.committee = studentRecord.committee;
 
 		GRADS grads = new GRADS();
 
@@ -244,9 +252,16 @@ public class GRADSTest {
 
 		grads.setUser("mmatthews");
 
-		ProgressSummary progressSummary = grads.generateProgressSummary("hsmith");
+		ProgressSummary progressSummary2 = grads.generateProgressSummary("hsmith");
 
-		List<RequirementCheckResult> requirementCheckResults = progressSummary.requirementCheckResults;
+		Assert.assertEquals(progressSummary1.student.id.equals(progressSummary2.student.id),true);
+		Assert.assertEquals(progressSummary1.student.firstName.equals(progressSummary2.student.firstName),true);
+		Assert.assertEquals(progressSummary1.student.lastName.equals(progressSummary2.student.lastName),true);
+		Assert.assertEquals(progressSummary1.department.equals(progressSummary2.department),true);
+
+
+
+		List<RequirementCheckResult> requirementCheckResults = progressSummary2.requirementCheckResults;
 
 		for (int i = 0; i < requirementCheckResults.size(); i++)
 		{
