@@ -12,17 +12,17 @@ import edu.sc.csce740.exception.NoUsersAreLoggedIn;
 import edu.sc.csce740.exception.UserHasInsufficientPrivilegeException;
 import edu.sc.csce740.GRADS;
 import edu.sc.csce740.model.Certificate;
-import edu.sc.csce740.model.Term;
-import edu.sc.csce740.model.Student;
-import edu.sc.csce740.model.StudentRecord;
+import edu.sc.csce740.model.Course;
+import edu.sc.csce740.model.CourseTaken;
 import edu.sc.csce740.model.Degree;
 import edu.sc.csce740.model.Milestone;
 import edu.sc.csce740.model.Professor;
-import edu.sc.csce740.model.Course;
-import edu.sc.csce740.model.CourseTaken;
 import edu.sc.csce740.model.ProgressSummary;
 import edu.sc.csce740.model.RequirementCheckResult;
 import edu.sc.csce740.model.RequirementDetails;
+import edu.sc.csce740.model.Student;
+import edu.sc.csce740.model.StudentRecord;
+import edu.sc.csce740.model.Term;
 
 import java.io.File;
 import java.io.FileReader;
@@ -33,10 +33,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Assert;
-import org.junit.rules.ExpectedException;
-import org.junit.Rule;
-import org.junit.Test;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
+import org.junit.Test;
 
 public class GRADSTest  {
 
@@ -312,14 +312,18 @@ public class GRADSTest  {
 		Assert.assertEquals(equalsCertificateSought(progressSummary1.certificateSought,progressSummary2.certificateSought), true);
 		Assert.assertEquals(equalsProfessors(progressSummary1.advisors,progressSummary2.advisors), true);
 		Assert.assertEquals(equalsProfessors(progressSummary1.committee,progressSummary2.committee), true);
-		//Assert.assertEquals(equalsRequirementCheckResults(progressSummary1.requirementCheckResults,progressSummary2.requirementCheckResults), true);
+		Assert.assertEquals(equalsRequirementCheckResults(progressSummary1.requirementCheckResults,progressSummary2.requirementCheckResults), true);
+
+		//String outProgressSummary1 = new GsonBuilder().setPrettyPrinting().create().toJson(progressSummary1);
+		//String outProgressSummary2 = new GsonBuilder().setPrettyPrinting().create().toJson(progressSummary2);
+		//Assert.assertEquals(outProgressSummary1.equals(outProgressSummary2),true);
 
 	}
 
-    	@Test
-    	public void testSimulateCourses() throws Exception {
+    @Test
+    public void testSimulateCourses() throws Exception {
 
-    	}
+    }
 
 	public void addStudentRecordtoDB(StudentRecord studentRecord) throws Exception
 	{
@@ -486,7 +490,7 @@ public class GRADSTest  {
 
 	}
 
-		// Previous Degrees check
+	// Previous Degrees equals check
 	public boolean equalsPreviousDegrees(List<Degree> previousDegrees1, List<Degree> previousDegrees2)
 	{
 		if ((previousDegrees1 != null) || (previousDegrees2 != null))
@@ -514,7 +518,7 @@ public class GRADSTest  {
 	}
 
 
-	// Committee and Advisors check
+	// Committee members and Advisors check
 	public boolean equalsProfessors(List<Professor> professors1,  List<Professor> professors2)
 	{
 		if ((professors1 != null) || (professors2 != null))
@@ -541,6 +545,7 @@ public class GRADSTest  {
 		return true;
 	}
 
+	// Courses taken equals check
 	public boolean equalsCoursesTaken(List<CourseTaken> coursesTaken1, List<CourseTaken> coursesTaken2)
 	{
 		if ((coursesTaken1 != null) || (coursesTaken2 != null))
@@ -550,16 +555,22 @@ public class GRADSTest  {
 				return false;
 			}
 
+			int listSize = coursesTaken1.size();
+
 			for (CourseTaken courseTaken1 : coursesTaken1)
 			{
    				CourseTaken courseTaken2 = coursesTaken2.stream().filter(x -> x.course.id.equals(courseTaken1.course.id) &&
    				                                                              x.term.year == courseTaken1.term.year &&
    				                                                              x.term.semester.equals(courseTaken1.term.semester) &&
    				                                                              x.grade.equals(courseTaken1.grade)).findFirst().get();
-   				coursesTaken2.remove(courseTaken2);
+				if (courseTaken2 != null)
+				{
+					listSize --;
+				}
+
 			}
 
-			if (coursesTaken2.size() != 0)
+			if (listSize != 0)
 			{
 				return false;
 			}
@@ -568,6 +579,7 @@ public class GRADSTest  {
 		return true;
 	}
 
+	// Milestones equal check
 	public boolean equalsMilestonesSet(List<Milestone> milestonesSet1, List<Milestone> milestonesSet2)
 	{
 		if ((milestonesSet1 != null) || (milestonesSet2 != null))
@@ -594,6 +606,7 @@ public class GRADSTest  {
 		return true;
 	}
 
+	// Notes equal check
 	public boolean equalsNotes(List<String> notes1, List<String> notes2)
 	{
 		if ((notes1 != null) || (notes2 != null))
@@ -614,6 +627,7 @@ public class GRADSTest  {
 		return true;
 	}
 
+	// Requirements equal check
 	public boolean equalsRequirementCheckResults(List<RequirementCheckResult> resultsSet1, List<RequirementCheckResult> resultsSet2)
 	{
 		if ((resultsSet1 != null) || (resultsSet2 != null))
@@ -632,10 +646,18 @@ public class GRADSTest  {
 
 			   	if ((result1.details != null) || (result2.details != null))
 			   	{
+
+					if ((result1.details.gpa != null) || (result2.details.gpa != null))
+					{
+						if (Math.abs(result1.details.gpa - result2.details.gpa) > .00001)
+						{
+							return false;
+						}
+					}
+
 					if ((!equalsCoursesTaken(result1.details.courses,result2.details.courses)) ||
 					    (!equalsMilestonesSet(result1.details.milestones,result2.details.milestones)) ||
-					    (!equalsNotes(result1.details.notes,result2.details.notes)) ||
-					    (result1.details.gpa != result2.details.gpa))
+					    (!equalsNotes(result1.details.notes,result2.details.notes)))
 					{
 						return false;
 					}
