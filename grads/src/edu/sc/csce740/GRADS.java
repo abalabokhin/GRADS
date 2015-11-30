@@ -209,7 +209,7 @@ public class GRADS implements GRADSIntf
      */
     @Override
     public String getUser() {
-        return this.loggedUser.id;
+        return loggedUser == null ? null : loggedUser.id;
     }
 
 

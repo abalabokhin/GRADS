@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonWriter;
 
+import edu.sc.csce740.GRADSIntf;
 import edu.sc.csce740.exception.DBIsNotAvailableOrCorruptedException;
 import edu.sc.csce740.exception.DBIsNotLoadedException;
 import edu.sc.csce740.exception.InvalidDataRequestedException;
@@ -40,67 +41,74 @@ import org.junit.Test;
 
 public class GRADSTest  {
 
-	GRADS grads;
+	GRADSIntf grads;
+    @Rule
+    public final ExpectedException exception = ExpectedException.none();
 
-	@Before
+    @Before
 	public void Initialize()
 	{
-		grads = new GRADS();
+        grads = new GRADS();
 	}
 
-	@Rule
-	public final ExpectedException exception = ExpectedException.none();
-
 	@Test
-	public void testSetUser() throws Exception
+	public void testSetUserSuccess() throws Exception
 	{
 		String testUser1 = "mmatthews";
+		grads.loadUsers("users.txt");
+		grads.setUser(testUser1);
 
-		// Test #1 - error DBIsNotLoadedException
+		Assert.assertEquals(grads.getUser(), testUser1);
+	}
+
+	@Test
+	public void testSetUserFail() throws Exception
+	{
+		String testUser1 = "mmatthews";
 		exception.expect(DBIsNotLoadedException.class);
 		grads.setUser(testUser1);
-
-		// Test #2 - standard
-		grads.loadUsers("users.txt");
-		grads.setUser(testUser1);
-
-		Assert.assertEquals(grads.getUser().equals(testUser1), true);
 	}
 
 	@Test
-	public void testClearSession() throws Exception
+	public void testClearSessionSuccess() throws Exception
 	{
-		StudentRecord studentRecord1 = createStudentRecord();
-
-		addStudentRecordtoDB(studentRecord1);
-
-		grads.loadRecords("students.txt");
 		grads.loadUsers("users.txt");
 		grads.setUser("mmatthews");
-
-		studentRecord1 = grads.getTranscript("hsmith");
-
 		grads.clearSession();
 
-		exception.expect(NoUsersAreLoggedIn.class);
-		StudentRecord studentRecord2 = grads.getTranscript("hsmith");
+        Assert.assertEquals(grads.getUser(), null);
 
-		Assert.assertEquals(studentRecord1 != null, true);
-		Assert.assertEquals(studentRecord2 == null, true);
+		exception.expect(NoUsersAreLoggedIn.class);
+
+        grads.getStudentIDs();
+        grads.getTranscript("hsmith");
+        grads.updateTranscript("hsmith", null, true);
+		grads.addNote("hsmith", "I am a note", false);
+        grads.generateProgressSummary("hsmith");
+        grads.simulateCourses("hsmith", null);
 	}
 
 	@Test
-	public void testGetUser() throws Exception
+	public void testGetUserSuccess() throws Exception
 	{
 		String testUser1 = "mmatthews";
-		String testUser2 = "notpresent";
-
 		grads.loadUsers("users.txt");
 		grads.setUser(testUser1);
 
-		Assert.assertEquals(grads.getUser().equals(testUser1), true);
-		Assert.assertEquals(grads.getUser().equals(testUser2), false);
+		Assert.assertEquals(grads.getUser(), testUser1);
 	}
+
+    @Test
+    public void testGetUserFail() throws Exception
+    {
+        String testUser = "notpresent";
+        grads.loadUsers("users.txt");
+        try {
+            grads.setUser(testUser);
+        } catch (Exception ex) {}
+
+        Assert.assertEquals(grads.getUser(), null);
+    }
 
 	@Test
 	public void testGetStudentIDs() throws Exception {
