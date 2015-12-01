@@ -9,6 +9,13 @@
       <root url="jar://$PROJECT_DIR$/grads/lib/commons-lang-2.3.jar!/" />
       <root url="jar://$PROJECT_DIR$/grads/lib/commons-collections-3.2.jar!/" />
       <root url="jar://$PROJECT_DIR$/grads/lib/ognl-2.6.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/grads/lib/unitils-core-3.4.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/grads/lib/junit-4.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/grads/lib/hamcrest-core-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/grads/lib/commons-logging-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/grads/lib/commons-lang-2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/grads/lib/commons-collections-3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/grads/lib/ognl-2.6.9.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
