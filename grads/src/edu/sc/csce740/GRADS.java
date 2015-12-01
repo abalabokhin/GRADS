@@ -160,7 +160,7 @@ public class GRADS implements GRADSIntf
      */
     private void saveRecords() throws Exception {
         try {
-            FileWriter writer = new FileWriter(studentRecordsFileName);
+            FileWriter writer = new FileWriter(new File(getClass().getClassLoader().getResource(studentRecordsFileName).getFile()));
             JsonWriter jsonWriter = new JsonWriter(writer);
             jsonWriter.setIndent("    ");
             new Gson().toJson(studentRecords, studentRecords.getClass(), jsonWriter);
