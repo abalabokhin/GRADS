@@ -494,7 +494,6 @@ public class GRADS implements GRADSIntf
     private Object cloneSerializableObject(Object object) {
         Gson gson = new Gson();
         String jsonString = gson.toJson(object);
-
         return gson.fromJson(jsonString, object.getClass());
     }
 }
