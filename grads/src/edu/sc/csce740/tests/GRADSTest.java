@@ -201,9 +201,11 @@ public class GRADSTest  {
 	public void testAddNoteSuccess() throws Exception
 	{
 		String note = "test note to be added";
-		String studentId = "mhunt";
 		String GPCid = "mmatthews";
-		boolean noteExists = false;
+
+        StudentRecord studentRecord = createStudentRecord();
+        String studentId = studentRecord.student.id;
+        addStudentRecordtoDB(studentRecord);
 
 		grads.loadUsers("users.txt");
 		grads.loadRecords("students.txt");
@@ -212,10 +214,10 @@ public class GRADSTest  {
 
 		// Get the current notes and check to ensure note is NOT present
 		List<String> notes = grads.getTranscript(studentId).notes;
-		Assert.assertEquals(notes.contains(note), false);
+		Assert.assertFalse(notes.contains(note));
 
 		// Add the note
-		grads.addNote(studentId,note,true);
+		grads.addNote(studentId, note, true);
 
 		// Get the current notes and check to ensure note IS present
 		notes = grads.getTranscript(studentId).notes;
