@@ -30,6 +30,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,6 +39,10 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.junit.Test;
+import org.unitils.reflectionassert.ReflectionComparatorMode;
+
+import static java.util.Arrays.asList;
+import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 public class GRADSTest  {
 
@@ -54,7 +59,7 @@ public class GRADSTest  {
 	@Test
 	public void testSetUserSuccess() throws Exception
 	{
-		String testUser1 = "mmatthews";
+        String testUser1 = "mmatthews";
 		grads.loadUsers("users.txt");
 		grads.setUser(testUser1);
 
@@ -132,24 +137,7 @@ public class GRADSTest  {
 		grads.setUser("mmatthews");
 
 		StudentRecord studentRecord2 = grads.getTranscript("hsmith");
-        //Assert.assertTrue(equalsSerializableObject(studentRecord1.student, studentRecord2.student));
-
-		//String outStudentRecord1 = new GsonBuilder().setPrettyPrinting().create().toJson(studentRecord1);
-		//String outStudentRecord2 = new GsonBuilder().setPrettyPrinting().create().toJson(studentRecord2);
-		//Assert.assertEquals(outStudentRecord1.equals(outStudentRecord2),true);
-
-        Assert.assertEquals(equalsStudent(studentRecord1.student, studentRecord1.student), true);
-		Assert.assertEquals(studentRecord1.department.equals(studentRecord2.department), true);
-		Assert.assertEquals(equalsTermBegan(studentRecord1.termBegan,studentRecord2.termBegan), true);
-		Assert.assertEquals(equalsDegreeSought(studentRecord1.degreeSought,studentRecord2.degreeSought), true);
-		Assert.assertEquals(equalsCertificateSought(studentRecord1.certificateSought,studentRecord2.certificateSought), true);
-		Assert.assertEquals(equalsPreviousDegrees(studentRecord1.previousDegrees,studentRecord2.previousDegrees), true);
-		Assert.assertEquals(equalsProfessors(studentRecord1.advisors,studentRecord2.advisors), true);
-		Assert.assertEquals(equalsProfessors(studentRecord1.committee,studentRecord2.committee), true);
-		Assert.assertEquals(equalsCoursesTaken(studentRecord1.coursesTaken,studentRecord2.coursesTaken), true);
-		Assert.assertEquals(equalsMilestonesSet(studentRecord1.milestonesSet,studentRecord2.milestonesSet), true);
-		Assert.assertEquals(equalsNotes(studentRecord1.notes,studentRecord2.notes), true);
-		Assert.assertEquals(studentRecord1.gpa == studentRecord2.gpa, true);
+        assertReflectionEquals(studentRecord1, studentRecord2, ReflectionComparatorMode.LENIENT_ORDER);
 	}
 
     @Test
@@ -511,13 +499,6 @@ public class GRADSTest  {
 		return studentRecord;
 
 	}
-
-    private boolean equalsSerializableObject(Object object1, Object object2) {
-        Gson gson = new Gson();
-        String serializedObject1 = gson.toJson(object1);
-        String serializedObject2 = gson.toJson(object2);
-        return serializedObject1.equals(serializedObject2);
-    }
 
 	public boolean equalsStudent(Student record1, Student record2)
 	{
