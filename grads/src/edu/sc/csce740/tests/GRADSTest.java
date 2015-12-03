@@ -175,12 +175,20 @@ public class GRADSTest  {
 
 		grads.loadRecords("students.txt");
 		grads.loadUsers("users.txt");
-		grads.setUser(userGPAID);
-
-		// get the inital date for the term began
+		grads.setUser(studentId);
+		// get the initial date for the term began
         StudentRecord studentRecordFromDB = grads.getTranscript(studentId);
 
-	 	// update term began and save it the db
+        // change student first name by a student user
+        studentRecordFromDB.student.firstName = "Andrey";
+        grads.updateTranscript("hsmith", studentRecordFromDB, true);
+        studentRecordFromDB = grads.getTranscript(studentId);
+        originalStudentRecord.student.firstName = "Andrey";
+        assertReflectionEquals(originalStudentRecord, studentRecordFromDB, ReflectionComparatorMode.LENIENT_ORDER);
+
+        // update something else with GPA
+        grads.setUser(userGPAID);
+        // update term began and save it the db
         studentRecordFromDB.termBegan.year = 2014;
         // not permanent update
 		grads.updateTranscript("hsmith", studentRecordFromDB, false);
