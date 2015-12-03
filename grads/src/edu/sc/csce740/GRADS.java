@@ -415,11 +415,14 @@ public class GRADS implements GRADSIntf
                 studentDepartment = studentRecords.stream().filter(x -> x.student.id.equals(studentID)).findFirst().get().department;
             }
             //checks to ensure that the role of the user logged in is GPC
-            if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR)
-                    && (requestType != null)
-                    && requestType.equals(RequestType.GET_STUDENT_IDS)) {
-                return;
+            if (requestType.equals(RequestType.GET_STUDENT_IDS)) {
+                if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR)) {
+                    return;
+                } else {
+                    throw new UserHasInsufficientPrivilegeException("");
+                }
             }
+
             //check to ensure that a GPC of another department cannot access student records of the CSCE students
             if (loggedUser.role.equals(User.Role.GRADUATE_PROGRAM_COORDINATOR) && studentDepartment.equals(loggedUser.department)){
                 return;

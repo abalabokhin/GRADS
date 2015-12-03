@@ -9,6 +9,7 @@ import edu.sc.csce740.GRADSIntf;
 import edu.sc.csce740.exception.DBIsNotLoadedException;
 import edu.sc.csce740.exception.NoUsersAreLoggedIn;
 import edu.sc.csce740.GRADS;
+import edu.sc.csce740.exception.UserHasInsufficientPrivilegeException;
 import edu.sc.csce740.model.Certificate;
 import edu.sc.csce740.model.Course;
 import edu.sc.csce740.model.CourseTaken;
@@ -123,7 +124,13 @@ public class GRADSTest  {
 
 	@Test
 	public void testGetStudentIDsFail() throws Exception {
-        /// TODO: implement
+        String studentUserId = "mhunt";
+        grads.loadUsers("users.txt");
+        grads.loadRecords("students_testGetStudentIDs.txt");
+        grads.setUser(studentUserId);
+
+        exception.expect(UserHasInsufficientPrivilegeException.class);
+        List<String> studentIds = grads.getStudentIDs();
 	}
 
 	@Test
