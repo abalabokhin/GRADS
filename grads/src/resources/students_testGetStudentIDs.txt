@@ -1,0 +1,74 @@
+[
+    {
+        "student": {
+            "id": "mhunt",
+            "firstName": "Michelle",
+            "lastName": "Hunt"
+        },
+        "department": "COMPUTER_SCIENCE",
+        "termBegan": {
+            "semester": "SUMMER",
+            "year": 2013
+        }
+    },
+    {
+        "student": {
+            "id": "ereas",
+            "firstName": "Earl",
+            "lastName": "Reas"
+        },
+        "department": "COMPUTER_SCIENCE",
+        "termBegan": {
+            "semester": "SUMMER",
+            "year": 2013
+        }
+    },
+    {
+        "student": {
+            "id": "rboothe",
+            "firstName": "Robert",
+            "lastName": "Boothe"
+        },
+        "department": "COMPUTER_SCIENCE",
+        "termBegan": {
+            "semester": "SUMMER",
+            "year": 2013
+        }
+    },
+    {
+        "student": {
+            "id": "aclyde",
+            "firstName": "Amanda",
+            "lastName": "Clyde"
+        },
+        "department": "MECHANICAL_ENGINEERING",
+        "termBegan": {
+            "semester": "SUMMER",
+            "year": 2014
+        }
+    },
+    {
+        "student": {
+            "id": "cbuchanan",
+            "firstName": "Cynthia",
+            "lastName": "Buchanan"
+        },
+        "department": "COMPUTER_SCIENCE",
+        "termBegan": {
+            "semester": "SUMMER",
+            "year": 2014
+        }
+    },
+    {
+        "student": {
+            "id": "jcostner",
+            "firstName": "June",
+            "lastName": "Costner"
+        },
+        "department": "MATH_DEPARTMENT",
+        "termBegan": {
+            "semester": "SUMMER",
+            "year": 2014
+        }
+    }
+]

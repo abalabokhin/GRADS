@@ -35,11 +35,14 @@ import org.junit.rules.ExpectedException;
 import org.junit.Test;
 import org.unitils.reflectionassert.ReflectionComparatorMode;
 
+import static java.util.Arrays.asList;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 
 public class GRADSTest  {
 
 	GRADSIntf grads;
+    final String userGPAId = "mmatthews";
+
     @Rule
     public final ExpectedException exception = ExpectedException.none();
 
@@ -110,7 +113,12 @@ public class GRADSTest  {
 
 	@Test
 	public void testGetStudentIDsSuccess() throws Exception {
-        /// TODO: implement
+        grads.loadUsers("users.txt");
+        grads.loadRecords("students_testGetStudentIDs.txt");
+        grads.setUser(userGPAId);
+        List<String> studentIdsExpected = asList("mhunt", "ereas", "rboothe", "cbuchanan");
+        List<String> studentIds = grads.getStudentIDs();
+        assertReflectionEquals(studentIdsExpected, studentIds, ReflectionComparatorMode.LENIENT_ORDER);
 	}
 
 	@Test
