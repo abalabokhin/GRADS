@@ -1,6 +1,5 @@
 package edu.sc.csce740.tests;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonWriter;
@@ -10,11 +9,9 @@ import edu.sc.csce740.exception.DBIsNotLoadedException;
 import edu.sc.csce740.exception.NoUsersAreLoggedIn;
 import edu.sc.csce740.GRADS;
 import edu.sc.csce740.exception.UserHasInsufficientPrivilegeException;
-import edu.sc.csce740.model.Certificate;
 import edu.sc.csce740.model.Course;
 import edu.sc.csce740.model.CourseTaken;
 import edu.sc.csce740.model.Degree;
-import edu.sc.csce740.model.Milestone;
 import edu.sc.csce740.model.Professor;
 import edu.sc.csce740.model.ProgressSummary;
 import edu.sc.csce740.model.RequirementCheckResult;
@@ -42,7 +39,8 @@ import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEqua
 public class GRADSTest  {
 
 	GRADSIntf grads;
-    final String userGPAId = "mmatthews";
+    final String userGPAID = "mmatthews";
+    final String userNoneCSCEGPAID = "jsmith";
 
     @Rule
     public final ExpectedException exception = ExpectedException.none();
@@ -116,7 +114,7 @@ public class GRADSTest  {
 	public void testGetStudentIDsSuccess() throws Exception {
         grads.loadUsers("users.txt");
         grads.loadRecords("students_testGetStudentIDs.txt");
-        grads.setUser(userGPAId);
+        grads.setUser(userGPAID);
         List<String> studentIdsExpected = asList("mhunt", "ereas", "rboothe", "cbuchanan");
         List<String> studentIds = grads.getStudentIDs();
         assertReflectionEquals(studentIdsExpected, studentIds, ReflectionComparatorMode.LENIENT_ORDER);
@@ -130,7 +128,7 @@ public class GRADSTest  {
         grads.setUser(studentUserId);
 
         exception.expect(UserHasInsufficientPrivilegeException.class);
-        List<String> studentIds = grads.getStudentIDs();
+        grads.getStudentIDs();
 	}
 
 	@Test
@@ -142,15 +140,32 @@ public class GRADSTest  {
 
 		grads.loadRecords("students.txt");
 		grads.loadUsers("users.txt");
-		grads.setUser("mmatthews");
 
+        grads.setUser("mmatthews");
 		StudentRecord studentRecord2 = grads.getTranscript(studentId);
+        assertReflectionEquals(studentRecord1, studentRecord2, ReflectionComparatorMode.LENIENT_ORDER);
+
+        grads.setUser(studentId);
+        studentRecord2 = grads.getTranscript(studentId);
         assertReflectionEquals(studentRecord1, studentRecord2, ReflectionComparatorMode.LENIENT_ORDER);
 	}
 
     @Test
     public void testGetTranscriptFail() throws Exception {
-        /// TODO: implement
+        String otherStudentId = "ggay";
+        StudentRecord studentRecord1 = createStudentRecord();
+        String requestedStudentId = studentRecord1.student.id;
+        addStudentRecordToDB(studentRecord1);
+
+        grads.loadRecords("students.txt");
+        grads.loadUsers("users.txt");
+        grads.setUser(otherStudentId);
+
+        exception.expect(UserHasInsufficientPrivilegeException.class);
+        grads.getTranscript(requestedStudentId);
+
+        grads.setUser(userNoneCSCEGPAID);
+        grads.getTranscript(requestedStudentId);
     }
 
 	@Test

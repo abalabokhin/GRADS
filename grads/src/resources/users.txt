@@ -1,5 +1,12 @@
 [
     {
+       "id": "hsmith",
+       "firstName": "Michelle",
+       "lastName": "Hunt",
+        "role": "STUDENT",
+        "department": "COMPUTER_SCIENCE"
+    },
+    {
        "id": "mhunt",
        "firstName": "Michelle",
        "lastName": "Hunt",
