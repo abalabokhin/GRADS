@@ -270,16 +270,13 @@ public class GRADSTest  {
 	public void testAddNoteSuccess() throws Exception
 	{
 		String note = "test note to be added";
-		String GPCid = "mmatthews";
-
         StudentRecord studentRecord = createStudentRecord();
         String studentId = studentRecord.student.id;
         addStudentRecordToDB(studentRecord);
 
 		grads.loadUsers("users.txt");
 		grads.loadRecords("students.txt");
-
-		grads.setUser(GPCid);
+		grads.setUser(userGPAID);
 
 		// Get the current notes and check to ensure note is NOT present
 		List<String> notes = grads.getTranscript(studentId).notes;
@@ -296,7 +293,20 @@ public class GRADSTest  {
     @Test
     public void testAddNoteFail() throws Exception
     {
-        /// TODO: implement
+        String note = "test note to be added";
+        StudentRecord studentRecord = createStudentRecord();
+        String studentId = studentRecord.student.id;
+        addStudentRecordToDB(studentRecord);
+
+        grads.loadUsers("users.txt");
+        grads.loadRecords("students.txt");
+
+        grads.setUser(studentId);
+
+        try {
+            grads.addNote(studentId, note, true);
+            Assert.assertTrue(false);
+        } catch (UserHasInsufficientPrivilegeException ex) {}
     }
 
     @Test
