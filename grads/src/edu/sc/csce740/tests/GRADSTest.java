@@ -54,26 +54,25 @@ public class GRADSTest  {
 	@Test
 	public void testSetUserSuccess() throws Exception
 	{
-        String testUser1 = "mmatthews";
-		grads.loadUsers("users.txt");
-		grads.setUser(testUser1);
 
-		Assert.assertEquals(grads.getUser(), testUser1);
+		grads.loadUsers("users.txt");
+		grads.setUser(userGPAID);
+
+		Assert.assertEquals(grads.getUser(), userGPAID);
 	}
 
 	@Test
 	public void testSetUserFail() throws Exception
 	{
-		String testUser1 = "mmatthews";
 		exception.expect(DBIsNotLoadedException.class);
-		grads.setUser(testUser1);
+		grads.setUser(userGPAID);
 	}
 
 	@Test
 	public void testClearSessionSuccess() throws Exception
 	{
 		grads.loadUsers("users.txt");
-		grads.setUser("mmatthews");
+		grads.setUser(userGPAID);
 		grads.clearSession();
 
         Assert.assertEquals(grads.getUser(), null);
@@ -91,11 +90,10 @@ public class GRADSTest  {
 	@Test
 	public void testGetUserSuccess() throws Exception
 	{
-		String testUser1 = "mmatthews";
 		grads.loadUsers("users.txt");
-		grads.setUser(testUser1);
+		grads.setUser(userGPAID);
 
-		Assert.assertEquals(grads.getUser(), testUser1);
+		Assert.assertEquals(grads.getUser(), userGPAID);
 	}
 
     @Test
@@ -141,7 +139,7 @@ public class GRADSTest  {
 		grads.loadRecords("students.txt");
 		grads.loadUsers("users.txt");
 
-        grads.setUser("mmatthews");
+        grads.setUser(userGPAID);
 		StudentRecord studentRecord2 = grads.getTranscript(studentId);
         assertReflectionEquals(studentRecord1, studentRecord2, ReflectionComparatorMode.LENIENT_ORDER);
 
@@ -177,7 +175,7 @@ public class GRADSTest  {
 
 		grads.loadRecords("students.txt");
 		grads.loadUsers("users.txt");
-		grads.setUser("mmatthews");
+		grads.setUser(userGPAID);
 
 		// get the inital date for the term began
         StudentRecord studentRecordFromDB = grads.getTranscript(studentId);
@@ -359,7 +357,7 @@ public class GRADSTest  {
         grads.loadUsers("users.txt");
         grads.loadCourses("courses.txt");
 
-        grads.setUser("mmatthews");
+        grads.setUser(userGPAID);
 
         ProgressSummary progressSummary2 = grads.generateProgressSummary(studentId);
 
