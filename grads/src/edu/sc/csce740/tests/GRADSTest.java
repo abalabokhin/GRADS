@@ -241,14 +241,20 @@ public class GRADSTest  {
         /// TODO: implement
     }
 
+    @Test
+    public void testGenerateProgressSummaryFail() throws Exception
+    {
+        /// TODO: implement
+    }
+
 	@Test
-	public void testGenerateProgressSummaryPHDSuccess() throws Exception
+	public void testGenerateProgressSummaryPHDRequirementsAreMet() throws Exception
 	{
         /// TODO: implement
 	}
 
     @Test
-    public void testGenerateProgressSummaryPHDFail() throws Exception
+    public void testGenerateProgressSummaryPHDRequirementsAreNotMet() throws Exception
     {
         StudentRecord studentRecord1 = createStudentRecord();
         String studentId = studentRecord1.student.id;
@@ -361,49 +367,49 @@ public class GRADSTest  {
     }
 
     @Test
-    public void testGenerateProgressSummaryMSESuccess() throws Exception
+    public void testGenerateProgressSummaryMSERequirementsAreMet() throws Exception
     {
         /// TODO: implement
     }
 
     @Test
-    public void testGenerateProgressSummaryMSEFail() throws Exception
+    public void testGenerateProgressSummaryMSERequirementsAreNotMet() throws Exception
     {
         /// TODO: implement
     }
 
     @Test
-    public void testGenerateProgressSummaryMSSuccess() throws Exception
+    public void testGenerateProgressSummaryMSRequirementsAreMet() throws Exception
     {
         /// TODO: implement
     }
 
     @Test
-    public void testGenerateProgressSummaryMSFail() throws Exception
+    public void testGenerateProgressSummaryMSRequirementsAreNotMet() throws Exception
     {
         /// TODO: implement
     }
 
     @Test
-    public void testGenerateProgressSummaryMENGSuccess() throws Exception
+    public void testGenerateProgressSummaryMENGRequirementsAreMet() throws Exception
     {
         /// TODO: implement
     }
 
     @Test
-    public void testGenerateProgressSummaryMENGFail() throws Exception
+    public void testGenerateProgressSummaryMENGRequirementsAreNotMet() throws Exception
     {
         /// TODO: implement
     }
 
     @Test
-    public void testGenerateProgressSummaryINFASSuccess() throws Exception
+    public void testGenerateProgressSummaryINFASRequirementsAreMet() throws Exception
     {
         /// TODO: implement
     }
 
     @Test
-    public void testGenerateProgressSummaryINFASFail() throws Exception
+    public void testGenerateProgressSummaryINFASRequirementsAreNotMet() throws Exception
     {
         /// TODO: implement
     }
