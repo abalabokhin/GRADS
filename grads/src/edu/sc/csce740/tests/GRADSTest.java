@@ -77,14 +77,35 @@ public class GRADSTest  {
 
         Assert.assertEquals(grads.getUser(), null);
 
-		exception.expect(NoUsersAreLoggedIn.class);
+        try {
+            grads.getStudentIDs();
+            Assert.assertTrue(false);
+        } catch (NoUsersAreLoggedIn ex) {}
 
-        grads.getStudentIDs();
-        grads.getTranscript("hsmith");
-        grads.updateTranscript("hsmith", null, true);
-		grads.addNote("hsmith", "I am a note", false);
-        grads.generateProgressSummary("hsmith");
-        grads.simulateCourses("hsmith", null);
+        try {
+            grads.getTranscript("hsmith");
+            Assert.assertTrue(false);
+        } catch (NoUsersAreLoggedIn ex) {}
+
+        try {
+            grads.updateTranscript("hsmith", null, true);
+            Assert.assertTrue(false);
+        } catch (NoUsersAreLoggedIn ex) {}
+
+        try {
+            grads.addNote("hsmith", "I am a note", false);
+            Assert.assertTrue(false);
+        } catch (NoUsersAreLoggedIn ex) {}
+
+        try {
+            grads.generateProgressSummary("hsmith");
+            Assert.assertTrue(false);
+        } catch (NoUsersAreLoggedIn ex) {}
+
+        try {
+            grads.simulateCourses("hsmith", null);
+            Assert.assertTrue(false);
+        } catch (NoUsersAreLoggedIn ex) {}
 	}
 
 	@Test
@@ -103,6 +124,7 @@ public class GRADSTest  {
         grads.loadUsers("users.txt");
         try {
             grads.setUser(testUser);
+            Assert.assertTrue(false);
         } catch (Exception ex) {}
 
         Assert.assertEquals(grads.getUser(), null);
@@ -159,11 +181,16 @@ public class GRADSTest  {
         grads.loadUsers("users.txt");
         grads.setUser(otherStudentId);
 
-        exception.expect(UserHasInsufficientPrivilegeException.class);
-        grads.getTranscript(requestedStudentId);
+        try {
+            grads.getTranscript(requestedStudentId);
+            Assert.assertTrue(false);
+        } catch (UserHasInsufficientPrivilegeException ex) {}
 
         grads.setUser(userNoneCSCEGPAID);
-        grads.getTranscript(requestedStudentId);
+        try {
+            grads.getTranscript(requestedStudentId);
+            Assert.assertTrue(false);
+        } catch (UserHasInsufficientPrivilegeException ex) {}
     }
 
 	@Test
@@ -181,7 +208,7 @@ public class GRADSTest  {
 
         // change student first name by a student user
         studentRecordFromDB.student.firstName = "Andrey";
-        grads.updateTranscript("hsmith", studentRecordFromDB, true);
+        grads.updateTranscript(studentId, studentRecordFromDB, true);
         studentRecordFromDB = grads.getTranscript(studentId);
         originalStudentRecord.student.firstName = "Andrey";
         assertReflectionEquals(originalStudentRecord, studentRecordFromDB, ReflectionComparatorMode.LENIENT_ORDER);
@@ -191,18 +218,18 @@ public class GRADSTest  {
         // update term began and save it the db
         studentRecordFromDB.termBegan.year = 2014;
         // not permanent update
-		grads.updateTranscript("hsmith", studentRecordFromDB, false);
+		grads.updateTranscript(studentId, studentRecordFromDB, false);
         studentRecordFromDB = grads.getTranscript(studentId);
         // check that DB version is the same as original version, not updated one.
         assertReflectionEquals(originalStudentRecord, studentRecordFromDB, ReflectionComparatorMode.LENIENT_ORDER);
 
         studentRecordFromDB.termBegan.year = 2014;
         // permanent update
-        grads.updateTranscript("hsmith", studentRecordFromDB, true);
+        grads.updateTranscript(studentId, studentRecordFromDB, true);
 		grads.loadRecords("students.txt");
 
 		// get the final date for the term began
-        studentRecordFromDB = grads.getTranscript("hsmith");
+        studentRecordFromDB = grads.getTranscript(studentId);
         originalStudentRecord.termBegan.year = 2014;
         // check that DB version is the same as updated original version.
         assertReflectionEquals(originalStudentRecord, studentRecordFromDB, ReflectionComparatorMode.LENIENT_ORDER);
@@ -211,7 +238,32 @@ public class GRADSTest  {
     @Test
     public void testUpdateTranscriptFail() throws Exception
     {
-        /// TODO: implement
+        String otherStudentId = "ggay";
+
+        StudentRecord originalStudentRecord = createStudentRecord();
+        String studentId = originalStudentRecord.student.id;
+        addStudentRecordToDB(originalStudentRecord);
+
+        grads.loadRecords("students.txt");
+        grads.loadUsers("users.txt");
+        grads.setUser(studentId);
+        StudentRecord studentRecordFromDB = grads.getTranscript(studentId);
+        // update department and save it the db by a GPC
+        grads.setUser(userGPAID);
+        studentRecordFromDB.department = "MATH";
+
+        try {
+            grads.updateTranscript(studentId, studentRecordFromDB, true);
+            Assert.assertTrue(false);
+        } catch (UserHasInsufficientPrivilegeException ex) {}
+
+        // update student record by another student
+        studentRecordFromDB = originalStudentRecord;
+        grads.setUser(otherStudentId);
+        try {
+            grads.updateTranscript(studentId, studentRecordFromDB, true);
+            Assert.assertTrue(false);
+        } catch (UserHasInsufficientPrivilegeException ex) {}
     }
 
 	@Test
