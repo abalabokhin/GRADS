@@ -82,6 +82,13 @@ public class ProgressCheckerForINFAS extends ProgressCheckerBase {
         return null; }
 
     @Override
+    RequirementCheckResult CheckTimeLimit() {
+        RequirementCheckResult result = super.CheckTimeLimit();
+        result.name = "TIME_LIMIT_" + degreeName;
+        return result;
+    }
+
+    @Override
     RequirementCheckResult CheckMilestones() {
         return null; }
 }

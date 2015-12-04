@@ -113,4 +113,10 @@ public class ProgressCheckerForPHD extends ProgressCheckerBase {
 		return result;
     } // End of CheckDegreeBasedCredits method
 
+	@Override
+	RequirementCheckResult CheckTimeLimit() {
+		RequirementCheckResult result = super.CheckTimeLimit();
+		result.name = "TIME_LIMIT_" + degreeName;
+		return result;
+	}
 } // End of ProgressCheckerForPHD class

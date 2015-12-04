@@ -199,11 +199,12 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
             /// Add 9 hour if there is a certificate.
             tempDegreeBasedCredits += 9;
         }
+
+        result.details = new RequirementDetails();
         if (totalHours >= tempDegreeBasedCredits) {
             result.passed = true;
         } else {
             result.passed = false;
-            result.details = new RequirementDetails();
             result.details.notes = new ArrayList<>();
             result.details.notes.add("Must pass " +
                             String.valueOf(tempDegreeBasedCredits - totalHours) +
@@ -266,7 +267,7 @@ public class ProgressCheckerBase implements ProgressCheckerIntf {
             result.passed = false;
         }
 
-        result.name = "TIME_LIMIT_" + degreeName;
+        result.name = "TIME_LIMIT";
         return result;
     }
 
