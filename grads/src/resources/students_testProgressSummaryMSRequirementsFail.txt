@@ -1,0 +1,201 @@
+[
+        {
+            "student": {
+                "id": "aclyde",
+                "firstName": "Amanda",
+                "lastName": "Clyde"
+            },
+            "department": "COMPUTER_SCIENCE",
+            "termBegan": {
+                "semester": "SUMMER",
+                "year": 2008
+            },
+            "degreeSought": {
+                "name": "MS",
+                "graduation": {
+                    "semester": "SPRING",
+                    "year": 2016
+                }
+            },
+            "previousDegrees": [
+                {
+                    "name": "BS",
+                    "graduation": {
+                        "semester": "SPRING",
+                        "year": 2008
+                    }
+                }
+            ],
+            "advisors": [
+                {
+                    "department": "COMPUTER_SCIENCE",
+                    "firstName": "Duncan",
+                    "lastName": "Buell"
+                }
+            ],
+            "committee": [
+                {
+                    "department": "COMPUTER_SCIENCE",
+                    "firstName": "Manton",
+                    "lastName": "Matthews"
+                },
+                {
+                    "department": "COMPUTER_SCIENCE",
+                    "firstName": "Jason",
+                    "lastName": "Bakos"
+                },
+                {
+                    "department": "MATHEMATICS",
+                    "firstName": "Richard",
+                    "lastName": "McGehee"
+                }
+            ],
+            "coursesTaken": [
+                {
+                    "course": {
+                                "name": "Thesis Preparation",
+                                "id": "csce799",
+                                "numCredits": "5"
+                    },
+                    "term": {
+                        "semester": "SPRING",
+                        "year": 2015
+                    },
+                    "grade": "_"
+                },
+                {
+                    "course": {
+                        "name": "Advanced Pattern Recognition",
+                        "id": "csce868",
+                        "numCredits": "3"
+                    },
+                    "term": {
+                        "semester": "FALL",
+                        "year": 2014
+                    },
+                    "grade": "C"
+                },
+                {
+                    "course": {
+                        "name": "Compiler Construction",
+                        "id": "csce531",
+                        "numCredits": "3"
+                    },
+                    "term": {
+                        "semester": "SPRING",
+                        "year": 2015
+                    },
+                    "grade": "A"
+                },
+                {
+                    "course": {
+                        "name": "Theory of Computation",
+                        "id": "csce551",
+                        "numCredits": "3"
+                    },
+                    "term": {
+                        "semester": "FALL",
+                        "year": 2004
+                    },
+                    "grade": "C"
+                },
+                {
+                    "course": {
+                        "name": "Analysis of Algorithms",
+                        "id": "csce750",
+                        "numCredits": "3"
+                    },
+                    "term": {
+                        "semester": "SPRING",
+                        "year": 2005
+                    },
+                    "grade": "C"
+                },
+                {
+                    "course": {
+                        "name": "Seminar in Advances in Computing",
+                        "id": "csce791",
+                        "numCredits": "1"
+                    },
+                    "term": {
+                        "semester": "SPRING",
+                        "year": 2015
+                    },
+                    "grade": "C"
+                },
+                {
+                    "course": {
+                        "name": "Neural Information Processing",
+                        "id": "csce784",
+                        "numCredits": "3"
+                    },
+                    "term": {
+                        "semester": "FALL",
+                        "year": 2004
+                    },
+                    "grade": "C"
+                },
+                {
+                    "course": {
+                        "name": "Introduction to Fuzzy Logic",
+                        "id": "csce787",
+                        "numCredits": "3"
+                    },
+                    "term": {
+                        "semester": "SPRING",
+                        "year": 2015
+                    },
+                    "grade": "C"
+                }
+            ],
+            "milestonesSet": [
+                {
+                    "milestone": "PROGRAM_OF_STUDY_SUBMITTED",
+                    "term": {
+                        "semester": "FALL",
+                        "year": 2014
+                    }
+                },
+                {
+                    "milestone": "THESIS_ADVISOR_SELECTED",
+                    "term": {
+                        "semester": "FALL",
+                        "year": 2014
+                    }
+                },
+                {
+                    "milestone": "ACADEMIC_ADVISOR_APPOINTED",
+                    "term": {
+                        "semester": "SUMMER",
+                        "year": 2013
+                    }
+                },
+                {
+                    "milestone": "THESIS_COMMITTEE_FORMED",
+                    "term": {
+                        "semester": "FALL",
+                        "year": 2014
+                    }
+                },
+                {
+                    "milestone": "THESIS_PROPOSAL_SCHEDULED",
+                    "term": {
+                        "semester": "FALL",
+                        "year": 2014
+                    }
+                },
+                {
+                    "milestone": "THESIS_PROPOSAL_APPROVED",
+                    "term": {
+                        "semester": "FALL",
+                        "year": 2014
+                    }
+                }
+            ],
+            "notes": [
+                "Student has very good prospects of suceeding.",
+                "Need to complete thesis."
+            ],
+            "gpa": 0.0
+        }
+]

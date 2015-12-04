@@ -312,7 +312,19 @@ public class GRADSTest  {
     @Test
     public void testGenerateProgressSummaryFail() throws Exception
     {
-        /// TODO: implement
+        String otherStudentId = "ggay";
+
+        grads.loadRecords("students.txt");
+        grads.loadUsers("users.txt");
+        grads.loadCourses("courses.txt");
+
+        grads.setUser(userGPAID);
+        grads.setUser(otherStudentId);
+
+        try {
+            grads.generateProgressSummary("aclyde");
+            Assert.assertTrue(false);
+        } catch (UserHasInsufficientPrivilegeException ex) {}
     }
 
 	@Test
@@ -449,7 +461,7 @@ public class GRADSTest  {
     @Test
     public void testGenerateProgressSummaryMSRequirementsAreMet() throws Exception
     {
-        grads.loadRecords("students_testProgressSummaryMSSuccess.txt");
+        grads.loadRecords("students_testProgressSummaryMSRequirementsPassed.txt");
         grads.loadUsers("users.txt");
         grads.loadCourses("courses.txt");
 
@@ -457,32 +469,62 @@ public class GRADSTest  {
         ProgressSummary summary = grads.generateProgressSummary("aclyde");
 
         Assert.assertEquals(7, summary.requirementCheckResults.size());
+
         Assert.assertEquals("CORE_COURSES_MS", summary.requirementCheckResults.get(0).name);
-        Assert.assertEquals(true, summary.requirementCheckResults.get(0).passed);
+        Assert.assertTrue(summary.requirementCheckResults.get(0).passed);
 
         Assert.assertEquals("ADDITIONAL_CREDITS_MS", summary.requirementCheckResults.get(1).name);
-        Assert.assertEquals(true, summary.requirementCheckResults.get(1).passed);
+        Assert.assertTrue(summary.requirementCheckResults.get(1).passed);
 
         Assert.assertEquals("DEGREE_BASED_CREDITS_MS", summary.requirementCheckResults.get(2).name);
-        Assert.assertEquals(true, summary.requirementCheckResults.get(2).passed);
+        Assert.assertTrue(summary.requirementCheckResults.get(2).passed);
 
         Assert.assertEquals("THESIS_CREDITS_MS", summary.requirementCheckResults.get(3).name);
-        Assert.assertEquals(true, summary.requirementCheckResults.get(3).passed);
+        Assert.assertTrue(summary.requirementCheckResults.get(3).passed);
 
         Assert.assertEquals("TIME_LIMIT", summary.requirementCheckResults.get(4).name);
-        Assert.assertEquals(true, summary.requirementCheckResults.get(4).passed);
+        Assert.assertTrue(summary.requirementCheckResults.get(4).passed);
 
         Assert.assertEquals("GPA", summary.requirementCheckResults.get(5).name);
-        Assert.assertEquals(true, summary.requirementCheckResults.get(5).passed);
+        Assert.assertTrue(summary.requirementCheckResults.get(5).passed);
 
         Assert.assertEquals("MILESTONES_MS", summary.requirementCheckResults.get(6).name);
-        Assert.assertEquals(true, summary.requirementCheckResults.get(6).passed);
+        Assert.assertTrue(summary.requirementCheckResults.get(6).passed);
     }
 
     @Test
     public void testGenerateProgressSummaryMSRequirementsAreNotMet() throws Exception
     {
-        /// TODO: implement
+        grads.loadRecords("students_testProgressSummaryMSRequirementsFail.txt");
+        grads.loadUsers("users.txt");
+        grads.loadCourses("courses.txt");
+
+        grads.setUser(userGPAID);
+        ProgressSummary summary = grads.generateProgressSummary("aclyde");
+
+        Assert.assertEquals(7, summary.requirementCheckResults.size());
+
+        Assert.assertEquals("CORE_COURSES_MS", summary.requirementCheckResults.get(0).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(0).passed);
+
+        Assert.assertEquals("ADDITIONAL_CREDITS_MS", summary.requirementCheckResults.get(1).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(1).passed);
+
+        Assert.assertEquals("DEGREE_BASED_CREDITS_MS", summary.requirementCheckResults.get(2).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(2).passed);
+
+        Assert.assertEquals("THESIS_CREDITS_MS", summary.requirementCheckResults.get(3).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(3).passed);
+
+        Assert.assertEquals("TIME_LIMIT", summary.requirementCheckResults.get(4).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(4).passed);
+
+        Assert.assertEquals("GPA", summary.requirementCheckResults.get(5).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(5).passed);
+        Assert.assertTrue(summary.requirementCheckResults.get(5).details.gpa < 3.0);
+
+        Assert.assertEquals("MILESTONES_MS", summary.requirementCheckResults.get(6).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(6).passed);
     }
 
     @Test
