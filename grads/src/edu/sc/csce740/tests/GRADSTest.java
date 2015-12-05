@@ -449,20 +449,31 @@ public class GRADSTest  {
     @Test
     public void testGenerateProgressSummaryMSERequirementsAreMet() throws Exception
     {
-        /// TODO: implement
-
+        /// TODO: implement  -- Additional Credits requires changes in the ProgressChecker Base class, it is returning a nullpointer exception.
 
         grads.loadRecords("students.txt");
         grads.loadUsers("users.txt");
         grads.loadCourses("courses.txt");
 
         grads.setUser(userGPAID);
-        ProgressSummary summaryMSETest1 = grads.generateProgressSummary("tcrumb");
+        ProgressSummary summaryMSETest1 = grads.generateProgressSummary("khilton");
 
         int sizeOfArray = summaryMSETest1.requirementCheckResults.size();
         System.out.println(sizeOfArray);
 
-        Assert.assertEquals(8, summaryMSETest1.requirementCheckResults.size());
+        Assert.assertEquals(6, summaryMSETest1.requirementCheckResults.size());
+
+        System.out.println(summaryMSETest1.requirementCheckResults.get(0).name);
+        System.out.println(summaryMSETest1.requirementCheckResults.get(0).passed);
+        System.out.println(summaryMSETest1.requirementCheckResults.get(1).name);
+        System.out.println(summaryMSETest1.requirementCheckResults.get(1).passed);
+        System.out.println(summaryMSETest1.requirementCheckResults.get(2).name);
+        System.out.println(summaryMSETest1.requirementCheckResults.get(2).passed);
+        System.out.println(summaryMSETest1.requirementCheckResults.get(3).name);
+        System.out.println(summaryMSETest1.requirementCheckResults.get(3).passed);
+        System.out.println(summaryMSETest1.requirementCheckResults.get(4).name);
+        System.out.println(summaryMSETest1.requirementCheckResults.get(4).passed);
+
 
         Assert.assertEquals("CORE_COURSES_MSE", summaryMSETest1.requirementCheckResults.get(0).name);
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(0).passed);
@@ -470,31 +481,52 @@ public class GRADSTest  {
         Assert.assertEquals("ADDITIONAL_CREDITS_MSE", summaryMSETest1.requirementCheckResults.get(1).name);
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(1).passed);
 
-        Assert.assertEquals("DEGREE_BASED_CREDITS_MSE", summaryMSETest1.requirementCheckResults.get(2).name);
+        Assert.assertEquals("TIME_LIMIT", summaryMSETest1.requirementCheckResults.get(2).name);
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(2).passed);
 
-        Assert.assertEquals("THESIS_CREDITS_MSE", summaryMSETest1.requirementCheckResults.get(3).name);
+        Assert.assertEquals("GPA", summaryMSETest1.requirementCheckResults.get(3).name);
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(3).passed);
 
-        Assert.assertEquals("TIME_LIMIT", summaryMSETest1.requirementCheckResults.get(4).name);
+        Assert.assertEquals("MILESTONES_MSE", summaryMSETest1.requirementCheckResults.get(4).name);
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(4).passed);
 
-        Assert.assertEquals("GPA", summaryMSETest1.requirementCheckResults.get(5).name);
+        Assert.assertEquals("WORK_EXPERIENCE_CHECK", summaryMSETest1.requirementCheckResults.get(5).name);
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(5).passed);
-
-        Assert.assertEquals("MILESTONES_MSE", summaryMSETest1.requirementCheckResults.get(6).name);
-        Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(6).passed);
-
-        Assert.assertEquals("EXPERIENCE_MSE", summaryMSETest1.requirementCheckResults.get(7).name);
-        Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(7).passed);
-
 
     }
 
     @Test
     public void testGenerateProgressSummaryMSERequirementsAreNotMet() throws Exception
     {
-        /// TODO: implement
+        grads.loadRecords("students.txt");
+        grads.loadUsers("users.txt");
+        grads.loadCourses("courses.txt");
+
+        grads.setUser(userGPAID);
+        ProgressSummary summaryMSETest1 = grads.generateProgressSummary("tcrumb");
+
+
+        Assert.assertEquals(6, summaryMSETest1.requirementCheckResults.size());
+
+
+        Assert.assertEquals("CORE_COURSES_MSE", summaryMSETest1.requirementCheckResults.get(0).name);
+        Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(0).passed);
+
+        Assert.assertEquals("ADDITIONAL_CREDITS_MSE", summaryMSETest1.requirementCheckResults.get(1).name);
+        Assert.assertFalse(summaryMSETest1.requirementCheckResults.get(1).passed);
+
+        Assert.assertEquals("TIME_LIMIT", summaryMSETest1.requirementCheckResults.get(2).name);
+        Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(2).passed);
+
+        Assert.assertEquals("GPA", summaryMSETest1.requirementCheckResults.get(3).name);
+        Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(3).passed);
+
+        Assert.assertEquals("MILESTONES_MSE", summaryMSETest1.requirementCheckResults.get(4).name);
+        Assert.assertFalse(summaryMSETest1.requirementCheckResults.get(4).passed);
+
+        Assert.assertEquals("WORK_EXPERIENCE_CHECK", summaryMSETest1.requirementCheckResults.get(5).name);
+        Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(5).passed);
+
     }
 
     @Test

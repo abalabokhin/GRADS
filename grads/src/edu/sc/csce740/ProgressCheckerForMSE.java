@@ -93,14 +93,14 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase {
 		return result;
 	}
 
-    @Override
-    RequirementCheckResult CheckDegreeBasedCredits() {
+	@Override
+	RequirementCheckResult CheckDegreeBasedCredits() {
 
 		return null;
 	}
 
-    @Override
-    RequirementCheckResult CheckThesisCredits() {
+	@Override
+	RequirementCheckResult CheckThesisCredits() {
 		return null; }
 
     @Override
@@ -109,6 +109,7 @@ public class ProgressCheckerForMSE extends ProgressCheckerBase {
 		if(currentStudentRecord.coursesTaken.stream().filter(x -> x.course.id.equals(workExperienceEquivalentClassId)
 				&& !x.term.isExpired(currentTerm, yearsToFinishClasses)).findFirst().isPresent()) {
 			result.passed = true;
+			result.name = "WORK_EXPERIENCE_CHECK";
 		} else {
 			result.passed = false;
 			result.details = new RequirementDetails();

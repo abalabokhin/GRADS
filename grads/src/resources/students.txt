@@ -1,1570 +1,1568 @@
 [
-    {
-        "student": {
-            "id": "mhunt",
-            "firstName": "Michelle",
-            "lastName": "Hunt"
-        },
-        "department": "COMPUTER_SCIENCE",
-        "termBegan": {
-            "semester": "SUMMER",
-            "year": 2013
-        },
-        "degreeSought": {
-            "name": "PHD",
-            "graduation": {
-                "semester": "SPRING",
-                "year": 2018
-            }
-        },
-        "previousDegrees": [
-            {
-                "name": "BS",
-                "graduation": {
-                    "semester": "SPRING",
-                    "year": 2008
-                }
-            }
-        ],
-        "advisors": [
-            {
-                "department": "COMPUTER_SCIENCE",
-                "firstName": "Duncan",
-                "lastName": "Buell"
-            }
-        ],
-        "committee": [
-            {
-                "department": "COMPUTER_SCIENCE",
-                "firstName": "Manton",
-                "lastName": "Matthews"
-            },
-            {
-                "department": "COMPUTER_SCIENCE",
-                "firstName": "Jason",
-                "lastName": "Bakos"
-            },
-            {
-                "department": "MATHEMATICS",
-                "firstName": "Richard",
-                "lastName": "McGehee"
-            }
-        ],
-        "coursesTaken": [
-            {
-                "course": {
-                    "name": "Directed Study and Research",
-                    "id": "csce798",
-                    "numCredits": "5"
-                },
-                "term": {
-                    "semester": "SPRING",
-                    "year": 2014
-                },
-                "grade": "B"
-            },
-            {
-                "course": {
-                    "name": "Computer Vision",
-                    "id": "csce867",
-                    "numCredits": "3"
-                },
-                "term": {
-                    "semester": "FALL",
-                    "year": 2014
-                },
-                "grade": "B"
-            },
-            {
-                "course": {
-                    "name": "Computer Architecture",
-                    "id": "csce513",
-                    "numCredits": "3"
-                },
-                "term": {
-                    "semester": "FALL",
-                    "year": 2013
-                },
-                "grade": "A"
-            },
-            {
-                "course": {
-                    "name": "Compiler Construction",
-                    "id": "csce531",
-                    "numCredits": "3"
-                },
-                "term": {
-                    "semester": "SPRING",
-                    "year": 2014
-                },
-                "grade": "A"
-            },
-            {
-                "course": {
-                    "name": "Theory of Computation",
-                    "id": "csce551",
-                    "numCredits": "3"
-                },
-                "term": {
-                    "semester": "FALL",
-                    "year": 2014
-                },
-                "grade": "A"
-            },
-            {
-                "course": {
-                    "name": "Analysis of Algorithms",
-                    "id": "csce750",
-                    "numCredits": "3"
-                },
-                "term": {
-                    "semester": "SPRING",
-                    "year": 2015
-                },
-                "grade": "A"
-            },
-            {
-                "course": {
-                    "name": "Seminar in Advances in Computing",
-                    "id": "csce791",
-                    "numCredits": "1"
-                },
-                "term": {
-                    "semester": "SPRING",
-                    "year": 2015
-                },
-                "grade": "A"
-            },
-            {
-                "course": {
-                    "name": "Dissertation Preparation",
-                    "id": "csce899",
-                    "numCredits": "6"
-                },
-                "term": {
-                    "semester": "FALL",
-                    "year": 2014
-                },
-                "grade": "P"
-            },
-            {
-                "course": {
-                    "name": "Dissertation Preparation",
-                    "id": "csce899",
-                    "numCredits": "6"
-                },
-                "term": {
-                    "semester": "SPRING",
-                    "year": 2015
-                },
-                "grade": "P"
-            },
-            {
-                "course": {
-                    "name": "Software Engineering",
-                    "id": "csce740",
-                    "numCredits": "3"
-                },
-                "term": {
-                    "semester": "FALL",
-                    "year": 2015
-                },
-                "grade": "_"
-            }
-        ],
-        "milestonesSet": [
-            {
-                "milestone": "DISSERTATION_ADVISOR_SELECTED",
-                "term": {
-                    "semester": "FALL",
-                    "year": 2014
-                }
-            },
-            {
-                "milestone": "DISSERTATION_COMMITTEE_FORMED",
-                "term": {
-                    "semester": "FALL",
-                    "year": 2014
-                }
-            }
-        ],
-        "notes": [
-            "Great student. A++ Would recommend.",
-            "Owes me 20 bucks."
-        ],
-        "gpa": 0.0
+  {
+    "student": {
+      "id": "mhunt",
+      "firstName": "Michelle",
+      "lastName": "Hunt"
     },
-    {
-        "student": {
-            "id": "ggay",
-            "firstName": "Greg",
-            "lastName": "Gay"
-        },
-        "advisors": [
-            {
-                "department": "COMPUTER_SCIENCE",
-                "firstName": "Duncan",
-                "lastName": "BUELL"
-            }
-        ],
-        "notes": [
-            "note1",
-            "note2",
-            "note3"
-        ],
-        "gpa": 0.0
+    "department": "COMPUTER_SCIENCE",
+    "termBegan": {
+      "semester": "SUMMER",
+      "year": 2013
     },
-    {
-        "student": {
-            "id": "ereas",
-            "firstName": "Earl",
-            "lastName": "Reas"
-        },
-        "department": "COMPUTER_SCIENCE",
-        "termBegan": {
-            "semester": "SUMMER",
-            "year": 2013
-        },
-        "degreeSought": {
-            "name": "PHD",
-            "graduation": {
-                "semester": "SPRING",
-                "year": 2018
-            }
-        },
-        "previousDegrees": [
-            {
-                "name": "BS",
-                "graduation": {
-                    "semester": "SPRING",
-                    "year": 2008
-                }
-            }
-        ],
-        "advisors": [
-            {
-                "department": "COMPUTER_SCIENCE",
-                "firstName": "Duncan",
-                "lastName": "Buell"
-            }
-        ],
-        "committee": [
-            {
-                "department": "COMPUTER_SCIENCE",
-                "firstName": "Manton",
-                "lastName": "Matthews"
-            },
-            {
-                "department": "COMPUTER_SCIENCE",
-                "firstName": "Jason",
-                "lastName": "Bakos"
-            },
-            {
-                "department": "MATHEMATICS",
-                "firstName": "Richard",
-                "lastName": "McGehee"
-            }
-        ],
-        "coursesTaken": [
-            {
-                "course": {
-                    "name": "Individual Study and Research",
-                    "id": "csce797",
-                    "numCredits": "5"
-                },
-                "term": {
-                    "semester": "SPRING",
-                    "year": 2014
-                },
-                "grade": "B"
-            },
-            {
-                "course": {
-                    "name": "Advanced Pattern Recognition",
-                    "id": "csce868",
-                    "numCredits": "3"
-                },
-                "term": {
-                    "semester": "FALL",
-                    "year": 2014
-                },
-                "grade": "B"
-            },
-            {
-                "course": {
-                    "name": "Computer Architecture",
-                    "id": "csce513",
-                    "numCredits": "3"
-                },
-                "term": {
-                    "semester": "FALL",
-                    "year": 2013
-                },
-                "grade": "A"
-            },
-            {
-                "course": {
-                    "name": "Compiler Construction",
-                    "id": "csce531",
-                    "numCredits": "3"
-                },
-                "term": {
-                    "semester": "SPRING",
-                    "year": 2014
-                },
-                "grade": "A"
-            },
-            {
-                "course": {
-                    "name": "Theory of Computation",
-                    "id": "csce551",
-                    "numCredits": "3"
-                },
-                "term": {
-                    "semester": "FALL",
-                    "year": 2014
-                },
-                "grade": "A"
-            },
-            {
-                "course": {
-                    "name": "Analysis of Algorithms",
-                    "id": "csce750",
-                    "numCredits": "3"
-                },
-                "term": {
-                    "semester": "SPRING",
-                    "year": 2015
-                },
-                "grade": "A"
-            },
-            {
-                "course": {
-                    "name": "Seminar in Advances in Computing",
-                    "id": "csce791",
-                    "numCredits": "1"
-                },
-                "term": {
-                    "semester": "SPRING",
-                    "year": 2015
-                },
-                "grade": "A"
-            },
-            {
-                "course": {
-                    "name": "Dissertation Preparation",
-                    "id": "csce899",
-                    "numCredits": "6"
-                },
-                "term": {
-                    "semester": "FALL",
-                    "year": 2014
-                },
-                "grade": "P"
-            },
-            {
-                "course": {
-                    "name": "Dissertation Preparation",
-                    "id": "csce899",
-                    "numCredits": "6"
-                },
-                "term": {
-                    "semester": "SPRING",
-                    "year": 2015
-                },
-                "grade": "P"
-            },
-            {
-                "course": {
-                    "name": "Software Engineering",
-                    "id": "csce740",
-                    "numCredits": "3"
-                },
-                "term": {
-                    "semester": "FALL",
-                    "year": 2015
-                },
-                "grade": "_"
-            }
-        ],
-        "milestonesSet": [
-            {
-                "milestone": "DISSERTATION_ADVISOR_SELECTED",
-                "term": {
-                    "semester": "FALL",
-                    "year": 2014
-                }
-            },
-            {
-                "milestone": "DISSERTATION_COMMITTEE_FORMED",
-                "term": {
-                    "semester": "FALL",
-                    "year": 2014
-                }
-            }
-        ],
-        "notes": [
-            "Student has very good prospects of suceeding.",
-            "Need to pass all the required courses."
-        ],
-        "gpa": 0.0
+    "degreeSought": {
+      "name": "PHD",
+      "graduation": {
+        "semester": "SPRING",
+        "year": 2018
+      }
     },
-        {
-            "student": {
-                "id": "rboothe",
-                "firstName": "Robert",
-                "lastName": "Boothe"
-            },
-            "department": "COMPUTER_SCIENCE",
-            "termBegan": {
-                "semester": "SUMMER",
-                "year": 2013
-            },
-            "degreeSought": {
-                "name": "PHD",
-                "graduation": {
-                    "semester": "SPRING",
-                    "year": 2018
-                }
-            },
-            "previousDegrees": [
-                {
-                    "name": "BS",
-                    "graduation": {
-                        "semester": "SPRING",
-                        "year": 2008
-                    }
-                }
-            ],
-            "advisors": [
-                {
-                    "department": "COMPUTER_SCIENCE",
-                    "firstName": "Duncan",
-                    "lastName": "Buell"
-                }
-            ],
-            "committee": [
-                {
-                    "department": "COMPUTER_SCIENCE",
-                    "firstName": "Manton",
-                    "lastName": "Matthews"
-                },
-                {
-                    "department": "COMPUTER_SCIENCE",
-                    "firstName": "Jason",
-                    "lastName": "Bakos"
-                },
-                {
-                    "department": "MATHEMATICS",
-                    "firstName": "Richard",
-                    "lastName": "McGehee"
-                }
-            ],
-            "coursesTaken": [
-                {
-                    "course": {
-                        "name": "Individual Study and Research",
-                        "id": "csce797",
-                        "numCredits": "5"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2014
-                    },
-                    "grade": "B"
-                },
-                {
-                    "course": {
-                        "name": "Advanced Pattern Recognition",
-                        "id": "csce868",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "B"
-                },
-                {
-                    "course": {
-                        "name": "Computer Architecture",
-                        "id": "csce513",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2013
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Compiler Construction",
-                        "id": "csce531",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2014
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Theory of Computation",
-                        "id": "csce551",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Analysis of Algorithms",
-                        "id": "csce750",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Seminar in Advances in Computing",
-                        "id": "csce791",
-                        "numCredits": "0"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "F"
-                },
-                {
-                    "course": {
-                        "name": "Dissertation Preparation",
-                        "id": "csce899",
-                        "numCredits": "6"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "P"
-                },
-                {
-                    "course": {
-                        "name": "Dissertation Preparation",
-                        "id": "csce899",
-                        "numCredits": "6"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "P"
-                },
-                {
-                    "course": {
-                        "name": "Software Engineering",
-                        "id": "csce740",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2015
-                    },
-                    "grade": "_"
-                }
-            ],
-            "milestonesSet": [
-                {
-                    "milestone": "DISSERTATION_ADVISOR_SELECTED",
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    }
-                },
-                {
-                    "milestone": "DISSERTATION_COMMITTEE_FORMED",
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    }
-                }
-            ],
-            "notes": [
-                "Student has very good prospects of suceeding.",
-                "Need to pass all the required courses."
-            ],
-            "gpa": 0.0
-        },
-        {
-            "student": {
-                "id": "aclyde",
-                "firstName": "Amanda",
-                "lastName": "Clyde"
-            },
-            "department": "COMPUTER_SCIENCE",
-            "termBegan": {
-                "semester": "SUMMER",
-                "year": 2014
-            },
-            "degreeSought": {
-                "name": "MS",
-                "graduation": {
-                    "semester": "SPRING",
-                    "year": 2016
-                }
-            },
-            "previousDegrees": [
-                {
-                    "name": "BS",
-                    "graduation": {
-                        "semester": "SPRING",
-                        "year": 2008
-                    }
-                }
-            ],
-            "advisors": [
-                {
-                    "department": "COMPUTER_SCIENCE",
-                    "firstName": "Duncan",
-                    "lastName": "Buell"
-                }
-            ],
-            "committee": [
-                {
-                    "department": "COMPUTER_SCIENCE",
-                    "firstName": "Manton",
-                    "lastName": "Matthews"
-                },
-                {
-                    "department": "COMPUTER_SCIENCE",
-                    "firstName": "Jason",
-                    "lastName": "Bakos"
-                },
-                {
-                    "department": "MATHEMATICS",
-                    "firstName": "Richard",
-                    "lastName": "McGehee"
-                }
-            ],
-            "coursesTaken": [
-                {
-                    "course": {
-                        "name": "Individual Study and Research",
-                        "id": "csce797",
-                        "numCredits": "5"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "B"
-                },
-                {
-                    "course": {
-                        "name": "Advanced Pattern Recognition",
-                        "id": "csce868",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "B"
-                },
-                {
-                    "course": {
-                        "name": "Computer Architecture",
-                        "id": "csce513",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Compiler Construction",
-                        "id": "csce531",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Theory of Computation",
-                        "id": "csce551",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Analysis of Algorithms",
-                        "id": "csce750",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Seminar in Advances in Computing",
-                        "id": "csce791",
-                        "numCredits": "1"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Neural Information Processing",
-                        "id": "csce784",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "P"
-                },
-                {
-                    "course": {
-                        "name": "Introduction to Fuzzy Logic",
-                        "id": "csce787",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "P"
-                },
-                {
-                    "course": {
-                        "name": "Software Engineering",
-                        "id": "csce740",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2015
-                    },
-                    "grade": "_"
-                }
-            ],
-            "milestonesSet": [
-                {
-                    "milestone": "PROGRAM_OF_STUDY_SUBMITTED",
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    }
-                },
-                {
-                    "milestone": "THESIS_ADVISOR_SELECTED",
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    }
-                }
-            ],
-            "notes": [
-                "Student has very good prospects of suceeding.",
-                "Need to complete thesis."
-            ],
-            "gpa": 0.0
-        },
-        {
-            "student": {
-                "id": "cbuchanan",
-                "firstName": "Cynthia",
-                "lastName": "Buchanan"
-            },
-            "department": "COMPUTER_SCIENCE",
-            "termBegan": {
-                "semester": "SUMMER",
-                "year": 2014
-            },
-            "degreeSought": {
-                "name": "MENG",
-                "graduation": {
-                    "semester": "SPRING",
-                    "year": 2016
-                }
-            },
-            "previousDegrees": [
-                {
-                    "name": "BS",
-                    "graduation": {
-                        "semester": "SPRING",
-                        "year": 2010
-                    }
-                }
-            ],
-            "advisors": [
-                {
-                    "department": "COMPUTER_SCIENCE",
-                    "firstName": "Duncan",
-                    "lastName": "Buell"
-                }
-            ],
-            "committee": [],
-            "coursesTaken": [
-                {
-                    "course": {
-                        "name": "Individual Study and Research",
-                        "id": "csce797",
-                        "numCredits": "5"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "B"
-                },
-                {
-                    "course": {
-                        "name": "Advanced Pattern Recognition",
-                        "id": "csce868",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "B"
-                },
-                {
-                    "course": {
-                        "name": "Computer Architecture",
-                        "id": "csce513",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Compiler Construction",
-                        "id": "csce531",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Theory of Computation",
-                        "id": "csce551",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Analysis of Algorithms",
-                        "id": "csce750",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Seminar in Advances in Computing",
-                        "id": "csce791",
-                        "numCredits": "1"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Neural Information Processing",
-                        "id": "csce784",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "P"
-                },
-                {
-                    "course": {
-                        "name": "Introduction to Fuzzy Logic",
-                        "id": "csce787",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "P"
-                },
-                {
-                    "course": {
-                        "name": "Software Engineering",
-                        "id": "csce740",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2015
-                    },
-                    "grade": "_"
-                }
-            ],
-            "milestonesSet": [
-                {
-                    "milestone": "PROGRAM_OF_STUDY_SUBMITTED",
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    }
-                },
-                {
-                    "milestone": "THESIS_ADVISOR_SELECTED",
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    }
-                }
-            ],
-            "notes": [
-                "Student has very good prospects of suceeding.",
-                "Need to complete thesis."
-            ],
-            "gpa": 0
-        },
-        {
-            "student": {
-                "id": "jcostner",
-                "firstName": "June",
-                "lastName": "Costner"
-            },
-            "department": "COMPUTER_SCIENCE",
-            "termBegan": {
-                "semester": "SUMMER",
-                "year": 2014
-            },
-            "degreeSought": {
-                "name": "MENG",
-                "graduation": {
-                    "semester": "SPRING",
-                    "year": 2016
-                }
-            },
-            "previousDegrees": [
-                {
-                    "name": "BS",
-                    "graduation": {
-                        "semester": "SPRING",
-                        "year": 2010
-                    }
-                }
-            ],
-            "advisors": [
-                {
-                    "department": "COMPUTER_SCIENCE",
-                    "firstName": "Duncan",
-                    "lastName": "Buell"
-                }
-            ],
-            "committee": [],
-            "coursesTaken": [
-                {
-                    "course": {
-                        "name": "Information Security Principles",
-                        "id": "csce522",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "B"
-                },
-                {
-                    "course": {
-                        "name": "Network Systems Security",
-                        "id": "csce715",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "B"
-                },
-                {
-                    "course": {
-                        "name": "Computer Architecture",
-                        "id": "csce513",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Information Warfare",
-                        "id": "csce727",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Compiler Construction",
-                        "id": "csce531",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Theory of Computation",
-                        "id": "csce551",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Analysis of Algorithms",
-                        "id": "csce750",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Seminar in Advances in Computing",
-                        "id": "csce791",
-                        "numCredits": "1"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Neural Information Processing",
-                        "id": "csce784",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "P"
-                },
-                {
-                    "course": {
-                        "name": "Introduction to Fuzzy Logic",
-                        "id": "csce787",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "P"
-                },
-                {
-                    "course": {
-                        "name": "Software Engineering",
-                        "id": "csce740",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2015
-                    },
-                    "grade": "_"
-                }
-            ],
-            "milestonesSet": [
-                {
-                    "milestone": "PROGRAM_OF_STUDY_SUBMITTED",
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    }
-                },
-                {
-                    "milestone": "THESIS_ADVISOR_SELECTED",
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    }
-                }
-            ],
-            "notes": [
-                "Student has very good prospects of suceeding.",
-                "Need to complete thesis."
-            ],
-            "gpa": 0
-        },
-        {
-            "student": {
-                "id": "khilton",
-                "firstName": "Kimmie",
-                "lastName": "Hilton"
-            },
-            "department": "COMPUTER_SCIENCE",
-            "termBegan": {
-                "semester": "SUMMER",
-                "year": 2014
-            },
-            "degreeSought": {
-                "name": "MSE",
-                "graduation": {
-                    "semester": "SPRING",
-                    "year": 2016
-                }
-            },
-            "previousDegrees": [
-                {
-                    "name": "BS",
-                    "graduation": {
-                        "semester": "SPRING",
-                        "year": 2010
-                    }
-                }
-            ],
-            "advisors": [
-                {
-                    "department": "COMPUTER_SCIENCE",
-                    "firstName": "Duncan",
-                    "lastName": "Buell"
-                }
-            ],
-            "committee": [
-            ],
-            "coursesTaken": [
-                {
-                    "course": {
-                        "name": "Software Engineering",
-                        "id": "csce740",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "B"
-                },
-                {
-                    "course": {
-                        "name": "Software Process",
-                        "id": "csce741",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "B"
-                },
-                {
-                    "course": {
-                        "name": "Software Architecture",
-                        "id": "csce742",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Software Requirements",
-                        "id": "csce743",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Project Management",
-                        "id": "mgsc872",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Theory of Computation",
-                        "id": "csce551",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Software Testing and Quality Assurance",
-                        "id": "csce747",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Seminar in Advances in Computing",
-                        "id": "csce791",
-                        "numCredits": "1"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Neural Information Processing",
-                        "id": "csce784",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "P"
-                },
-                {
-                    "course": {
-                        "name": "Introduction to Fuzzy Logic",
-                        "id": "csce787",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "P"
-                },
-                {
-                    "course": {
-                        "name": "Software Engineering",
-                        "id": "csce740",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2015
-                    },
-                    "grade": "_"
-                }
-            ],
-            "milestonesSet": [
-                {
-                    "milestone": "PROGRAM_OF_STUDY_SUBMITTED",
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    }
-                },
-                {
-                    "milestone": "ACADEMIC_ADVISOR_APPOINTED",
-                    "term": {
-                        "semester": "SUMMER",
-                        "year": 2014
-                    }
-                }
-            ],
-            "notes": [
-                "Student has very good prospects of suceeding.",
-                "Need to complete  csce793."
-            ],
-            "gpa": 0.0
-        },
-        {
-            "student": {
-                "id": "tcrumb",
-                "firstName": "Tara",
-                "lastName": "Crumb"
-            },
-            "department": "COMPUTER_SCIENCE",
-            "termBegan": {
-                "semester": "SUMMER",
-                "year": 2014
-            },
-            "degreeSought": {
-                "name": "MSE",
-                "graduation": {
-                    "semester": "SPRING",
-                    "year": 2016
-                }
-            },
-            "previousDegrees": [
-                {
-                    "name": "BS",
-                    "graduation": {
-                        "semester": "SPRING",
-                        "year": 2010
-                    }
-                }
-            ],
-            "advisors": [
-                {
-                    "department": "COMPUTER_SCIENCE",
-                    "firstName": "Duncan",
-                    "lastName": "Buell"
-                }
-            ],
-            "committee": [
-            ],
-            "coursesTaken": [
-                {
-                    "course": {
-                        "name": "Software Engineering",
-                        "id": "csce740",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "B"
-                },
-                {
-                    "course": {
-                        "name": "Software Process",
-                        "id": "csce741",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "B"
-                },
-                {
-                    "course": {
-                        "name": "Software Architecture",
-                        "id": "csce742",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Software Requirements",
-                        "id": "csce743",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Project Management",
-                        "id": "mgsc872",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Theory of Computation",
-                        "id": "csce551",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Software Testing and Quality Assurance",
-                        "id": "csce747",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Internship in Software Engineering",
-                        "id": "csce793",
-                        "numCredits": "1"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "A"
-                },
-                {
-                    "course": {
-                        "name": "Neural Information Processing",
-                        "id": "csce784",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    },
-                    "grade": "P"
-                },
-                {
-                    "course": {
-                        "name": "Introduction to Fuzzy Logic",
-                        "id": "csce787",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "SPRING",
-                        "year": 2015
-                    },
-                    "grade": "P"
-                },
-                {
-                    "course": {
-                        "name": "Software Engineering",
-                        "id": "csce740",
-                        "numCredits": "3"
-                    },
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2015
-                    },
-                    "grade": "_"
-                }
-            ],
-            "milestonesSet": [
-                {
-                    "milestone": "PROGRAM_OF_STUDY_SUBMITTED",
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2014
-                    }
-                },
-                {
-                    "milestone": "ACADEMIC_ADVISOR_APPOINTED",
-                    "term": {
-                        "semester": "SUMMER",
-                        "year": 2014
-                    }
-                },
-                {
-                    "milestone": "REPORT_SUBMITTED",
-                    "term": {
-                        "semester": "SUMMER",
-                        "year": 2015
-                    }
-                },
-                {
-                    "milestone": "REPORT_APPROVED",
-                    "term": {
-                        "semester": "FALL",
-                        "year": 2015
-                    }
-                }
-            ],
-            "notes": [
-                "Student has very good prospects of suceeding.",
-                "Need to complete the Comprehensive Exam."
-            ],
-            "gpa": 0.0
+    "previousDegrees": [
+      {
+        "name": "BS",
+        "graduation": {
+          "semester": "SPRING",
+          "year": 2008
         }
+      }
+    ],
+    "advisors": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Duncan",
+        "lastName": "Buell"
+      }
+    ],
+    "committee": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Manton",
+        "lastName": "Matthews"
+      },
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Jason",
+        "lastName": "Bakos"
+      },
+      {
+        "department": "MATHEMATICS",
+        "firstName": "Richard",
+        "lastName": "McGehee"
+      }
+    ],
+    "coursesTaken": [
+      {
+        "course": {
+          "name": "Directed Study and Research",
+          "id": "csce798",
+          "numCredits": "5"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2014
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Computer Vision",
+          "id": "csce867",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Computer Architecture",
+          "id": "csce513",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2013
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Compiler Construction",
+          "id": "csce531",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Theory of Computation",
+          "id": "csce551",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Analysis of Algorithms",
+          "id": "csce750",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Seminar in Advances in Computing",
+          "id": "csce791",
+          "numCredits": "1"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Dissertation Preparation",
+          "id": "csce899",
+          "numCredits": "6"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Dissertation Preparation",
+          "id": "csce899",
+          "numCredits": "6"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Software Engineering",
+          "id": "csce740",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2015
+        },
+        "grade": "_"
+      }
+    ],
+    "milestonesSet": [
+      {
+        "milestone": "DISSERTATION_ADVISOR_SELECTED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      },
+      {
+        "milestone": "DISSERTATION_COMMITTEE_FORMED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      }
+    ],
+    "notes": [
+      "Great student. A++ Would recommend.",
+      "Owes me 20 bucks."
+    ],
+    "gpa": 0
+  },
+  {
+    "student": {
+      "id": "ggay",
+      "firstName": "Greg",
+      "lastName": "Gay"
+    },
+    "advisors": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Duncan",
+        "lastName": "BUELL"
+      }
+    ],
+    "notes": [
+      "note1",
+      "note2",
+      "note3"
+    ],
+    "gpa": 0
+  },
+  {
+    "student": {
+      "id": "ereas",
+      "firstName": "Earl",
+      "lastName": "Reas"
+    },
+    "department": "COMPUTER_SCIENCE",
+    "termBegan": {
+      "semester": "SUMMER",
+      "year": 2013
+    },
+    "degreeSought": {
+      "name": "PHD",
+      "graduation": {
+        "semester": "SPRING",
+        "year": 2018
+      }
+    },
+    "previousDegrees": [
+      {
+        "name": "BS",
+        "graduation": {
+          "semester": "SPRING",
+          "year": 2008
+        }
+      }
+    ],
+    "advisors": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Duncan",
+        "lastName": "Buell"
+      }
+    ],
+    "committee": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Manton",
+        "lastName": "Matthews"
+      },
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Jason",
+        "lastName": "Bakos"
+      },
+      {
+        "department": "MATHEMATICS",
+        "firstName": "Richard",
+        "lastName": "McGehee"
+      }
+    ],
+    "coursesTaken": [
+      {
+        "course": {
+          "name": "Individual Study and Research",
+          "id": "csce797",
+          "numCredits": "5"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2014
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Advanced Pattern Recognition",
+          "id": "csce868",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Computer Architecture",
+          "id": "csce513",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2013
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Compiler Construction",
+          "id": "csce531",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Theory of Computation",
+          "id": "csce551",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Analysis of Algorithms",
+          "id": "csce750",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Seminar in Advances in Computing",
+          "id": "csce791",
+          "numCredits": "1"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Dissertation Preparation",
+          "id": "csce899",
+          "numCredits": "6"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Dissertation Preparation",
+          "id": "csce899",
+          "numCredits": "6"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Software Engineering",
+          "id": "csce740",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2015
+        },
+        "grade": "_"
+      }
+    ],
+    "milestonesSet": [
+      {
+        "milestone": "DISSERTATION_ADVISOR_SELECTED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      },
+      {
+        "milestone": "DISSERTATION_COMMITTEE_FORMED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      }
+    ],
+    "notes": [
+      "Student has very good prospects of suceeding.",
+      "Need to pass all the required courses."
+    ],
+    "gpa": 0
+  },
+  {
+    "student": {
+      "id": "rboothe",
+      "firstName": "Robert",
+      "lastName": "Boothe"
+    },
+    "department": "COMPUTER_SCIENCE",
+    "termBegan": {
+      "semester": "SUMMER",
+      "year": 2013
+    },
+    "degreeSought": {
+      "name": "PHD",
+      "graduation": {
+        "semester": "SPRING",
+        "year": 2018
+      }
+    },
+    "previousDegrees": [
+      {
+        "name": "BS",
+        "graduation": {
+          "semester": "SPRING",
+          "year": 2008
+        }
+      }
+    ],
+    "advisors": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Duncan",
+        "lastName": "Buell"
+      }
+    ],
+    "committee": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Manton",
+        "lastName": "Matthews"
+      },
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Jason",
+        "lastName": "Bakos"
+      },
+      {
+        "department": "MATHEMATICS",
+        "firstName": "Richard",
+        "lastName": "McGehee"
+      }
+    ],
+    "coursesTaken": [
+      {
+        "course": {
+          "name": "Individual Study and Research",
+          "id": "csce797",
+          "numCredits": "5"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2014
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Advanced Pattern Recognition",
+          "id": "csce868",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Computer Architecture",
+          "id": "csce513",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2013
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Compiler Construction",
+          "id": "csce531",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Theory of Computation",
+          "id": "csce551",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Analysis of Algorithms",
+          "id": "csce750",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Seminar in Advances in Computing",
+          "id": "csce791",
+          "numCredits": "0"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "F"
+      },
+      {
+        "course": {
+          "name": "Dissertation Preparation",
+          "id": "csce899",
+          "numCredits": "6"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Dissertation Preparation",
+          "id": "csce899",
+          "numCredits": "6"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Software Engineering",
+          "id": "csce740",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2015
+        },
+        "grade": "_"
+      }
+    ],
+    "milestonesSet": [
+      {
+        "milestone": "DISSERTATION_ADVISOR_SELECTED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      },
+      {
+        "milestone": "DISSERTATION_COMMITTEE_FORMED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      }
+    ],
+    "notes": [
+      "Student has very good prospects of suceeding.",
+      "Need to pass all the required courses."
+    ],
+    "gpa": 0
+  },
+  {
+    "student": {
+      "id": "aclyde",
+      "firstName": "Amanda",
+      "lastName": "Clyde"
+    },
+    "department": "COMPUTER_SCIENCE",
+    "termBegan": {
+      "semester": "SUMMER",
+      "year": 2014
+    },
+    "degreeSought": {
+      "name": "MS",
+      "graduation": {
+        "semester": "SPRING",
+        "year": 2016
+      }
+    },
+    "previousDegrees": [
+      {
+        "name": "BS",
+        "graduation": {
+          "semester": "SPRING",
+          "year": 2008
+        }
+      }
+    ],
+    "advisors": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Duncan",
+        "lastName": "Buell"
+      }
+    ],
+    "committee": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Manton",
+        "lastName": "Matthews"
+      },
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Jason",
+        "lastName": "Bakos"
+      },
+      {
+        "department": "MATHEMATICS",
+        "firstName": "Richard",
+        "lastName": "McGehee"
+      }
+    ],
+    "coursesTaken": [
+      {
+        "course": {
+          "name": "Individual Study and Research",
+          "id": "csce797",
+          "numCredits": "5"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Advanced Pattern Recognition",
+          "id": "csce868",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Computer Architecture",
+          "id": "csce513",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Compiler Construction",
+          "id": "csce531",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Theory of Computation",
+          "id": "csce551",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Analysis of Algorithms",
+          "id": "csce750",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Seminar in Advances in Computing",
+          "id": "csce791",
+          "numCredits": "1"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Neural Information Processing",
+          "id": "csce784",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Introduction to Fuzzy Logic",
+          "id": "csce787",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Software Engineering",
+          "id": "csce740",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2015
+        },
+        "grade": "_"
+      }
+    ],
+    "milestonesSet": [
+      {
+        "milestone": "PROGRAM_OF_STUDY_SUBMITTED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      },
+      {
+        "milestone": "THESIS_ADVISOR_SELECTED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      }
+    ],
+    "notes": [
+      "Student has very good prospects of suceeding.",
+      "Need to complete thesis."
+    ],
+    "gpa": 0
+  },
+  {
+    "student": {
+      "id": "cbuchanan",
+      "firstName": "Cynthia",
+      "lastName": "Buchanan"
+    },
+    "department": "COMPUTER_SCIENCE",
+    "termBegan": {
+      "semester": "SUMMER",
+      "year": 2014
+    },
+    "degreeSought": {
+      "name": "MENG",
+      "graduation": {
+        "semester": "SPRING",
+        "year": 2016
+      }
+    },
+    "previousDegrees": [
+      {
+        "name": "BS",
+        "graduation": {
+          "semester": "SPRING",
+          "year": 2010
+        }
+      }
+    ],
+    "advisors": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Duncan",
+        "lastName": "Buell"
+      }
+    ],
+    "committee": [],
+    "coursesTaken": [
+      {
+        "course": {
+          "name": "Individual Study and Research",
+          "id": "csce797",
+          "numCredits": "5"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Advanced Pattern Recognition",
+          "id": "csce868",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Computer Architecture",
+          "id": "csce513",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Compiler Construction",
+          "id": "csce531",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Theory of Computation",
+          "id": "csce551",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Analysis of Algorithms",
+          "id": "csce750",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Seminar in Advances in Computing",
+          "id": "csce791",
+          "numCredits": "1"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Neural Information Processing",
+          "id": "csce784",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Introduction to Fuzzy Logic",
+          "id": "csce787",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Software Engineering",
+          "id": "csce740",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2015
+        },
+        "grade": "_"
+      }
+    ],
+    "milestonesSet": [
+      {
+        "milestone": "PROGRAM_OF_STUDY_SUBMITTED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      },
+      {
+        "milestone": "THESIS_ADVISOR_SELECTED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      }
+    ],
+    "notes": [
+      "Student has very good prospects of suceeding.",
+      "Need to complete thesis."
+    ],
+    "gpa": 0
+  },
+  {
+    "student": {
+      "id": "jcostner",
+      "firstName": "June",
+      "lastName": "Costner"
+    },
+    "department": "COMPUTER_SCIENCE",
+    "termBegan": {
+      "semester": "SUMMER",
+      "year": 2014
+    },
+    "degreeSought": {
+      "name": "MENG",
+      "graduation": {
+        "semester": "SPRING",
+        "year": 2016
+      }
+    },
+    "previousDegrees": [
+      {
+        "name": "BS",
+        "graduation": {
+          "semester": "SPRING",
+          "year": 2010
+        }
+      }
+    ],
+    "advisors": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Duncan",
+        "lastName": "Buell"
+      }
+    ],
+    "committee": [],
+    "coursesTaken": [
+      {
+        "course": {
+          "name": "Information Security Principles",
+          "id": "csce522",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Network Systems Security",
+          "id": "csce715",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Computer Architecture",
+          "id": "csce513",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Information Warfare",
+          "id": "csce727",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Compiler Construction",
+          "id": "csce531",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Theory of Computation",
+          "id": "csce551",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Analysis of Algorithms",
+          "id": "csce750",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Seminar in Advances in Computing",
+          "id": "csce791",
+          "numCredits": "1"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Neural Information Processing",
+          "id": "csce784",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Introduction to Fuzzy Logic",
+          "id": "csce787",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Software Engineering",
+          "id": "csce740",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2015
+        },
+        "grade": "_"
+      }
+    ],
+    "milestonesSet": [
+      {
+        "milestone": "PROGRAM_OF_STUDY_SUBMITTED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      },
+      {
+        "milestone": "THESIS_ADVISOR_SELECTED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      }
+    ],
+    "notes": [
+      "Student has very good prospects of suceeding.",
+      "Need to complete thesis."
+    ],
+    "gpa": 0
+  },
+  {
+    "student": {
+      "id": "khilton",
+      "firstName": "Kimmie",
+      "lastName": "Hilton"
+    },
+    "department": "COMPUTER_SCIENCE",
+    "termBegan": {
+      "semester": "SUMMER",
+      "year": 2014
+    },
+    "degreeSought": {
+      "name": "MSE",
+      "graduation": {
+        "semester": "SPRING",
+        "year": 2016
+      }
+    },
+    "previousDegrees": [
+      {
+        "name": "BS",
+        "graduation": {
+          "semester": "SPRING",
+          "year": 2010
+        }
+      }
+    ],
+    "advisors": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Duncan",
+        "lastName": "Buell"
+      }
+    ],
+    "committee": [],
+    "coursesTaken": [
+      {
+        "course": {
+          "name": "Software Engineering",
+          "id": "csce740",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Software Process",
+          "id": "csce741",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Software Architecture",
+          "id": "csce742",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Software Requirements",
+          "id": "csce743",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Project Management",
+          "id": "mgsc872",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Object-Oriented Analysis and Design",
+          "id": "csce744",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Software Testing and Quality Assurance",
+          "id": "csce747",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Advanced Database Design",
+          "id": "csce723",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Distributed Database Design",
+          "id": "csce821",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Multiagent Systems",
+          "id": "csce782",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Network Systems Security",
+          "id": "csce715",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2015
+        },
+        "grade": "A"
+      }
+    ],
+    "milestonesSet": [
+      {
+        "milestone": "PROGRAM_OF_STUDY_SUBMITTED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      },
+      {
+        "milestone": "ACADEMIC_ADVISOR_APPOINTED",
+        "term": {
+          "semester": "SUMMER",
+          "year": 2014
+        }
+      }
+    ],
+    "notes": [
+      "Student has very good prospects of suceeding.",
+      "Need to complete  csce793."
+    ],
+    "gpa": 0
+  },
+  {
+    "student": {
+      "id": "tcrumb",
+      "firstName": "Tara",
+      "lastName": "Crumb"
+    },
+    "department": "COMPUTER_SCIENCE",
+    "termBegan": {
+      "semester": "SUMMER",
+      "year": 2014
+    },
+    "degreeSought": {
+      "name": "MSE",
+      "graduation": {
+        "semester": "SPRING",
+        "year": 2016
+      }
+    },
+    "previousDegrees": [
+      {
+        "name": "BS",
+        "graduation": {
+          "semester": "SPRING",
+          "year": 2010
+        }
+      }
+    ],
+    "advisors": [
+      {
+        "department": "COMPUTER_SCIENCE",
+        "firstName": "Duncan",
+        "lastName": "Buell"
+      }
+    ],
+    "committee": [],
+    "coursesTaken": [
+      {
+        "course": {
+          "name": "Software Engineering",
+          "id": "csce740",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Software Process",
+          "id": "csce741",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "B"
+      },
+      {
+        "course": {
+          "name": "Software Architecture",
+          "id": "csce742",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Software Requirements",
+          "id": "csce743",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Physical Database Design",
+          "id": "csce721",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Security and Privacy for Wireless Networks",
+          "id": "csce719",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Software Testing and Quality Assurance",
+          "id": "csce747",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Internship in Software Engineering",
+          "id": "csce793",
+          "numCredits": "1"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "A"
+      },
+      {
+        "course": {
+          "name": "Neural Information Processing",
+          "id": "csce784",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Introduction to Fuzzy Logic",
+          "id": "csce787",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "SPRING",
+          "year": 2015
+        },
+        "grade": "P"
+      },
+      {
+        "course": {
+          "name": "Network Systems Security",
+          "id": "csce715",
+          "numCredits": "3"
+        },
+        "term": {
+          "semester": "FALL",
+          "year": 2015
+        },
+        "grade": "_"
+      }
+    ],
+    "milestonesSet": [
+      {
+        "milestone": "PROGRAM_OF_STUDY_SUBMITTED",
+        "term": {
+          "semester": "FALL",
+          "year": 2014
+        }
+      },
+      {
+        "milestone": "ACADEMIC_ADVISOR_APPOINTED",
+        "term": {
+          "semester": "SUMMER",
+          "year": 2014
+        }
+      },
+      {
+        "milestone": "REPORT_SUBMITTED",
+        "term": {
+          "semester": "SUMMER",
+          "year": 2015
+        }
+      },
+      {
+        "milestone": "REPORT_APPROVED",
+        "term": {
+          "semester": "FALL",
+          "year": 2015
+        }
+      }
+    ],
+    "notes": [
+      "Student has very good prospects of suceeding.",
+      "Need to complete the Comprehensive Exam."
+    ],
+    "gpa": 0
+  }
 ]
