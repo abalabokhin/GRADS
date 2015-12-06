@@ -330,7 +330,35 @@ public class GRADSTest  {
 	@Test
 	public void testGenerateProgressSummaryPHDRequirementsAreMet() throws Exception
 	{
-        /// TODO: implement
+        grads.loadRecords("students_testProgressSummaryPHDRequirementsPassed.txt");
+        grads.loadUsers("users.txt");
+        grads.loadCourses("courses.txt");
+
+        grads.setUser(userGPAID);
+        ProgressSummary summary = grads.generateProgressSummary("mhunt");
+
+        Assert.assertEquals(7, summary.requirementCheckResults.size());
+
+        Assert.assertEquals("CORE_COURSES_PHD", summary.requirementCheckResults.get(0).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(0).passed);
+
+        Assert.assertEquals("ADDITIONAL_CREDITS_PHD", summary.requirementCheckResults.get(1).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(1).passed);
+
+        Assert.assertEquals("DEGREE_BASED_CREDITS_PHD", summary.requirementCheckResults.get(2).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(2).passed);
+
+        Assert.assertEquals("THESIS_CREDITS_PHD", summary.requirementCheckResults.get(3).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(3).passed);
+
+        Assert.assertEquals("TIME_LIMIT_PHD", summary.requirementCheckResults.get(4).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(4).passed);
+
+        Assert.assertEquals("GPA", summary.requirementCheckResults.get(5).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(5).passed);
+
+        Assert.assertEquals("MILESTONES_PHD", summary.requirementCheckResults.get(6).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(6).passed);
 	}
 
     @Test
@@ -370,7 +398,7 @@ public class GRADSTest  {
         details.notes = new ArrayList<>();
         result.name = "ADDITIONAL_CREDITS_" + degreeSought;
         result.passed = false;
-        details.notes.add("Must pass 17 more hours of CSCE courses numbered above 700 that are not core courses.");
+        details.notes.add("Must pass 14 more hours of CSCE courses numbered above 700 that are not core courses.");
         result.details = details;
         requirementCheckResults.add (result);
 
@@ -381,8 +409,8 @@ public class GRADSTest  {
         result.name = "DEGREE_BASED_CREDITS_" + degreeSought;
         result.passed = false;
         details.courses = studentRecord1.coursesTaken;
-        details.notes.add("Must pass 45 more hours of graduate courses.");
-        details.notes.add("Must pass 21 more hours of CSCE courses numbered above 700.");
+        details.notes.add("Must pass 42 more hours of graduate courses.");
+        details.notes.add("Must pass 18 more hours of CSCE courses numbered above 700.");
         result.details = details;
         requirementCheckResults.add (result);
 
@@ -401,16 +429,19 @@ public class GRADSTest  {
         details = new RequirementDetails();
         details.notes = new ArrayList<>();
         result.name = "TIME_LIMIT_" + degreeSought;
-        result.passed = true;
+        result.passed = false;
         requirementCheckResults.add (result);
 
         // Add GPA
         result = new RequirementCheckResult();
         details = new RequirementDetails();
         result.name = "GPA";
-        result.passed = true;
-        details.gpa = (float) 4.0;
-        result.details = details;
+        result.passed = false;
+        details.gpa = (float) 2.5;
+       	details.notes = new ArrayList<>();
+       	details.notes.add("Must have GPA >= 3.0");
+	details.notes.add("Must have 7xx classes GPA >= 3.0");
+     	result.details = details;
         requirementCheckResults.add (result);
 
         // Add milestones
@@ -445,6 +476,7 @@ public class GRADSTest  {
 
         assertReflectionEquals(progressSummary1, progressSummary2, ReflectionComparatorMode.LENIENT_ORDER);
     }
+
 
     @Test
     public void testGenerateProgressSummaryMSERequirementsAreMet() throws Exception
