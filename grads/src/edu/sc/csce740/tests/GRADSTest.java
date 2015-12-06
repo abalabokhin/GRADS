@@ -707,7 +707,7 @@ public class GRADSTest  {
 		studentRecord.department = "COMPUTER_SCIENCE";
 
 		// Term began
-		Term term = new Term(2015, Term.Season.FALL);
+		Term term = new Term(2005, Term.Season.FALL);
 		studentRecord.termBegan = term;
 
 		// Degree sought
@@ -762,7 +762,18 @@ public class GRADSTest  {
 		course.numCredits = "3";
 		courseTaken.course = course;
 		courseTaken.term = new Term(2015, Term.Season.FALL);
-		courseTaken.grade = CourseTaken.Grade.A;
+		courseTaken.grade = CourseTaken.Grade.C;
+		studentRecord.coursesTaken.add(courseTaken);
+
+		// Add csce741
+		courseTaken = new CourseTaken();
+		course = new Course();
+		course.name = "Software Process";
+		course.id = "csce741";
+		course.numCredits = "3";
+		courseTaken.course = course;
+		courseTaken.term = new Term(2015, Term.Season.FALL);
+		courseTaken.grade = CourseTaken.Grade.B;
 		studentRecord.coursesTaken.add(courseTaken);
 
 		studentRecord.notes = new ArrayList<>();
