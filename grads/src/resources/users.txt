@@ -1,8 +1,8 @@
 [
     {
        "id": "hsmith",
-       "firstName": "Michelle",
-       "lastName": "Hunt",
+       "firstName": "Harold",
+       "lastName": "Smith",
         "role": "STUDENT",
         "department": "COMPUTER_SCIENCE"
     },
