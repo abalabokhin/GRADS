@@ -1231,6 +1231,18 @@
       },
       {
         "course": {
+            "name": "Internship in Software Engineering",
+            "id": "csce793",
+            "numCredits": "3"
+        },
+        "term": {
+            "semester": "FALL",
+            "year": 2015
+        },
+        "grade": "B"
+       },
+      {
+        "course": {
           "name": "Software Architecture",
           "id": "csce742",
           "numCredits": "3"
@@ -1245,18 +1257,6 @@
         "course": {
           "name": "Software Requirements",
           "id": "csce743",
-          "numCredits": "3"
-        },
-        "term": {
-          "semester": "SPRING",
-          "year": 2015
-        },
-        "grade": "A"
-      },
-      {
-        "course": {
-          "name": "Project Management",
-          "id": "mgsc872",
           "numCredits": "3"
         },
         "term": {
@@ -1355,10 +1355,9 @@
       }
     ],
     "notes": [
-      "Student has very good prospects of suceeding.",
-      "Need to complete  csce793."
+      "Student has very good prospects of suceeding."
     ],
-    "gpa": 0
+    "gpa": 3.2
   },
   {
     "student": {

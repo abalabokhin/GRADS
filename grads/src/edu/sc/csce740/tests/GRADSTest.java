@@ -481,7 +481,7 @@ public class GRADSTest  {
     @Test
     public void testGenerateProgressSummaryMSERequirementsAreMet() throws Exception
     {
-        /// TODO: implement  -- Additional Credits requires changes in the ProgressChecker Base class, it is returning a nullpointer exception.
+        /// TODO: implement  -- Additional Credits requires checking in the ProgressChecker Base class, it is returning a nullpointer exception.
 
         grads.loadRecords("students.txt");
         grads.loadUsers("users.txt");
@@ -505,6 +505,8 @@ public class GRADSTest  {
         System.out.println(summaryMSETest1.requirementCheckResults.get(3).passed);
         System.out.println(summaryMSETest1.requirementCheckResults.get(4).name);
         System.out.println(summaryMSETest1.requirementCheckResults.get(4).passed);
+        System.out.println(summaryMSETest1.requirementCheckResults.get(5).name);
+        System.out.println(summaryMSETest1.requirementCheckResults.get(5).passed);
 
 
         Assert.assertEquals("CORE_COURSES_MSE", summaryMSETest1.requirementCheckResults.get(0).name);
