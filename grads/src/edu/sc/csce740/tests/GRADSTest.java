@@ -633,13 +633,71 @@ public class GRADSTest  {
     @Test
     public void testGenerateProgressSummaryMENGRequirementsAreMet() throws Exception
     {
-        /// TODO: implement
+        grads.loadRecords("students_testProgressSummaryMENGRequirementsPassed.txt");
+        grads.loadUsers("users.txt");
+        grads.loadCourses("courses.txt");
+
+        grads.setUser(userGPAID);
+        ProgressSummary summary = grads.generateProgressSummary("aclyde");
+
+        Assert.assertEquals(7, summary.requirementCheckResults.size());
+
+        Assert.assertEquals("CORE_COURSES_MENG", summary.requirementCheckResults.get(0).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(0).passed);
+
+        Assert.assertEquals("ADDITIONAL_CREDITS_MENG", summary.requirementCheckResults.get(1).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(1).passed);
+
+        Assert.assertEquals("DEGREE_BASED_CREDITS_MENG", summary.requirementCheckResults.get(2).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(2).passed);
+
+        Assert.assertEquals("THESIS_CREDITS_MENG", summary.requirementCheckResults.get(3).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(3).passed);
+
+        Assert.assertEquals("TIME_LIMIT", summary.requirementCheckResults.get(4).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(4).passed);
+
+        Assert.assertEquals("GPA", summary.requirementCheckResults.get(5).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(5).passed);
+
+        Assert.assertEquals("MILESTONES_MENG", summary.requirementCheckResults.get(6).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(6).passed);
+
     }
 
     @Test
     public void testGenerateProgressSummaryMENGRequirementsAreNotMet() throws Exception
     {
-        /// TODO: implement
+        grads.loadRecords("students_testProgressSummaryMSRequirementsFail.txt");
+        grads.loadUsers("users.txt");
+        grads.loadCourses("courses.txt");
+
+        grads.setUser(userGPAID);
+        ProgressSummary summary = grads.generateProgressSummary("aclyde");
+
+        Assert.assertEquals(7, summary.requirementCheckResults.size());
+
+        Assert.assertEquals("CORE_COURSES_MENG", summary.requirementCheckResults.get(0).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(0).passed);
+
+        Assert.assertEquals("ADDITIONAL_CREDITS_MENG", summary.requirementCheckResults.get(1).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(1).passed);
+
+        Assert.assertEquals("DEGREE_BASED_CREDITS_MENG", summary.requirementCheckResults.get(2).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(2).passed);
+
+        Assert.assertEquals("THESIS_CREDITS_MENG", summary.requirementCheckResults.get(3).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(3).passed);
+
+        Assert.assertEquals("TIME_LIMIT", summary.requirementCheckResults.get(4).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(4).passed);
+
+        Assert.assertEquals("GPA", summary.requirementCheckResults.get(5).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(5).passed);
+        Assert.assertTrue(summary.requirementCheckResults.get(5).details.gpa < 3.0);
+
+        Assert.assertEquals("MILESTONES_MENG", summary.requirementCheckResults.get(6).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(6).passed);
     }
 
     @Test
