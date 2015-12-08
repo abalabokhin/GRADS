@@ -1,0 +1,178 @@
+[{
+	"student": {
+		"id": "jbluff",
+		"firstName": "James",
+		"lastName": "Bluff"
+	},
+	"department": "COMPUTER_SCIENCE",
+	"termBegan": {
+		"semester": "SUMMER",
+		"year": 2014
+	},
+	"degreeSought": {
+		"name": "MENG",
+		"graduation": {
+			"semester": "FALL",
+			"year": 2015
+		}
+	},
+	"previousDegrees": [{
+		"name": "BS",
+		"graduation": {
+			"semester": "SPRING",
+			"year": 2008
+		}
+	}],
+	"advisors": [{
+		"department": "COMPUTER_SCIENCE",
+		"firstName": "Duncan",
+		"lastName": "Buell"
+	}],
+	"committee": [{
+		"department": "COMPUTER_SCIENCE",
+		"firstName": "Manton",
+		"lastName": "Matthews"
+	}, {
+		"department": "COMPUTER_SCIENCE",
+		"firstName": "Jason",
+		"lastName": "Bakos"
+	}, {
+		"department": "MATHEMATICS",
+		"firstName": "Richard",
+		"lastName": "McGehee"
+	}],
+	"coursesTaken": [{
+		"course": {
+			"name": "Software Testing and Quality Assurance",
+			"id": "csce747",
+			"numCredits": "3"
+		},
+		"term": {
+			"semester": "SPRING",
+			"year": 2015
+		},
+		"grade": "B"
+	}, {
+		"course": {
+			"name": "Advanced Pattern Recognition",
+			"id": "csce868",
+			"numCredits": "3"
+		},
+		"term": {
+			"semester": "FALL",
+			"year": 2014
+		},
+		"grade": "B"
+	}, {
+		"course": {
+			"name": "Computer Architecture",
+			"id": "csce513",
+			"numCredits": "3"
+		},
+		"term": {
+			"semester": "FALL",
+			"year": 2014
+		},
+		"grade": "A"
+	}, {
+		"course": {
+			"name": "Compiler Construction",
+			"id": "csce531",
+			"numCredits": "3"
+		},
+		"term": {
+			"semester": "SPRING",
+			"year": 2015
+		},
+		"grade": "A"
+	}, {
+		"course": {
+			"name": "Theory of Computation",
+			"id": "csce551",
+			"numCredits": "3"
+		},
+		"term": {
+			"semester": "FALL",
+			"year": 2014
+		},
+		"grade": "A"
+	}, {
+		"course": {
+			"name": "Analysis of Algorithms",
+			"id": "csce750",
+			"numCredits": "3"
+		},
+		"term": {
+			"semester": "SPRING",
+			"year": 2015
+		},
+		"grade": "A"
+	}, {
+		"course": {
+			"name": "Seminar in Advances in Computing",
+			"id": "csce791",
+			"numCredits": "1"
+		},
+		"term": {
+			"semester": "SPRING",
+			"year": 2015
+		},
+		"grade": "A"
+	}, {
+		"course": {
+			"name": "Neural Information Processing",
+			"id": "csce784",
+			"numCredits": "3"
+		},
+		"term": {
+			"semester": "FALL",
+			"year": 2014
+		},
+		"grade": "P"
+	}, {
+		"course": {
+			"name": "Introduction to Fuzzy Logic",
+			"id": "csce787",
+			"numCredits": "3"
+		},
+		"term": {
+			"semester": "SPRING",
+			"year": 2015
+		},
+		"grade": "P"
+	}, {
+		"course": {
+			"name": "Software Engineering",
+			"id": "csce740",
+			"numCredits": "3"
+		},
+		"term": {
+			"semester": "FALL",
+			"year": 2015
+		},
+		"grade": "_"
+	}],
+	"milestonesSet": [{
+		"milestone": "PROGRAM_OF_STUDY_SUBMITTED",
+		"term": {
+			"semester": "FALL",
+			"year": 2014
+		}
+	}, {
+		"milestone": "COMPREHENSIVE_EXAM_PASSED",
+		"term": {
+			"semester": "FALL",
+			"year": 2014
+		}
+	}, {
+		"milestone": "ACADEMIC_ADVISOR_APPOINTED",
+		"term": {
+			"semester": "SUMMER",
+			"year": 2013
+		}
+	}],
+	"notes": [
+		"Student has very good prospects of succeeding."
+	],
+	"gpa": 0.0
+}]

@@ -1357,7 +1357,7 @@
     "notes": [
       "Student has very good prospects of suceeding."
     ],
-    "gpa": 3.2
+    "gpa": 0.0
   },
   {
     "student": {
