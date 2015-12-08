@@ -109,9 +109,9 @@
 		"grade": "A"
 	}, {
 		"course": {
-			"name": "Seminar in Advances in Computing",
-			"id": "csce791",
-			"numCredits": "1"
+			"name": "Computability, Automata, and Formal Languages",
+			"id": "csce755",
+			"numCredits": "3"
 		},
 		"term": {
 			"semester": "SPRING",
@@ -141,6 +141,17 @@
 		},
 		"grade": "P"
 	}, {
+        "course": {
+            "name": "Seminar in Advances in Computing",
+            "id": "csce791",
+            "numCredits": "1"
+        },
+        "term": {
+            "semester": "FALL",
+            "year": 2014
+        },
+        "grade": "P"
+       	},{
 		"course": {
 			"name": "Software Engineering",
 			"id": "csce740",
@@ -162,7 +173,7 @@
 		"milestone": "COMPREHENSIVE_EXAM_PASSED",
 		"term": {
 			"semester": "FALL",
-			"year": 2014
+			"year": 2015
 		}
 	}, {
 		"milestone": "ACADEMIC_ADVISOR_APPOINTED",
