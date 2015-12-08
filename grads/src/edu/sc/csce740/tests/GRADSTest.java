@@ -799,30 +799,18 @@ public class GRADSTest  {
         grads.setUser(userGPAID);
         simulateListed.add(courseTaken1);
 
+        StudentRecord record1 = new StudentRecord();
+//        record1.student.id="mhunt";
+
 
         ProgressSummary summary = grads.simulateCourses("mhunt", simulateListed);
 
-        System.out.println(summary.requirementCheckResults.get(0).name);
-        System.out.println(summary.requirementCheckResults.get(0).details);
-
-
-        System.out.println(summary.requirementCheckResults.get(1).name);
-        System.out.println(summary.requirementCheckResults.get(1).details);
-
-
-        System.out.println(summary.requirementCheckResults.get(2).name);
-        System.out.println(summary.requirementCheckResults.get(2).details);
-
-/*
         Assert.assertEquals("DEGREE_BASED_CREDITS_PHD", summary.requirementCheckResults.get(2).name);
         Assert.assertTrue(summary.requirementCheckResults.get(2).passed);
-*/
-        try {
+
             grads.simulateCourses(userGPAID,simulateListed);
             Assert.assertTrue(true);
-        } catch (UserHasInsufficientPrivilegeException ex) {
 
-        }
 
     }
 
