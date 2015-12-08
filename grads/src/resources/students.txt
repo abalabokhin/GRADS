@@ -1327,8 +1327,8 @@
       },
       {
         "course": {
-          "name": "Network Systems Security",
-          "id": "csce715",
+          "name": "Physical Database Design",
+          "id": "csce721",
           "numCredits": "3"
         },
         "term": {
@@ -1352,6 +1352,27 @@
           "semester": "SUMMER",
           "year": 2014
         }
+      },
+      {
+         "milestone": "COMPREHENSIVE_EXAM_PASSED",
+         "term": {
+           "semester": "FALL",
+           "year": 2015
+         }
+      },
+      {
+        "milestone": "REPORT_SUBMITTED",
+        "term": {
+            "semester": "FALL",
+            "year": 2015
+         }
+      },
+      {
+        "milestone": "REPORT_APPROVED",
+        "term": {
+             "semester": "FALL",
+             "year": 2015
+           }
       }
     ],
     "notes": [
