@@ -481,7 +481,7 @@ public class GRADSTest  {
     @Test
     public void testGenerateProgressSummaryMSERequirementsAreMet() throws Exception
     {
-        /// TODO: implement  -- Additional Credits requires checking in the ProgressChecker Base class, it is returning a nullpointer exception.
+        /// TODO: implement  -- Additional Credits requires checking in the ProgressChecker Base class, it is returning a false result. Optional courses are included for this student as per the ProgressChecker for MSE class.
 
         grads.loadRecords("students.txt");
         grads.loadUsers("users.txt");
@@ -494,6 +494,9 @@ public class GRADSTest  {
 
         Assert.assertEquals("CORE_COURSES_MSE", summaryMSETest1.requirementCheckResults.get(0).name);
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(0).passed);
+
+        System.out.println(summaryMSETest1.requirementCheckResults.get(1).name);
+        System.out.println(summaryMSETest1.requirementCheckResults.get(1).passed);
 
         Assert.assertEquals("ADDITIONAL_CREDITS_MSE", summaryMSETest1.requirementCheckResults.get(1).name);
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(1).passed);
@@ -694,6 +697,24 @@ public class GRADSTest  {
     public void testGenerateProgressSummaryINFASRequirementsAreMet() throws Exception
     {
         /// TODO: implement
+/*
+        int sizeOfArray = summaryMENGTest2.requirementCheckResults.size();
+        System.out.println(sizeOfArray);
+
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(0).name);
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(0).passed);
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(1).name);
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(1).passed);
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(2).name);
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(2).passed);
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(3).name);
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(3).passed);
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(4).name);
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(4).passed);
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(5).name);
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(5).passed);
+        System.out.println(summaryMENGTest2.requirementCheckResults.get(5).details.gpa);
+*/
     }
 
     @Test
