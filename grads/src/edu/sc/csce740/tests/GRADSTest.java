@@ -717,6 +717,35 @@ public class GRADSTest  {
     @Test
     public void testSimulateCoursesSuccess() throws Exception {
         /// TODO: implement
+        grads.loadRecords("students_testProgressSummaryPHDRequirementsPassed.txt");
+        grads.loadUsers("users.txt");
+        grads.loadCourses("courses.txt");
+        List<CoursesTaken>
+        grads.setUser(userGPAID);
+        ProgressSummary summary = grads.simulateCourses("mhunt",);
+
+        CourseTaken courseTaken = new CourseTaken();
+        Course course = new Course();
+
+        // Add csce740
+        course.name = "Software Engineering";
+        course.id = "csce740";
+        course.numCredits = "3";
+        courseTaken.course = course;
+        courseTaken.term = new Term(2015, Term.Season.FALL);
+        courseTaken.grade = CourseTaken.Grade.C;
+
+        // Add csce741
+        courseTaken = new CourseTaken();
+        course = new Course();
+        course.name = "Software Process";
+        course.id = "csce741";
+        course.numCredits = "3";
+        courseTaken.course = course;
+        courseTaken.term = new Term(2015, Term.Season.FALL);
+        courseTaken.grade = CourseTaken.Grade.B;
+
+
     }
 
     @Test
