@@ -785,33 +785,27 @@ public class GRADSTest  {
         CourseTaken courseTaken1 = new CourseTaken();
         Course course1 = new Course();
 
-        // Add csce740
-        course1.name = "Software Engineering";
-        course1.id = "csce740";
+        // Created simulated courses with csce750
+        course1.name = "Analysis of Algorithms";
+        course1.id = "csce750";
         course1.numCredits = "3";
         courseTaken1.course = course1;
         courseTaken1.term = new Term(2015, Term.Season.FALL);
         courseTaken1.grade = CourseTaken.Grade.B;
 
-
-       // courseTaken.add(course);
         List<CourseTaken> simulateListed = new ArrayList<>();
         grads.setUser(userGPAID);
         simulateListed.add(courseTaken1);
 
-        StudentRecord record1 = new StudentRecord();
-        //get(record1.student.id)
+        ProgressSummary summary = grads.generateProgressSummary("mhunt");
 
+        Assert.assertEquals("CORE_COURSES_PHD", summary.requirementCheckResults.get(0).name);
+        Assert.assertFalse(summary.requirementCheckResults.get(0).passed);
 
-        ProgressSummary summary = grads.simulateCourses("mhunt", simulateListed);
+        summary = grads.simulateCourses("mhunt", simulateListed);
 
-        Assert.assertEquals("DEGREE_BASED_CREDITS_PHD", summary.requirementCheckResults.get(2).name);
-        Assert.assertTrue(summary.requirementCheckResults.get(2).passed);
-
-            grads.simulateCourses(userGPAID,simulateListed);
-            Assert.assertTrue(true);
-
-
+        Assert.assertEquals("CORE_COURSES_PHD", summary.requirementCheckResults.get(0).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(0).passed);
     }
 
     @Test
