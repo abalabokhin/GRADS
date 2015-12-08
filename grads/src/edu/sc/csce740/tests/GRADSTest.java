@@ -481,7 +481,6 @@ public class GRADSTest  {
     @Test
     public void testGenerateProgressSummaryMSERequirementsAreMet() throws Exception
     {
-        /// TODO: implement  -- Additional Credits requires checking in the ProgressChecker Base class, it is returning a false result. Optional courses are included for this student as per the ProgressChecker for MSE class.
 
         grads.loadRecords("students.txt");
         grads.loadUsers("users.txt");
@@ -505,10 +504,12 @@ public class GRADSTest  {
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(3).passed);
 
         Assert.assertEquals("MILESTONES_MSE", summaryMSETest1.requirementCheckResults.get(4).name);
-        Assert.assertFalse(summaryMSETest1.requirementCheckResults.get(4).passed);
+        Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(4).passed);
 
         Assert.assertEquals("WORK_EXPERIENCE_CHECK", summaryMSETest1.requirementCheckResults.get(5).name);
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(5).passed);
+
+        Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(3).details.gpa > 3.0);
 
     }
 

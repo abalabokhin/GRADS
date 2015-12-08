@@ -1352,6 +1352,27 @@
           "semester": "SUMMER",
           "year": 2014
         }
+      },
+      {
+         "milestone": "COMPREHENSIVE_EXAM_PASSED",
+         "term": {
+           "semester": "FALL",
+           "year": 2015
+         }
+      },
+      {
+        "milestone": "REPORT_SUBMITTED",
+        "term": {
+            "semester": "FALL",
+            "year": 2015
+         }
+      },
+      {
+        "milestone": "REPORT_APPROVED",
+        "term": {
+             "semester": "FALL",
+             "year": 2015
+           }
       }
     ],
     "notes": [
