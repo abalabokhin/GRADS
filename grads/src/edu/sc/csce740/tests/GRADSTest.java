@@ -495,9 +495,6 @@ public class GRADSTest  {
         Assert.assertEquals("CORE_COURSES_MSE", summaryMSETest1.requirementCheckResults.get(0).name);
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(0).passed);
 
-        System.out.println(summaryMSETest1.requirementCheckResults.get(1).name);
-        System.out.println(summaryMSETest1.requirementCheckResults.get(1).passed);
-
         Assert.assertEquals("ADDITIONAL_CREDITS_MSE", summaryMSETest1.requirementCheckResults.get(1).name);
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(1).passed);
 
@@ -508,7 +505,7 @@ public class GRADSTest  {
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(3).passed);
 
         Assert.assertEquals("MILESTONES_MSE", summaryMSETest1.requirementCheckResults.get(4).name);
-        Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(4).passed);
+        Assert.assertFalse(summaryMSETest1.requirementCheckResults.get(4).passed);
 
         Assert.assertEquals("WORK_EXPERIENCE_CHECK", summaryMSETest1.requirementCheckResults.get(5).name);
         Assert.assertTrue(summaryMSETest1.requirementCheckResults.get(5).passed);
