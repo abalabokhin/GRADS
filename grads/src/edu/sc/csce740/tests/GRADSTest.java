@@ -791,7 +791,7 @@ public class GRADSTest  {
         course1.numCredits = "3";
         courseTaken1.course = course1;
         courseTaken1.term = new Term(2015, Term.Season.FALL);
-        courseTaken1.grade = CourseTaken.Grade.C;
+        courseTaken1.grade = CourseTaken.Grade.B;
 
 
        // courseTaken.add(course);
@@ -800,7 +800,7 @@ public class GRADSTest  {
         simulateListed.add(courseTaken1);
 
         StudentRecord record1 = new StudentRecord();
-//        record1.student.id="mhunt";
+        //get(record1.student.id)
 
 
         ProgressSummary summary = grads.simulateCourses("mhunt", simulateListed);
