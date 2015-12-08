@@ -26,6 +26,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.ArrayStack;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -727,13 +728,10 @@ public class GRADSTest  {
 
     @Test
     public void testSimulateCoursesSuccess() throws Exception {
-        /// TODO: implement
+
         grads.loadRecords("students_testProgressSummaryPHDRequirementsPassed.txt");
         grads.loadUsers("users.txt");
         grads.loadCourses("courses.txt");
-        List<CoursesTaken>
-        grads.setUser(userGPAID);
-        ProgressSummary summary = grads.simulateCourses("mhunt",);
 
         CourseTaken courseTaken = new CourseTaken();
         Course course = new Course();
@@ -745,23 +743,42 @@ public class GRADSTest  {
         courseTaken.course = course;
         courseTaken.term = new Term(2015, Term.Season.FALL);
         courseTaken.grade = CourseTaken.Grade.C;
+       // courseTaken.add(course);
 
-        // Add csce741
+        // Add csce743
         courseTaken = new CourseTaken();
         course = new Course();
-        course.name = "Software Process";
-        course.id = "csce741";
+        course.name = "Software Requirements";
+        course.id = "csce743";
         course.numCredits = "3";
         courseTaken.course = course;
-        courseTaken.term = new Term(2015, Term.Season.FALL);
+        courseTaken.term = new Term(2015, Term.Season.SUMMER);
         courseTaken.grade = CourseTaken.Grade.B;
-
-
+       // courseTaken.add(course);
+        ArrayList a = new ArrayList();
+        grads.setUser(userGPAID);
+        ProgressSummary summary = grads.simulateCourses("mhunt", a);
+        Assert.assertEquals("DEGREE_BASED_CREDITS_PHD", summary.requirementCheckResults.get(2).name);
+        Assert.assertTrue(summary.requirementCheckResults.get(2).passed);
     }
 
     @Test
     public void testSimulateCoursesFail() throws Exception {
-        /// TODO: implement
+        String otherStudentId = "ggay";
+
+        grads.loadRecords("students.txt");
+        grads.loadUsers("users.txt");
+        grads.loadCourses("courses.txt");
+
+        grads.setUser(userGPAID);
+        grads.setUser(otherStudentId);
+
+        try {
+            grads.simulateCourses("aclyde",null);
+            Assert.assertTrue(false);
+        } catch (UserHasInsufficientPrivilegeException ex) {
+
+        }
     }
 
 	public void addStudentRecordToDB(StudentRecord studentRecord) throws Exception
