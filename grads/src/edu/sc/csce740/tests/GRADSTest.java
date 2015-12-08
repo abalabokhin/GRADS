@@ -614,7 +614,7 @@ public class GRADSTest  {
 
         Assert.assertEquals("MILESTONES_MS", summary.requirementCheckResults.get(6).name);
         Assert.assertFalse(summary.requirementCheckResults.get(6).passed);
-        Assert.assertTrue(summary.requirementCheckResults.get(5).details.gpa < 3.0);
+
     }
 
     @Test
@@ -626,10 +626,6 @@ public class GRADSTest  {
 
         grads.setUser(userGPAID);
         ProgressSummary summaryMENGTest1 = grads.generateProgressSummary("jbluff");
-
-
-        //TODO need to check why degree based credits are returning a false result.
-
 
 
         Assert.assertEquals(6, summaryMENGTest1.requirementCheckResults.size());
@@ -648,6 +644,8 @@ public class GRADSTest  {
 
         Assert.assertEquals("GPA", summaryMENGTest1.requirementCheckResults.get(4).name);
         Assert.assertTrue(summaryMENGTest1.requirementCheckResults.get(4).passed);
+
+        Assert.assertTrue(summaryMENGTest1.requirementCheckResults.get(4).details.gpa >=3.0);
 
         Assert.assertEquals("MILESTONES_MENG", summaryMENGTest1.requirementCheckResults.get(5).name);
         Assert.assertTrue(summaryMENGTest1.requirementCheckResults.get(5).passed);
@@ -696,33 +694,84 @@ public class GRADSTest  {
         grads.loadCourses("courses.txt");
 
         grads.setUser(userGPAID);
-        ProgressSummary summaryINFASTest2 = grads.generateProgressSummary("acarson");
+        ProgressSummary summaryINFASTest1 = grads.generateProgressSummary("acarson");
 
-        /// TODO: implement
 
-        int sizeOfArray = summaryINFASTest2.requirementCheckResults.size();
-        System.out.println(sizeOfArray);
+        Assert.assertEquals("CORE_COURSES_MENG", summaryINFASTest1.requirementCheckResults.get(0).name);
+        Assert.assertTrue(summaryINFASTest1.requirementCheckResults.get(0).passed);
 
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(0).name);
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(0).passed);
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(1).name);
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(1).passed);
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(2).name);
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(2).passed);
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(3).name);
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(3).passed);
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(4).name);
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(4).passed);
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(5).name);
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(5).passed);
-        System.out.println(summaryINFASTest2.requirementCheckResults.get(4).details.gpa);
+        Assert.assertEquals("ADDITIONAL_CREDITS_MENG", summaryINFASTest1.requirementCheckResults.get(1).name);
+        Assert.assertTrue(summaryINFASTest1.requirementCheckResults.get(1).passed);
+
+        Assert.assertEquals("DEGREE_BASED_CREDITS_MENG", summaryINFASTest1.requirementCheckResults.get(2).name);
+        Assert.assertTrue(summaryINFASTest1.requirementCheckResults.get(2).passed);
+
+        Assert.assertEquals("TIME_LIMIT", summaryINFASTest1.requirementCheckResults.get(3).name);
+        Assert.assertTrue(summaryINFASTest1.requirementCheckResults.get(3).passed);
+
+        Assert.assertEquals("GPA", summaryINFASTest1.requirementCheckResults.get(4).name);
+        Assert.assertTrue(summaryINFASTest1.requirementCheckResults.get(4).passed);
+
+        Assert.assertEquals("MILESTONES_MENG", summaryINFASTest1.requirementCheckResults.get(5).name);
+        Assert.assertTrue(summaryINFASTest1.requirementCheckResults.get(5).passed);
+
+        Assert.assertEquals("CORE_COURSES_INFAS", summaryINFASTest1.requirementCheckResults.get(6).name);
+        Assert.assertTrue(summaryINFASTest1.requirementCheckResults.get(6).passed);
+
+        Assert.assertEquals("ADDITIONAL_CREDITS_INFAS", summaryINFASTest1.requirementCheckResults.get(7).name);
+        Assert.assertTrue(summaryINFASTest1.requirementCheckResults.get(7).passed);
+
+        Assert.assertEquals("DEGREE_BASED_CREDITS_INFAS", summaryINFASTest1.requirementCheckResults.get(8).name);
+        Assert.assertTrue(summaryINFASTest1.requirementCheckResults.get(8).passed);
+
+        Assert.assertEquals("TIME_LIMIT_INFAS", summaryINFASTest1.requirementCheckResults.get(9).name);
+        Assert.assertTrue(summaryINFASTest1.requirementCheckResults.get(9).passed);
+
+        Assert.assertTrue(summaryINFASTest1.requirementCheckResults.get(10).details.gpa >= 3.0);
 
     }
 
     @Test
     public void testGenerateProgressSummaryINFASRequirementsAreNotMet() throws Exception
     {
-        /// TODO: implement
+        grads.loadRecords("students_testProgressSummaryINFASRequirementsFail.txt");
+        grads.loadUsers("users.txt");
+        grads.loadCourses("courses.txt");
+
+        grads.setUser(userGPAID);
+        ProgressSummary summaryINFASTest2 = grads.generateProgressSummary("acarson");
+
+
+        Assert.assertEquals("CORE_COURSES_MENG", summaryINFASTest2.requirementCheckResults.get(0).name);
+        Assert.assertTrue(summaryINFASTest2.requirementCheckResults.get(0).passed);
+
+        Assert.assertEquals("ADDITIONAL_CREDITS_MENG", summaryINFASTest2.requirementCheckResults.get(1).name);
+        Assert.assertTrue(summaryINFASTest2.requirementCheckResults.get(1).passed);
+
+        Assert.assertEquals("DEGREE_BASED_CREDITS_MENG", summaryINFASTest2.requirementCheckResults.get(2).name);
+        Assert.assertTrue(summaryINFASTest2.requirementCheckResults.get(2).passed);
+
+        Assert.assertEquals("TIME_LIMIT", summaryINFASTest2.requirementCheckResults.get(3).name);
+        Assert.assertTrue(summaryINFASTest2.requirementCheckResults.get(3).passed);
+
+        Assert.assertEquals("GPA", summaryINFASTest2.requirementCheckResults.get(4).name);
+        Assert.assertTrue(summaryINFASTest2.requirementCheckResults.get(4).passed);
+
+        Assert.assertEquals("MILESTONES_MENG", summaryINFASTest2.requirementCheckResults.get(5).name);
+        Assert.assertTrue(summaryINFASTest2.requirementCheckResults.get(5).passed);
+
+        Assert.assertEquals("CORE_COURSES_INFAS", summaryINFASTest2.requirementCheckResults.get(6).name);
+        Assert.assertFalse(summaryINFASTest2.requirementCheckResults.get(6).passed);
+
+        Assert.assertEquals("ADDITIONAL_CREDITS_INFAS", summaryINFASTest2.requirementCheckResults.get(7).name);
+        Assert.assertTrue(summaryINFASTest2.requirementCheckResults.get(7).passed);
+
+        Assert.assertEquals("DEGREE_BASED_CREDITS_INFAS", summaryINFASTest2.requirementCheckResults.get(8).name);
+        Assert.assertTrue(summaryINFASTest2.requirementCheckResults.get(8).passed);
+
+        Assert.assertEquals("TIME_LIMIT_INFAS", summaryINFASTest2.requirementCheckResults.get(9).name);
+        Assert.assertTrue(summaryINFASTest2.requirementCheckResults.get(9).passed);
+
     }
 
     @Test

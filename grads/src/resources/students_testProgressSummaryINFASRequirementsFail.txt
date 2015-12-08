@@ -124,7 +124,7 @@
 			"semester": "SPRING",
 			"year": 2015
 		},
-		"grade": "A"
+		"grade": "C"
 	}, {
 		"course": {
 			"name": "Neural Information Processing",
@@ -171,8 +171,8 @@
         "grade": "B"
     }, {
         "course": {
-            "name": "Network Systems Security",
-            "id": "csce715",
+            "name": "Physical Database Design",
+            "id": "csce721",
             "numCredits": "3"
         },
         "term": {
